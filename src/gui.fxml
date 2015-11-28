@@ -21,8 +21,8 @@
                </image>
             </ImageView>
             <HBox prefHeight="34.0" prefWidth="51.0" />
-            <TextField prefHeight="25.0" prefWidth="297.0" HBox.hgrow="SOMETIMES" />
             <Button mnemonicParsing="false" text="Search" />
+            <TextField prefHeight="25.0" prefWidth="297.0" promptText="Search for a task" HBox.hgrow="SOMETIMES" />
          </children>
          <opaqueInsets>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -33,8 +33,54 @@
       </HBox>
       <TabPane prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
         <tabs>
-          <Tab text="Untitled Tab 1" />
-          <Tab text="Untitled Tab 2" />
+          <Tab text="Upcoming Tasks">
+               <content>
+                  <VBox>
+                     <children>
+                        <Button fx:id="upNewTaskButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="25.0" prefWidth="907.0" text="+ New Task +" VBox.vgrow="ALWAYS" />
+                        <VBox VBox.vgrow="ALWAYS">
+                           <children>
+                              <TableView VBox.vgrow="ALWAYS">
+                                <columns>
+                                  <TableColumn prefWidth="75.0" sortType="DESCENDING" text="Task" />
+                                  <TableColumn prefWidth="75.0" sortType="DESCENDING" text="Complete By" />
+                                    <TableColumn prefWidth="75.0" sortType="DESCENDING" text="Difficulty" />
+                                    <TableColumn prefWidth="75.0" sortType="DESCENDING" text="Urgency" />
+                                    <TableColumn prefWidth="75.0" sortType="DESCENDING" text="Priority" />
+                                </columns>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                              </TableView>
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+               </content></Tab>
+          <Tab text="Completed Tasks">
+               <content>
+                  <VBox>
+                     <children>
+                        <Button fx:id="compNewTaskButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="25.0" prefWidth="907.0" text="+ New Task +" VBox.vgrow="ALWAYS" />
+                        <VBox VBox.vgrow="ALWAYS">
+                           <children>
+                              <TableView VBox.vgrow="ALWAYS">
+                                <columns>
+                                    <TableColumn prefWidth="75.0" sortType="DESCENDING" text="Task" />
+                                    <TableColumn prefWidth="75.0" sortType="DESCENDING" text="Date Completed" />
+                                    <TableColumn prefWidth="75.0" sortType="DESCENDING" text="Difficulty" />
+                                    <TableColumn prefWidth="75.0" sortType="DESCENDING" text="Urgency" />
+                                    <TableColumn prefWidth="75.0" sortType="DESCENDING" text="Priority" />
+                                </columns>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                              </TableView>
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+               </content></Tab>
         </tabs>
       </TabPane>
    </children>
