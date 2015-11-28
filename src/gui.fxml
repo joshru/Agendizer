@@ -81,6 +81,51 @@
                      </children>
                   </VBox>
                </content></Tab>
+            <Tab text="New Task">
+               <content>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Label prefHeight="27.0" prefWidth="100.0" text="Task Name:">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField promptText="Task Name" />
+                        <HBox prefHeight="18.0" prefWidth="610.0" />
+                        <Label text="Deadline:">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <DatePicker prefHeight="25.0" prefWidth="619.0" promptText="Deadline Date" VBox.vgrow="ALWAYS" />
+                        <HBox prefHeight="18.0" prefWidth="610.0" />
+                        <Label text="Difficulty:">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <ChoiceBox prefHeight="25.0" prefWidth="737.0" VBox.vgrow="ALWAYS" />
+                        <HBox prefHeight="18.0" prefWidth="610.0" />
+                        <Label text="Urgency:">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <ChoiceBox prefHeight="25.0" prefWidth="737.0" VBox.vgrow="ALWAYS" />
+                        <HBox prefHeight="18.0" prefWidth="610.0" />
+                        <Label text="Priority:">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <ChoiceBox prefHeight="25.0" prefWidth="737.0" VBox.vgrow="ALWAYS" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" />
+                     </padding>
+                  </VBox>
+               </content>
+            </Tab>
         </tabs>
       </TabPane>
    </children>
