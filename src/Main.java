@@ -4,6 +4,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+//mysql username: _445team2
+//mysql password: poddoif
+
 public class Main extends Application {
 
     @Override
