@@ -11,7 +11,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 
-<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
    <children>
       <HBox nodeOrientation="LEFT_TO_RIGHT" prefHeight="0.0" prefWidth="600.0">
          <children>
@@ -21,7 +21,7 @@
                </image>
             </ImageView>
             <HBox prefHeight="34.0" prefWidth="51.0" />
-            <Button mnemonicParsing="false" text="Search" />
+            <Button fx:id="searchButton" mnemonicParsing="false" onMouseClicked="#test" text="Search" />
             <TextField prefHeight="25.0" prefWidth="297.0" promptText="Search for a task" HBox.hgrow="SOMETIMES" />
          </children>
          <opaqueInsets>
