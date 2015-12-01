@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.geometry.*?>
@@ -29,7 +30,14 @@
                   </Text>
                </children>
             </HBox>
-            <VBox prefHeight="43.0" prefWidth="600.0" />
+            <VBox alignment="CENTER" prefHeight="43.0" prefWidth="600.0">
+               <children>
+                  <Label textFill="RED">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+               </children></VBox>
             <VBox alignment="CENTER">
                <children>
                   <TextField maxWidth="-Infinity" prefHeight="25.0" prefWidth="233.0" promptText="Username" />
@@ -45,6 +53,11 @@
                   </Button>
                </children>
             </HBox>
+            <Text fx:id="newUserButton" fill="BLUE" onMouseClicked="#handleRegisterButton" strokeType="OUTSIDE" strokeWidth="0.0" text="Don't have an account? Click here!" underline="true">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Text>
          </children>
       </VBox>
    </children>
