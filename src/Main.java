@@ -14,10 +14,14 @@ public class Main extends Application {
 
 
     private Stage myPrimaryStage;
+    FXMLLoader myLoader;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
 //        Parent gui = FXMLLoader.load(getClass().getResource("gui.fxml"));
+        myLoader = new FXMLLoader();
+
+        myLoader.setController(this);
 
         myPrimaryStage = primaryStage;
 //        switchToLogin();
