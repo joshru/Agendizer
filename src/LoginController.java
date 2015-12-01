@@ -1,4 +1,3 @@
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -18,17 +17,17 @@ import java.util.ResourceBundle;
  */
 public class LoginController implements Initializable {
 
-    @FXML
-    private Button loginButton;
+    @FXML private Button loginButton;
+
 
     @FXML
     private void handleLoginButton(MouseEvent event) throws IOException {
-        Parent home_page_parent = FXMLLoader.load(getClass().getResource("gui.fxml"));
+        Parent home_page_parent = FXMLLoader.load(getClass().getResource("view/gui.fxml"));
         Scene home_page_scene = new Scene(home_page_parent, 1000, 700);
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-        app_stage.hide(); //optional
         app_stage.setScene(home_page_scene);
+        app_stage.setTitle("Agendizer");
         app_stage.show();
 
     }
