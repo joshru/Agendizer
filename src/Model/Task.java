@@ -8,6 +8,7 @@ import java.sql.Date;
 public class Task {
 
     Integer taskID;
+    String taskTitle;
     Date timeStamp;
     int completed;
     String category;
@@ -23,11 +24,12 @@ public class Task {
     Integer fk_agendaID;
     Integer fk_templateID;
 
-    public Task(Integer taskID, Date timeStamp, int completed,
+    public Task(Integer taskID, String title, Date timeStamp, int completed,
                 String category, String difficulty, String urgency,
                 String priority, Date timeCompleted, String notes,
                 String location, Integer fk_agendaID, Integer fk_templateID) {
         this.taskID = taskID;
+        this.taskTitle = title;
         this.timeStamp = timeStamp;
         this.completed = completed;
         this.category = category;
@@ -44,6 +46,7 @@ public class Task {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(taskID + ", ");
+        sb.append(taskTitle + ", ");
         sb.append(timeStamp + ", ");
         sb.append(completed + ", ");
         sb.append(category + ", ");

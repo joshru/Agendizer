@@ -58,7 +58,7 @@ public class TaskDB {
                 int agendaID = results.getInt("agenda_agendaID");
                 int templateID = results.getInt("tasktemplate_templateID");
 
-                Task task = new Task(taskID, timestamp, completed, category, difficulty,
+                Task task = new Task(taskID, title, timestamp, completed, category, difficulty,
                         urgency, priority, timeCompleted, notes, location,
                         agendaID, templateID);
 
