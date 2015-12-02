@@ -62,6 +62,9 @@ public class TaskDB {
                         urgency, priority, timeCompleted, notes, location,
                         agendaID, templateID);
 
+                System.out.println("created a task");
+                taskList.add(task);
+
                 System.out.println("Grabbed Task  = " + task.toString());
             }
         } catch (SQLException e) {
@@ -72,8 +75,37 @@ public class TaskDB {
             }
         }
 
-//        System.out.println(taskList.get(0).toString());
+        System.out.println(taskList.toString());
         return taskList;
+    }
+
+    public void addTask(Task task) {
+        String statement = "INSERT INTO _445team2.Tasks VALUES " + "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        PreparedStatement preparedStatement = null;
+
+        try {
+            preparedStatement = myConnection.prepareStatement(statement);
+            preparedStatement.setInt(1, task.getTaskID());
+            preparedStatement.setString(2, task.getTaskTitle());
+            preparedStatement.setDate(3, task.getTimeStamp());
+            preparedStatement.setInt(4, task.getCompleted());
+            preparedStatement.setString(5, task.getCategory());
+            preparedStatement.setString(6, task.getDifficulty());
+            preparedStatement.setString(7, task.getUrgency());
+            preparedStatement.setString(8, task.getPriority());
+            preparedStatement.setDate(9, task.getTimeCompleted());
+            preparedStatement.setString(10, task.getNotes());
+            preparedStatement.setString(11, task.getLocation());
+            preparedStatement.setInt(12, task.getFk_agendaID());
+            preparedStatement.setInt(13, task.getFk_templateID());
+
+            int result = preparedStatement.executeUpdate();
+
+            System.out.println("Update complete. Result int: " + result);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
     }
 
 }

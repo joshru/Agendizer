@@ -7,7 +7,7 @@ import java.sql.Date;
  */
 public class Task {
 
-    Integer taskID;
+    int taskID;
     String taskTitle;
     Date timeStamp;
     int completed;
@@ -24,7 +24,9 @@ public class Task {
     Integer fk_agendaID;
     Integer fk_templateID;
 
-    public Task(Integer taskID, String title, Date timeStamp, int completed,
+
+
+    public Task(int taskID, String title, Date timeStamp, int completed,
                 String category, String difficulty, String urgency,
                 String priority, Date timeCompleted, String notes,
                 String location, Integer fk_agendaID, Integer fk_templateID) {
@@ -62,7 +64,109 @@ public class Task {
 
     }
 
+    public String getTaskTitle() {
+        return taskTitle;
+    }
 
+    public void setTaskTitle(String taskTitle) {
+        this.taskTitle = taskTitle;
+    }
+
+    public Date getTimeStamp() {
+        return timeStamp;
+    }
+
+    public void setTimeStamp(Date timeStamp) {
+        this.timeStamp = timeStamp;
+    }
+
+    public int getCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(int completed) {
+        this.completed = completed;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(String difficulty) {
+        this.difficulty = difficulty;
+    }
+
+    public String getUrgency() {
+        return urgency;
+    }
+
+    public void setUrgency(String urgency) {
+        this.urgency = urgency;
+    }
+
+    public String getPriority() {
+        return priority;
+    }
+
+    public void setPriority(String priority) {
+        this.priority = priority;
+    }
+
+    public Date getTimeCompleted() {
+        return timeCompleted;
+    }
+
+    public void setTimeCompleted(Date timeCompleted) {
+        this.timeCompleted = timeCompleted;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
+    public String getLocation() {
+        return Location;
+    }
+
+    public void setLocation(String location) {
+        Location = location;
+    }
+
+    public Integer getFk_agendaID() {
+        return fk_agendaID;
+    }
+
+    public void setFk_agendaID(Integer fk_agendaID) {
+        this.fk_agendaID = fk_agendaID;
+    }
+
+    public Integer getFk_templateID() {
+        return fk_templateID;
+    }
+
+    public void setFk_templateID(Integer fk_templateID) {
+        this.fk_templateID = fk_templateID;
+    }
+
+    public int getTaskID() {
+        return taskID;
+    }
+
+    public void setTaskID(int taskID) {
+        this.taskID = taskID;
+    }
 
 
 
