@@ -19,7 +19,7 @@ import java.util.ResourceBundle;
 /**
  * Created by Josh Rueschenberg on 11/30/2015.
  */
-public class LoginController implements Initializable {
+public class LoginController {
 
     @FXML private Label loginError;
     @FXML private TextField usernameLoginField;
@@ -39,10 +39,4 @@ public class LoginController implements Initializable {
         SceneController.swapScene("view/register.fxml", "Agendizer Registration", event, getClass());
     }
 
-
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
-    }
 }

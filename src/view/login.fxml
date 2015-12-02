@@ -12,7 +12,7 @@
    <children>
       <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <ImageView fitHeight="76.0" fitWidth="373.0">
+            <ImageView fitHeight="65.0" fitWidth="383.0" layoutX="114.0" layoutY="14.0">
                <image>
                   <Image url="@res/logo.png" />
                </image>

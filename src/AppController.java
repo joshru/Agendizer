@@ -1,6 +1,9 @@
+import Databases.TaskDB;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+
+import java.sql.SQLException;
 
 /**
  * Created by Josh Rueschenberg on 11/30/2015.
@@ -37,8 +40,15 @@ public class AppController {
     @FXML private ChoiceBox newTaskUrgency;
     @FXML private ChoiceBox newTaskPriority;
 
+    private TaskDB db = new TaskDB();
+
     @FXML
     private void test() {
         System.out.println("button did a thing");
+    }
+
+    @FXML
+    private void testDB() throws SQLException {
+        db.getTasks();
     }
 }

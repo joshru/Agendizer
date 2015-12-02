@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
@@ -17,13 +18,16 @@
          <children>
             <HBox nodeOrientation="LEFT_TO_RIGHT" prefHeight="0.0" prefWidth="600.0">
                <children>
-                  <ImageView fitHeight="28.0" fitWidth="184.0">
+                  <ImageView fitHeight="32.0" fitWidth="195.0">
                      <image>
                         <Image url="@res/logo.png" />
                      </image>
                   </ImageView>
                   <HBox prefHeight="34.0" prefWidth="51.0" />
-                  <Button fx:id="searchButton" mnemonicParsing="false" onMouseClicked="#test" text="Search" />
+                  <Button fx:id="searchButton" mnemonicParsing="false" onMouseClicked="#testDB" text="Search">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
                   <TextField prefHeight="25.0" prefWidth="297.0" promptText="Search for a task" HBox.hgrow="SOMETIMES" />
                </children>
                <opaqueInsets>
