@@ -63,7 +63,6 @@ public class TaskDB {
                         agendaID, templateID);
 
                 System.out.println("Grabbed Task  = " + task.toString());
-                System.out.println("created a task");
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
