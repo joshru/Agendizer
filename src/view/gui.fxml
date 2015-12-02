@@ -113,7 +113,7 @@
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <ChoiceBox fx:id="newTaskDifficulty" prefHeight="25.0" prefWidth="737.0" VBox.vgrow="ALWAYS">
+                              <ChoiceBox fx:id="newTaskDifficulty" prefHeight="25.0" prefWidth="737.0" VBox.vgrow="ALWAYS" value="Easy">
                                 <items>
                                     <FXCollections fx:factory="observableArrayList">
                                         <String fx:value="Easy" />
@@ -122,9 +122,6 @@
                                         <String fx:value="Very Hard" />
                                     </FXCollections>
                                 </items>
-                                <value>
-                                    <String fx:value="Easy"/>
-                                </value>
                               </ChoiceBox>
                               <HBox prefHeight="18.0" prefWidth="610.0" />
                               <Label text="Urgency:">
@@ -132,7 +129,7 @@
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <ChoiceBox fx:id="newTaskUrgency" prefHeight="25.0" prefWidth="737.0" VBox.vgrow="ALWAYS">
+                              <ChoiceBox fx:id="newTaskUrgency" prefHeight="25.0" prefWidth="737.0" VBox.vgrow="ALWAYS" value="Low">
                                   <items>
                                       <FXCollections fx:factory="observableArrayList">
                                           <String fx:value="Low" />
@@ -141,9 +138,6 @@
                                           <String fx:value="Urgent" />
                                       </FXCollections>
                                   </items>
-                                  <value>
-                                      <String fx:value="Low"/>
-                                  </value>
                               </ChoiceBox>
                               <HBox prefHeight="18.0" prefWidth="610.0" />
                               <Label text="Priority:">
@@ -151,7 +145,7 @@
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <ChoiceBox fx:id="newTaskPriority" prefHeight="25.0" prefWidth="737.0" VBox.vgrow="ALWAYS">
+                              <ChoiceBox fx:id="newTaskPriority" prefHeight="25.0" prefWidth="737.0" VBox.vgrow="ALWAYS" value="Low">
                                   <items>
                                     <FXCollections fx:factory="observableArrayList">
                                       <String fx:value="Low" />
@@ -160,9 +154,6 @@
                                       <String fx:value="Danger Close!" />
                                      </FXCollections>
                                   </items>
-                                  <value>
-                                      <String fx:value="Low"/>
-                                  </value>
                               </ChoiceBox>
                               <Button fx:id="newTaskButton" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#getTaskDetails" text="Create Task">
                                  <VBox.margin>
