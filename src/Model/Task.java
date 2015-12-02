@@ -41,6 +41,23 @@ public class Task {
         this.fk_templateID = fk_templateID;
     }
 
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(taskID + ", ");
+        sb.append(timeStamp + ", ");
+        sb.append(completed + ", ");
+        sb.append(category + ", ");
+        sb.append(difficulty + ", ");
+        sb.append(urgency + ", ");
+        sb.append(priority + ", ");
+        sb.append(timeCompleted + ", ");
+        sb.append(notes + ", ");
+        sb.append(Location + ", ");
+        sb.append(fk_agendaID + ", ");
+        sb.append(fk_templateID + " ");
+        return sb.toString();
+
+    }
 
 
 

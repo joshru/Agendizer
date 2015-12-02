@@ -61,6 +61,8 @@ public class TaskDB {
                 Task task = new Task(taskID, timestamp, completed, category, difficulty,
                         urgency, priority, timeCompleted, notes, location,
                         agendaID, templateID);
+
+                System.out.println("Grabbed Task  = " + task.toString());
                 System.out.println("created a task");
             }
         } catch (SQLException e) {
@@ -71,7 +73,7 @@ public class TaskDB {
             }
         }
 
-        System.out.println(taskList.toString());
+//        System.out.println(taskList.get(0).toString());
         return taskList;
     }
 
