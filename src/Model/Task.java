@@ -11,7 +11,6 @@ public class Task {
     String taskTitle;
     Date timeStamp;
     int completed;
-    String category;
     String difficulty;
     String urgency;
     String priority;
@@ -22,19 +21,15 @@ public class Task {
     String Location;
 
     Integer fk_agendaID;
-    Integer fk_templateID;
 
 
 
-    public Task(int taskID, String title, Date timeStamp, int completed,
-                String category, String difficulty, String urgency,
-                String priority, Date timeCompleted, String notes,
-                String location, Integer fk_agendaID, Integer fk_templateID) {
+    public Task(int taskID, String title, Date timeStamp, int completed, String difficulty, String urgency,
+                String priority, Date timeCompleted, String notes, String location, Integer fk_agendaID) {
         this.taskID = taskID;
         this.taskTitle = title;
         this.timeStamp = timeStamp;
         this.completed = completed;
-        this.category = category;
         this.difficulty = difficulty;
         this.urgency = urgency;
         this.priority = priority;
@@ -42,7 +37,6 @@ public class Task {
         this.notes = notes;
         Location = location;
         this.fk_agendaID = fk_agendaID;
-        this.fk_templateID = fk_templateID;
     }
 
     public String toString() {
@@ -51,7 +45,6 @@ public class Task {
         sb.append(taskTitle + ", ");
         sb.append(timeStamp + ", ");
         sb.append(completed + ", ");
-        sb.append(category + ", ");
         sb.append(difficulty + ", ");
         sb.append(urgency + ", ");
         sb.append(priority + ", ");
@@ -59,7 +52,6 @@ public class Task {
         sb.append(notes + ", ");
         sb.append(Location + ", ");
         sb.append(fk_agendaID + ", ");
-        sb.append(fk_templateID + " ");
         return sb.toString();
 
     }
@@ -86,14 +78,6 @@ public class Task {
 
     public void setCompleted(int completed) {
         this.completed = completed;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
     }
 
     public String getDifficulty() {
@@ -152,14 +136,6 @@ public class Task {
         this.fk_agendaID = fk_agendaID;
     }
 
-    public Integer getFk_templateID() {
-        return fk_templateID;
-    }
-
-    public void setFk_templateID(Integer fk_templateID) {
-        this.fk_templateID = fk_templateID;
-    }
-
     public int getTaskID() {
         return taskID;
     }
@@ -167,13 +143,5 @@ public class Task {
     public void setTaskID(int taskID) {
         this.taskID = taskID;
     }
-
-
-
-
-
-
-
-
 
 }

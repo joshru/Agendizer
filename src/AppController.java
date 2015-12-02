@@ -7,6 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
@@ -74,18 +75,30 @@ public class AppController {
     @FXML
     private void getTaskDetails() {
         String taskName = newTaskDescpriton.getText();
-        String taskID = " " +  UUID.randomUUID(); //hella sneaky sneaks
-        LocalDate timestamp = newTaskDeadline.getValue();
+
+        int taskID = taskName.hashCode(); //hella sneaky sneaks
+        LocalDate ld = newTaskDeadline.getValue();
+        java.sql.Date timestamp = null;
+        if (ld != null) timestamp = java.sql.Date.valueOf(ld);
+        System.out.println(timestamp);
         int completed = 0;
-        String category = ""; //TODO so much random shit in a task
         String difficulty = newTaskDifficulty.getSelectionModel().getSelectedItem().toString();
-        System.out.println(difficulty);
         String urgency = newTaskUrgency.getSelectionModel().getSelectedItem().toString();
-        System.out.println(urgency);
         String priority = newTaskPriority.getSelectionModel().getSelectedItem().toString();
+        java.sql.Date timeCompleted = new java.sql.Date(System.currentTimeMillis());
+        String notes = "test notes";
+        String location = "ur mum's house";
+        int agendaID = 666;
+
+        Task task = new Task(taskID, taskName, timestamp, completed, difficulty,
+                urgency, priority, timeCompleted, notes, location, agendaID);
+
+        db.addTask(task);
+
+        System.out.println(taskID);
+        System.out.println(difficulty);
+        System.out.println(urgency);
         System.out.println(priority);
-
-
     }
 
 

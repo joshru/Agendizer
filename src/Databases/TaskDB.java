@@ -56,11 +56,9 @@ public class TaskDB {
                 String notes = results.getString("notes");
                 String location = results.getString("location");
                 int agendaID = results.getInt("agenda_agendaID");
-                int templateID = results.getInt("tasktemplate_templateID");
 
-                Task task = new Task(taskID, title, timestamp, completed, category, difficulty,
-                        urgency, priority, timeCompleted, notes, location,
-                        agendaID, templateID);
+                Task task = new Task(taskID, title, timestamp, completed, difficulty,
+                                     urgency, priority, timeCompleted, notes, location, agendaID);
 
                 System.out.println("created a task");
                 taskList.add(task);
@@ -80,7 +78,10 @@ public class TaskDB {
     }
 
     public void addTask(Task task) {
-        String statement = "INSERT INTO _445team2.Tasks VALUES " + "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String statement = "INSERT INTO _445team2.Task (taskID, title, timestamp, completed, category, difficulty," +
+                           "urgency, priority, timeCompleted, notes, location," + "agenda_agendaID) VALUES " +
+                           "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        System.out.println(statement);
         PreparedStatement preparedStatement = null;
 
         try {
@@ -89,15 +90,13 @@ public class TaskDB {
             preparedStatement.setString(2, task.getTaskTitle());
             preparedStatement.setDate(3, task.getTimeStamp());
             preparedStatement.setInt(4, task.getCompleted());
-            preparedStatement.setString(5, task.getCategory());
-            preparedStatement.setString(6, task.getDifficulty());
-            preparedStatement.setString(7, task.getUrgency());
-            preparedStatement.setString(8, task.getPriority());
-            preparedStatement.setDate(9, task.getTimeCompleted());
-            preparedStatement.setString(10, task.getNotes());
-            preparedStatement.setString(11, task.getLocation());
-            preparedStatement.setInt(12, task.getFk_agendaID());
-            preparedStatement.setInt(13, task.getFk_templateID());
+            preparedStatement.setString(5, task.getDifficulty());
+            preparedStatement.setString(6, task.getUrgency());
+            preparedStatement.setString(7, task.getPriority());
+            preparedStatement.setDate(8, task.getTimeCompleted());
+            preparedStatement.setString(9, task.getNotes());
+            preparedStatement.setString(10, task.getLocation());
+            preparedStatement.setInt(11, task.getFk_agendaID());
 
             int result = preparedStatement.executeUpdate();
 
