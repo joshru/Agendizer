@@ -2,6 +2,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 //mysql username: _445team2
@@ -31,6 +32,7 @@ public class Main extends Application {
         Parent login = FXMLLoader.load(getClass().getResource("view/login.fxml"));
         primaryStage.setTitle("Please Log In To Agendizer");
         primaryStage.setScene(new Scene(login, 1000, 700));
+        primaryStage.getIcons().add(new Image("/view/res/desktop_icons/icon_512.png"));
         primaryStage.show();
     }
 
