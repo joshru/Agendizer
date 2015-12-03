@@ -1,6 +1,9 @@
 package Databases;
 
 import Model.Task;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableArray;
+import javafx.collections.ObservableList;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -17,6 +20,7 @@ public class TaskDB {
     private static String serverName = "cssgate.insttech.washington.edu";
     private static Connection myConnection;
     private List<Task> taskList;
+    private ObservableList<Task> obsTasks;
 
 
     public static void createConnection() throws SQLException {
@@ -29,13 +33,14 @@ public class TaskDB {
         System.out.println("Connected to Databases.TaskDB");
     }
 
-    public List<Task> getTasks() throws SQLException {
+    public ObservableList<Task> getTasks() throws SQLException {
         if (myConnection == null) {
             createConnection();
         }
         Statement stmt = null;
         String query = "select * FROM " + userName + ".Task";
         taskList = new ArrayList<>();
+        obsTasks = FXCollections.observableArrayList();
 
         //Here's where the fun begins
 
@@ -62,6 +67,7 @@ public class TaskDB {
 
                 System.out.println("created a task");
                 taskList.add(task);
+                obsTasks.add(task);
 
                 System.out.println("Grabbed Task  = " + task.toString());
             }
@@ -74,7 +80,7 @@ public class TaskDB {
         }
 
         System.out.println(taskList.toString());
-        return taskList;
+        return obsTasks;
     }
 
     public void addTask(Task task) {

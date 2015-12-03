@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 
 import java.sql.SQLException;
@@ -67,6 +68,17 @@ public class AppController {
     private void testDB() throws SQLException {
         List<Task> tasks = db.getTasks();
         System.out.println("Tasks grabbed = " +  tasks.size());
+    }
+
+    @FXML
+    private void upcomingTabSelected() throws SQLException {
+        ObservableList<Task> tasks = db.getTasks();
+//        ObservableList<Task> data = FXCollections.observableArrayList();+
+        System.out.println("obs tasks found: " + tasks.size());
+        ucTaskCol.setCellValueFactory(new PropertyValueFactory<Task, String>("taskTitle"));
+        upcomingTaskTable.setItems(tasks);
+
+
     }
 
 
