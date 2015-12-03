@@ -44,12 +44,10 @@ public class LoginController {
             if (db.hasAccount(user, pass)) {
                 System.out.println("matching account found");
                 SceneController.swapScene("view/gui.fxml", "Agendizer", event, getClass());
+            } else {
+                loginError.setText("Invalid Login Information.");
             }
 
-        } else if (usernameLoginField.getText() == null) {
-            loginError.setText("Invalid username");
-        } else {
-            loginError.setText("Invalid password");
         }
 
     }
