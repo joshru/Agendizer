@@ -1,3 +1,4 @@
+import Databases.UserDB;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -27,11 +28,30 @@ public class LoginController {
     @FXML private Button loginButton;
     @FXML private Text newUserButton;
 
+    private UserDB db = new UserDB();
 
 
     @FXML
     private void handleLoginButton(MouseEvent event) throws IOException {
-        SceneController.swapScene("view/gui.fxml", "Agendizer", event, getClass());
+        System.out.println("button pressed");
+        loginError.setText("");
+        String user;
+        String pass;
+        if (usernameLoginField.getText() != null && passwordLoginField.getText() != null) {
+            System.out.println("fields not null");
+            user = usernameLoginField.getText();
+            pass = passwordLoginField.getText();
+            if (db.hasAccount(user, pass)) {
+                System.out.println("matching account found");
+                SceneController.swapScene("view/gui.fxml", "Agendizer", event, getClass());
+            }
+
+        } else if (usernameLoginField.getText() == null) {
+            loginError.setText("Invalid username");
+        } else {
+            loginError.setText("Invalid password");
+        }
+
     }
 
     @FXML

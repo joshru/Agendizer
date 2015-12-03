@@ -32,7 +32,7 @@
             </HBox>
             <VBox alignment="CENTER" prefHeight="43.0" prefWidth="600.0">
                <children>
-                  <Label textFill="RED">
+                  <Label fx:id="loginError" textFill="RED">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -40,8 +40,8 @@
                </children></VBox>
             <VBox alignment="CENTER">
                <children>
-                  <TextField maxWidth="-Infinity" prefHeight="25.0" prefWidth="233.0" promptText="Username" />
-                  <PasswordField maxWidth="-Infinity" prefHeight="25.0" prefWidth="233.0" promptText="Password" />
+                  <TextField fx:id="usernameLoginField" maxWidth="-Infinity" prefHeight="25.0" prefWidth="233.0" promptText="Username" />
+                  <PasswordField fx:id="passwordLoginField" maxWidth="-Infinity" prefHeight="25.0" prefWidth="233.0" promptText="Password" />
                </children>
             </VBox>
             <HBox alignment="CENTER">

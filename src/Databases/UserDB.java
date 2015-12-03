@@ -4,10 +4,7 @@ import Model.Task;
 import Model.User;
 import javafx.collections.ObservableList;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.List;
 import java.util.Properties;
 
@@ -38,7 +35,9 @@ public class UserDB {
         PreparedStatement ps = null;
 
         try {
-            createConnection();
+            if (myConnection == null) {
+                createConnection();
+            }
             ps = myConnection.prepareStatement(sql);
             ps.setInt(1, theUser.getUserID());
             ps.setString(2, theUser.getUsername());
@@ -55,6 +54,35 @@ public class UserDB {
             e.printStackTrace();
         }
 
+    }
+
+    public boolean hasAccount(final String username, final String password) {
+        boolean correctLogin = false;
+        String sql = "SELECT * FROM _445team2.User AS u WHERE u.username = ? AND u.password = ?;";
+
+
+        PreparedStatement statement = null;
+
+        try {
+            if (myConnection == null) {
+                createConnection();
+            }
+            statement = myConnection.prepareStatement(sql);
+            statement.setString(1, username);
+            statement.setString(2, password);
+            System.out.println(statement.toString());
+
+            ResultSet results = statement.executeQuery();
+            System.out.println("size of user results = " + results.getFetchSize());
+            if (results.getFetchSize() == 1) {
+                correctLogin = true;
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        return correctLogin;
     }
 
 }
