@@ -23,7 +23,7 @@ public class TaskDB {
     private ObservableList<Task> obsTasks;
 
 
-    public static void createConnection() throws SQLException {
+    public void createConnection() throws SQLException {
         Properties connectionProps = new Properties();
         connectionProps.put("user", userName);
         connectionProps.put("password", password);
@@ -84,13 +84,13 @@ public class TaskDB {
     }
 
     public void addTask(Task task) {
-        String statement = "INSERT INTO _445team2.Task (taskID, title, timestamp, completed, category, difficulty," +
-                           "urgency, priority, timeCompleted, notes, location," + "agenda_agendaID) VALUES " +
-                           "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        System.out.println(statement);
+        String statement = "INSERT INTO _445team2.Task (taskID, title, timestamp, completed, difficulty," +
+                           "urgency, priority, timeCompleted, notes, location, agenda_agendaID) VALUES " +
+                           "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         PreparedStatement preparedStatement = null;
 
         try {
+            createConnection();
             preparedStatement = myConnection.prepareStatement(statement);
             preparedStatement.setInt(1, task.getTaskID());
             preparedStatement.setString(2, task.getTaskTitle());

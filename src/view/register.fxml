@@ -17,7 +17,7 @@
                <children>
                   <Label layoutX="63.0" layoutY="142.0" text="Last Name: " />
                   <Label layoutX="68.0" layoutY="278.0" text="Password:" />
-                  <Button fx:id="createAccountButton" layoutX="470.0" layoutY="159.0" mnemonicParsing="false" onMouseClicked="#validateRegistration" prefHeight="43.0" prefWidth="117.0" text="Create Account">
+                  <Button fx:id="createAccountButton" layoutX="470.0" layoutY="159.0" mnemonicParsing="false" onMouseClicked="#createNewUser" prefHeight="43.0" prefWidth="117.0" text="Create Account">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></Button>

@@ -40,544 +40,531 @@
         <mandatory>1</mandatory>
         <data-type>varchar(45)</data-type>
       </column>
-      <column id="28" parent="2" name="expires?">
+      <column id="28" parent="2" name="fkUser">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="29" parent="2" name="expireTime">
-        <data-type>date</data-type>
-      </column>
-      <column id="30" parent="2" name="fkUser">
-        <mandatory>1</mandatory>
-        <data-type>int(11)</data-type>
-      </column>
-      <key id="31" parent="2" name="PRIMARY">
+      <key id="29" parent="2" name="PRIMARY">
         <columns>agendaID
 fkUser</columns>
         <primary>1</primary>
       </key>
-      <column id="32" parent="3" name="reminderID">
+      <column id="30" parent="3" name="reminderID">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="33" parent="3" name="reminderTime">
+      <column id="31" parent="3" name="reminderTime">
         <mandatory>1</mandatory>
         <data-type>date</data-type>
       </column>
-      <column id="34" parent="3" name="fkTaskID">
+      <column id="32" parent="3" name="fkTaskID">
         <data-type>int(11)</data-type>
       </column>
-      <key id="35" parent="3" name="PRIMARY">
+      <key id="33" parent="3" name="PRIMARY">
         <columns>reminderID</columns>
         <primary>1</primary>
       </key>
-      <column id="36" parent="4" name="sectionID">
+      <column id="34" parent="4" name="sectionID">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="37" parent="4" name="sectionHeader">
+      <column id="35" parent="4" name="sectionHeader">
         <mandatory>1</mandatory>
         <data-type>varchar(45)</data-type>
       </column>
-      <column id="38" parent="4" name="separatorType">
+      <column id="36" parent="4" name="separatorType">
         <data-type>varchar(45)</data-type>
       </column>
-      <column id="39" parent="4" name="agenda_agendaID">
+      <column id="37" parent="4" name="agenda_agendaID">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <key id="40" parent="4" name="PRIMARY">
+      <key id="38" parent="4" name="PRIMARY">
         <columns>sectionID</columns>
         <primary>1</primary>
       </key>
-      <column id="41" parent="5" name="taskID">
+      <column id="39" parent="5" name="taskID">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="42" parent="5" name="title">
+      <column id="40" parent="5" name="title">
         <mandatory>1</mandatory>
         <data-type>varchar(45)</data-type>
       </column>
-      <column id="43" parent="5" name="timestamp">
+      <column id="41" parent="5" name="timestamp">
         <mandatory>1</mandatory>
         <data-type>date</data-type>
       </column>
-      <column id="44" parent="5" name="completed">
+      <column id="42" parent="5" name="completed">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="45" parent="5" name="category">
+      <column id="43" parent="5" name="difficulty">
         <data-type>varchar(45)</data-type>
       </column>
-      <column id="46" parent="5" name="difficulty">
+      <column id="44" parent="5" name="urgency">
         <data-type>varchar(45)</data-type>
       </column>
-      <column id="47" parent="5" name="urgency">
+      <column id="45" parent="5" name="priority">
         <data-type>varchar(45)</data-type>
       </column>
-      <column id="48" parent="5" name="priority">
-        <data-type>varchar(45)</data-type>
-      </column>
-      <column id="49" parent="5" name="timeCompleted">
+      <column id="46" parent="5" name="timeCompleted">
         <data-type>date</data-type>
       </column>
-      <column id="50" parent="5" name="notes">
+      <column id="47" parent="5" name="notes">
         <data-type>longtext</data-type>
       </column>
-      <column id="51" parent="5" name="location">
+      <column id="48" parent="5" name="location">
         <data-type>varchar(45)</data-type>
       </column>
-      <column id="52" parent="5" name="agenda_agendaID">
+      <column id="49" parent="5" name="agenda_agendaID">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <key id="53" parent="5" name="PRIMARY">
+      <key id="50" parent="5" name="PRIMARY">
         <columns>taskID</columns>
         <primary>1</primary>
       </key>
-      <column id="54" parent="6" name="UserID">
+      <column id="51" parent="6" name="UserID">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="55" parent="6" name="Username">
+      <column id="52" parent="6" name="Username">
         <mandatory>1</mandatory>
         <data-type>varchar(45)</data-type>
       </column>
-      <column id="56" parent="6" name="firstName">
+      <column id="53" parent="6" name="firstName">
         <mandatory>1</mandatory>
         <data-type>varchar(45)</data-type>
       </column>
-      <column id="57" parent="6" name="lastName">
+      <column id="54" parent="6" name="lastName">
         <mandatory>1</mandatory>
         <data-type>varchar(45)</data-type>
       </column>
-      <column id="58" parent="6" name="email">
+      <column id="55" parent="6" name="email">
         <mandatory>1</mandatory>
         <data-type>varchar(45)</data-type>
       </column>
-      <column id="59" parent="6" name="password">
+      <column id="56" parent="6" name="password">
         <mandatory>1</mandatory>
         <data-type>varchar(45)</data-type>
       </column>
-      <column id="60" parent="6" name="birthday">
-        <data-type>date</data-type>
-      </column>
-      <key id="61" parent="6" name="PRIMARY">
+      <key id="57" parent="6" name="PRIMARY">
         <columns>UserID</columns>
         <primary>1</primary>
       </key>
-      <column id="62" parent="7" name="type">
+      <column id="58" parent="7" name="type">
         <mandatory>1</mandatory>
         <data-type>text</data-type>
       </column>
-      <column id="63" parent="7" name="id">
+      <column id="59" parent="7" name="id">
         <mandatory>1</mandatory>
         <data-type>text</data-type>
       </column>
-      <column id="64" parent="7" name="filename">
+      <column id="60" parent="7" name="filename">
         <mandatory>1</mandatory>
         <data-type>text</data-type>
       </column>
-      <column id="65" parent="7" name="size">
+      <column id="61" parent="7" name="size">
         <data-type>int(11)</data-type>
       </column>
-      <column id="66" parent="7" name="time">
+      <column id="62" parent="7" name="time">
         <data-type>bigint(20)</data-type>
       </column>
-      <column id="67" parent="7" name="description">
+      <column id="63" parent="7" name="description">
         <data-type>text</data-type>
       </column>
-      <column id="68" parent="7" name="author">
+      <column id="64" parent="7" name="author">
         <data-type>text</data-type>
       </column>
-      <column id="69" parent="7" name="ipnr">
+      <column id="65" parent="7" name="ipnr">
         <data-type>text</data-type>
       </column>
-      <key id="70" parent="7" name="PRIMARY">
+      <key id="66" parent="7" name="PRIMARY">
         <columns>type
 id
 filename</columns>
         <primary>1</primary>
       </key>
-      <column id="71" parent="8" name="cookie">
+      <column id="67" parent="8" name="cookie">
         <mandatory>1</mandatory>
         <data-type>text</data-type>
       </column>
-      <column id="72" parent="8" name="name">
+      <column id="68" parent="8" name="name">
         <mandatory>1</mandatory>
         <data-type>text</data-type>
       </column>
-      <column id="73" parent="8" name="ipnr">
+      <column id="69" parent="8" name="ipnr">
         <mandatory>1</mandatory>
         <data-type>text</data-type>
       </column>
-      <column id="74" parent="8" name="time">
+      <column id="70" parent="8" name="time">
         <data-type>int(11)</data-type>
       </column>
-      <key id="75" parent="8" name="PRIMARY">
+      <key id="71" parent="8" name="PRIMARY">
         <columns>cookie
 ipnr
 name</columns>
         <primary>1</primary>
       </key>
-      <column id="76" parent="9" name="id">
+      <column id="72" parent="9" name="id">
         <mandatory>1</mandatory>
         <data-type>text</data-type>
       </column>
-      <column id="77" parent="9" name="generation">
+      <column id="73" parent="9" name="generation">
         <data-type>int(11)</data-type>
       </column>
-      <key id="78" parent="9" name="PRIMARY">
+      <key id="74" parent="9" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <column id="79" parent="10" name="name">
+      <column id="75" parent="10" name="name">
         <mandatory>1</mandatory>
         <data-type>text</data-type>
       </column>
-      <column id="80" parent="10" name="owner">
+      <column id="76" parent="10" name="owner">
         <data-type>text</data-type>
       </column>
-      <column id="81" parent="10" name="description">
+      <column id="77" parent="10" name="description">
         <data-type>text</data-type>
       </column>
-      <key id="82" parent="10" name="PRIMARY">
+      <key id="78" parent="10" name="PRIMARY">
         <columns>name</columns>
         <primary>1</primary>
       </key>
-      <column id="83" parent="11" name="type">
+      <column id="79" parent="11" name="type">
         <mandatory>1</mandatory>
         <data-type>text</data-type>
       </column>
-      <column id="84" parent="11" name="name">
+      <column id="80" parent="11" name="name">
         <mandatory>1</mandatory>
         <data-type>text</data-type>
       </column>
-      <column id="85" parent="11" name="value">
+      <column id="81" parent="11" name="value">
         <data-type>text</data-type>
       </column>
-      <key id="86" parent="11" name="PRIMARY">
+      <key id="82" parent="11" name="PRIMARY">
         <columns>type
 name</columns>
         <primary>1</primary>
       </key>
-      <column id="87" parent="12" name="name">
+      <column id="83" parent="12" name="name">
         <mandatory>1</mandatory>
         <data-type>text</data-type>
       </column>
-      <column id="88" parent="12" name="due">
+      <column id="84" parent="12" name="due">
         <data-type>bigint(20)</data-type>
       </column>
-      <column id="89" parent="12" name="completed">
+      <column id="85" parent="12" name="completed">
         <data-type>bigint(20)</data-type>
       </column>
-      <column id="90" parent="12" name="description">
+      <column id="86" parent="12" name="description">
         <data-type>text</data-type>
       </column>
-      <key id="91" parent="12" name="PRIMARY">
+      <key id="87" parent="12" name="PRIMARY">
         <columns>name</columns>
         <primary>1</primary>
       </key>
-      <column id="92" parent="13" name="repos">
+      <column id="88" parent="13" name="repos">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <column id="93" parent="13" name="rev">
+      <column id="89" parent="13" name="rev">
         <mandatory>1</mandatory>
         <data-type>text</data-type>
       </column>
-      <column id="94" parent="13" name="path">
+      <column id="90" parent="13" name="path">
         <mandatory>1</mandatory>
         <data-type>text</data-type>
       </column>
-      <column id="95" parent="13" name="node_type">
+      <column id="91" parent="13" name="node_type">
         <data-type>text</data-type>
       </column>
-      <column id="96" parent="13" name="change_type">
+      <column id="92" parent="13" name="change_type">
         <mandatory>1</mandatory>
         <data-type>text</data-type>
       </column>
-      <column id="97" parent="13" name="base_path">
+      <column id="93" parent="13" name="base_path">
         <data-type>text</data-type>
       </column>
-      <column id="98" parent="13" name="base_rev">
+      <column id="94" parent="13" name="base_rev">
         <data-type>text</data-type>
       </column>
-      <key id="99" parent="13" name="PRIMARY">
+      <key id="95" parent="13" name="PRIMARY">
         <columns>repos
 rev
 path
 change_type</columns>
         <primary>1</primary>
       </key>
-      <column id="100" parent="14" name="username">
+      <column id="96" parent="14" name="username">
         <mandatory>1</mandatory>
         <data-type>text</data-type>
       </column>
-      <column id="101" parent="14" name="action">
+      <column id="97" parent="14" name="action">
         <mandatory>1</mandatory>
         <data-type>text</data-type>
       </column>
-      <key id="102" parent="14" name="PRIMARY">
+      <key id="98" parent="14" name="PRIMARY">
         <columns>username
 action</columns>
         <primary>1</primary>
       </key>
-      <column id="103" parent="15" name="id">
+      <column id="99" parent="15" name="id">
         <mandatory>1</mandatory>
         <data-type>int(10) unsigned</data-type>
       </column>
-      <column id="104" parent="15" name="author">
+      <column id="100" parent="15" name="author">
         <data-type>text</data-type>
       </column>
-      <column id="105" parent="15" name="title">
+      <column id="101" parent="15" name="title">
         <data-type>text</data-type>
       </column>
-      <column id="106" parent="15" name="query">
+      <column id="102" parent="15" name="query">
         <data-type>text</data-type>
       </column>
-      <column id="107" parent="15" name="description">
+      <column id="103" parent="15" name="description">
         <data-type>text</data-type>
       </column>
-      <key id="108" parent="15" name="PRIMARY">
+      <key id="104" parent="15" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <column id="109" parent="16" name="id">
+      <column id="105" parent="16" name="id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <column id="110" parent="16" name="name">
+      <column id="106" parent="16" name="name">
         <mandatory>1</mandatory>
         <data-type>text</data-type>
       </column>
-      <column id="111" parent="16" name="value">
+      <column id="107" parent="16" name="value">
         <data-type>text</data-type>
       </column>
-      <key id="112" parent="16" name="PRIMARY">
+      <key id="108" parent="16" name="PRIMARY">
         <columns>id
 name</columns>
         <primary>1</primary>
       </key>
-      <column id="113" parent="17" name="repos">
+      <column id="109" parent="17" name="repos">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <column id="114" parent="17" name="rev">
+      <column id="110" parent="17" name="rev">
         <mandatory>1</mandatory>
         <data-type>text</data-type>
       </column>
-      <column id="115" parent="17" name="time">
+      <column id="111" parent="17" name="time">
         <data-type>bigint(20)</data-type>
       </column>
-      <column id="116" parent="17" name="author">
+      <column id="112" parent="17" name="author">
         <data-type>text</data-type>
       </column>
-      <column id="117" parent="17" name="message">
+      <column id="113" parent="17" name="message">
         <data-type>text</data-type>
       </column>
-      <key id="118" parent="17" name="PRIMARY">
+      <key id="114" parent="17" name="PRIMARY">
         <columns>repos
 rev</columns>
         <primary>1</primary>
       </key>
-      <column id="119" parent="18" name="sid">
+      <column id="115" parent="18" name="sid">
         <mandatory>1</mandatory>
         <data-type>text</data-type>
       </column>
-      <column id="120" parent="18" name="authenticated">
+      <column id="116" parent="18" name="authenticated">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <column id="121" parent="18" name="last_visit">
+      <column id="117" parent="18" name="last_visit">
         <data-type>int(11)</data-type>
       </column>
-      <key id="122" parent="18" name="PRIMARY">
+      <key id="118" parent="18" name="PRIMARY">
         <columns>sid
 authenticated</columns>
         <primary>1</primary>
       </key>
-      <column id="123" parent="19" name="sid">
+      <column id="119" parent="19" name="sid">
         <mandatory>1</mandatory>
         <data-type>text</data-type>
       </column>
-      <column id="124" parent="19" name="authenticated">
+      <column id="120" parent="19" name="authenticated">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <column id="125" parent="19" name="name">
+      <column id="121" parent="19" name="name">
         <mandatory>1</mandatory>
         <data-type>text</data-type>
       </column>
-      <column id="126" parent="19" name="value">
+      <column id="122" parent="19" name="value">
         <data-type>text</data-type>
       </column>
-      <key id="127" parent="19" name="PRIMARY">
+      <key id="123" parent="19" name="PRIMARY">
         <columns>sid
 authenticated
 name</columns>
         <primary>1</primary>
       </key>
-      <column id="128" parent="20" name="name">
+      <column id="124" parent="20" name="name">
         <mandatory>1</mandatory>
         <data-type>text</data-type>
       </column>
-      <column id="129" parent="20" name="value">
+      <column id="125" parent="20" name="value">
         <data-type>text</data-type>
       </column>
-      <key id="130" parent="20" name="PRIMARY">
+      <key id="126" parent="20" name="PRIMARY">
         <columns>name</columns>
         <primary>1</primary>
       </key>
-      <column id="131" parent="21" name="id">
+      <column id="127" parent="21" name="id">
         <mandatory>1</mandatory>
         <data-type>int(10) unsigned</data-type>
       </column>
-      <column id="132" parent="21" name="type">
+      <column id="128" parent="21" name="type">
         <data-type>text</data-type>
       </column>
-      <column id="133" parent="21" name="time">
+      <column id="129" parent="21" name="time">
         <data-type>bigint(20)</data-type>
       </column>
-      <column id="134" parent="21" name="changetime">
+      <column id="130" parent="21" name="changetime">
         <data-type>bigint(20)</data-type>
       </column>
-      <column id="135" parent="21" name="component">
+      <column id="131" parent="21" name="component">
         <data-type>text</data-type>
       </column>
-      <column id="136" parent="21" name="severity">
+      <column id="132" parent="21" name="severity">
         <data-type>text</data-type>
       </column>
-      <column id="137" parent="21" name="priority">
+      <column id="133" parent="21" name="priority">
         <data-type>text</data-type>
       </column>
-      <column id="138" parent="21" name="owner">
+      <column id="134" parent="21" name="owner">
         <data-type>text</data-type>
       </column>
-      <column id="139" parent="21" name="reporter">
+      <column id="135" parent="21" name="reporter">
         <data-type>text</data-type>
       </column>
-      <column id="140" parent="21" name="cc">
+      <column id="136" parent="21" name="cc">
         <data-type>text</data-type>
       </column>
-      <column id="141" parent="21" name="version">
+      <column id="137" parent="21" name="version">
         <data-type>text</data-type>
       </column>
-      <column id="142" parent="21" name="milestone">
+      <column id="138" parent="21" name="milestone">
         <data-type>text</data-type>
       </column>
-      <column id="143" parent="21" name="status">
+      <column id="139" parent="21" name="status">
         <data-type>text</data-type>
       </column>
-      <column id="144" parent="21" name="resolution">
+      <column id="140" parent="21" name="resolution">
         <data-type>text</data-type>
       </column>
-      <column id="145" parent="21" name="summary">
+      <column id="141" parent="21" name="summary">
         <data-type>text</data-type>
       </column>
-      <column id="146" parent="21" name="description">
+      <column id="142" parent="21" name="description">
         <data-type>text</data-type>
       </column>
-      <column id="147" parent="21" name="keywords">
+      <column id="143" parent="21" name="keywords">
         <data-type>text</data-type>
       </column>
-      <key id="148" parent="21" name="PRIMARY">
+      <key id="144" parent="21" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <column id="149" parent="22" name="ticket">
+      <column id="145" parent="22" name="ticket">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <column id="150" parent="22" name="time">
+      <column id="146" parent="22" name="time">
         <mandatory>1</mandatory>
         <data-type>bigint(20)</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <column id="151" parent="22" name="author">
+      <column id="147" parent="22" name="author">
         <data-type>text</data-type>
       </column>
-      <column id="152" parent="22" name="field">
+      <column id="148" parent="22" name="field">
         <mandatory>1</mandatory>
         <data-type>text</data-type>
       </column>
-      <column id="153" parent="22" name="oldvalue">
+      <column id="149" parent="22" name="oldvalue">
         <data-type>text</data-type>
       </column>
-      <column id="154" parent="22" name="newvalue">
+      <column id="150" parent="22" name="newvalue">
         <data-type>text</data-type>
       </column>
-      <key id="155" parent="22" name="PRIMARY">
+      <key id="151" parent="22" name="PRIMARY">
         <columns>ticket
 time
 field</columns>
         <primary>1</primary>
       </key>
-      <column id="156" parent="23" name="ticket">
+      <column id="152" parent="23" name="ticket">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <column id="157" parent="23" name="name">
+      <column id="153" parent="23" name="name">
         <mandatory>1</mandatory>
         <data-type>text</data-type>
       </column>
-      <column id="158" parent="23" name="value">
+      <column id="154" parent="23" name="value">
         <data-type>text</data-type>
       </column>
-      <key id="159" parent="23" name="PRIMARY">
+      <key id="155" parent="23" name="PRIMARY">
         <columns>ticket
 name</columns>
         <primary>1</primary>
       </key>
-      <column id="160" parent="24" name="name">
+      <column id="156" parent="24" name="name">
         <mandatory>1</mandatory>
         <data-type>text</data-type>
       </column>
-      <column id="161" parent="24" name="time">
+      <column id="157" parent="24" name="time">
         <data-type>bigint(20)</data-type>
       </column>
-      <column id="162" parent="24" name="description">
+      <column id="158" parent="24" name="description">
         <data-type>text</data-type>
       </column>
-      <key id="163" parent="24" name="PRIMARY">
+      <key id="159" parent="24" name="PRIMARY">
         <columns>name</columns>
         <primary>1</primary>
       </key>
-      <column id="164" parent="25" name="name">
+      <column id="160" parent="25" name="name">
         <mandatory>1</mandatory>
         <data-type>text</data-type>
       </column>
-      <column id="165" parent="25" name="version">
+      <column id="161" parent="25" name="version">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <column id="166" parent="25" name="time">
+      <column id="162" parent="25" name="time">
         <data-type>bigint(20)</data-type>
       </column>
-      <column id="167" parent="25" name="author">
+      <column id="163" parent="25" name="author">
         <data-type>text</data-type>
       </column>
-      <column id="168" parent="25" name="ipnr">
+      <column id="164" parent="25" name="ipnr">
         <data-type>text</data-type>
       </column>
-      <column id="169" parent="25" name="text">
+      <column id="165" parent="25" name="text">
         <data-type>text</data-type>
       </column>
-      <column id="170" parent="25" name="comment">
+      <column id="166" parent="25" name="comment">
         <data-type>text</data-type>
       </column>
-      <column id="171" parent="25" name="readonly">
+      <column id="167" parent="25" name="readonly">
         <data-type>int(11)</data-type>
       </column>
-      <key id="172" parent="25" name="PRIMARY">
+      <key id="168" parent="25" name="PRIMARY">
         <columns>name
 version</columns>
         <primary>1</primary>

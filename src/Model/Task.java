@@ -7,20 +7,17 @@ import java.sql.Date;
  */
 public class Task {
 
-    int taskID;
-    String taskTitle;
-    Date timeStamp;
-    int completed;
-    String difficulty;
-    String urgency;
-    String priority;
-
-    Date timeCompleted;
-    String notes;
-
-    String Location;
-
-    Integer fk_agendaID;
+    private int taskID;
+    private String taskTitle;
+    private Date timeStamp;
+    private int completed;
+    private String difficulty;
+    private String urgency;
+    private String priority;
+    private Date timeCompleted;
+    private String notes;
+    private String Location;
+    private Integer fk_agendaID;
 
 
 
@@ -35,7 +32,7 @@ public class Task {
         this.priority = priority;
         this.timeCompleted = timeCompleted;
         this.notes = notes;
-        Location = location;
+        this.Location = location;
         this.fk_agendaID = fk_agendaID;
     }
 

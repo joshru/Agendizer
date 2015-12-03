@@ -1,3 +1,5 @@
+import Databases.UserDB;
+import Model.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -23,10 +25,25 @@ public class RegistrationController {
     @FXML private Button returnToLoginButton;
     @FXML private Label registerWarningLabel;
 
+    private UserDB db = new UserDB();
+
 
     @FXML
     private void handleReturnToLogin(final MouseEvent event) throws IOException {
         SceneController.swapScene("view/login.fxml", "Please Log In To Agendizer", event, getClass());
+    }
+
+    @FXML
+    private void createNewUser() {
+        boolean isValid = validateRegistration();
+        int rand = (int) (Math.random() * 10001);
+        User newUser;
+        if (isValid) {
+            newUser = new User(rand, usernameRegisterField.getText(), firstNameField.getText(),
+                               lastNameField.getText(), emailField.getText(), passwordRegisterField.getText());
+            db.createUser(newUser);
+            System.out.println("New user sent to the DB");
+        }
     }
 
     @FXML
