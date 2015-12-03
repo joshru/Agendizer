@@ -72,9 +72,10 @@ public class UserDB {
             statement.setString(2, password);
             System.out.println(statement.toString());
 
-            ResultSet results = statement.executeQuery();
-            System.out.println("size of user results = " + results.getFetchSize());
-            if (results.next() && results.getString("username").equals(theUsername) && results.getString("password").equals(password)) {
+            ResultSet res = statement.executeQuery();
+
+            if (res.next() && res.getString("username").equals(theUsername)
+                && res.getString("password").equals(password)) {
                 correctLogin = true;
             }
 
