@@ -95,9 +95,9 @@
                                           <TableColumn prefWidth="75.0" sortType="DESCENDING" text="Urgency" />
                                           <TableColumn prefWidth="75.0" sortType="DESCENDING" text="Priority" />
                                       </columns>
-                                       <columnResizePolicy>
+                                      <columnResizePolicy>
                                           <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                                       </columnResizePolicy>
+                                      </columnResizePolicy>
                                     </TableView>
                                  </children>
                               </VBox>

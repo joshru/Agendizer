@@ -30,7 +30,7 @@ public class UserDB {
     }
 
     public void createUser(final User theUser) {
-        String sql = "INSERT INTO _445team2.User (UserID, Username, firstName, lastName, email, password) " +
+        String sql = "INSERT INTO _445team2.User (UserID, username, firstName, lastName, email, password) " +
                      "VALUES (?, ?, ?, ?, ?, ?);";
         PreparedStatement ps = null;
 
@@ -56,9 +56,9 @@ public class UserDB {
 
     }
 
-    public boolean hasAccount(final String username, final String password) {
+    public boolean hasAccount(final String theUsername, final String password) {
         boolean correctLogin = false;
-        String sql = "SELECT * FROM _445team2.User AS u WHERE u.username = ? AND u.password = ?;";
+        String sql = "SELECT * FROM _445team2.User WHERE username = ? AND password = ?;";
 
 
         PreparedStatement statement = null;
@@ -68,13 +68,13 @@ public class UserDB {
                 createConnection();
             }
             statement = myConnection.prepareStatement(sql);
-            statement.setString(1, username);
+            statement.setString(1, theUsername);
             statement.setString(2, password);
             System.out.println(statement.toString());
 
             ResultSet results = statement.executeQuery();
             System.out.println("size of user results = " + results.getFetchSize());
-            if (results.getFetchSize() == 1) {
+            if (results.next() && results.getString("username").equals(theUsername) && results.getString("password").equals(password)) {
                 correctLogin = true;
             }
 
