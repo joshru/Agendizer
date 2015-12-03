@@ -16,11 +16,9 @@ public class Agenda {
 
 
 
-    public Agenda(int agendaID, String agendaTitle, int expires, Date expireTime, int fk_userID) {
+    public Agenda(int agendaID, String agendaTitle, int fk_userID) {
         this.agendaID = agendaID;
         this.agendaTitle = agendaTitle;
-        this.expires = expires;
-        this.expireTime = expireTime;
         this.fk_userID = fk_userID;
     }
 
