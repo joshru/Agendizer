@@ -73,6 +73,7 @@ public class AgendaDB {
         PreparedStatement preparedStatement = null;
 
         try {
+            createConnection();
             preparedStatement = myConnection.prepareStatement(statement);
 
             preparedStatement.setInt(1, agenda.getAgendaID());
