@@ -1,38 +1,23 @@
 package Databases;
 
-import Model.Task;
 import Model.User;
-import javafx.collections.ObservableList;
 
-import java.sql.*;
-import java.util.List;
-import java.util.Properties;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
- * Created by Josh Rueschenberg on 12/2/2015.
+ * Database adapter class for our User databse.
+ * @author Brandon Bell
+ * @version 12/3/15
  */
-public class UserDB {
-    private static String userName = "_445team2";
-    private static String password = "poddoif";
-    private static String serverName = "cssgate.insttech.washington.edu";
-    private static Connection myConnection;
-    private List<Task> taskList;
-    private ObservableList<Task> obsTasks;
+public class UserDB extends DBHelper {
 
-    public void createConnection() throws SQLException {
-        Properties connectionProps = new Properties();
-        connectionProps.put("user", userName);
-        connectionProps.put("password", password);
-
-        myConnection = DriverManager.getConnection("jdbc:" + "mysql" + "://" + serverName + "/", connectionProps);
-
-        System.out.println("Connected to Databases.UserDB");
-    }
 
     public boolean createUser(final User theUser) {
         String sql = "INSERT INTO _445team2.User (UserID, username, firstName, lastName, email, password) " +
                      "VALUES (?, ?, ?, ?, ?, ?);";
-        PreparedStatement ps = null;
+        PreparedStatement ps;
 
         try {
             if (myConnection == null) {
@@ -64,7 +49,7 @@ public class UserDB {
         String sql = "SELECT * FROM _445team2.User WHERE username = ? AND password = ?;";
 
 
-        PreparedStatement statement = null;
+        PreparedStatement statement;
 
         try {
             if (myConnection == null) {

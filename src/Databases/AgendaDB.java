@@ -11,7 +11,7 @@ import java.util.Properties;
 /**
  * Created by Brandon on 12/2/2015.
  */
-public class AgendaDB {
+public class AgendaDB extends DBHelper {
 
     private static String userName = "_445team2";
     private static String password = "poddoif";
@@ -20,15 +20,7 @@ public class AgendaDB {
     private List<Agenda> agendaList;
 
 
-    public static void createConnection() throws SQLException {
-        Properties connectionProps = new Properties();
-        connectionProps.put("user", userName);
-        connectionProps.put("password", password);
 
-        myConnection = DriverManager.getConnection("jdbc:" + "mysql" + "://" + serverName + "/", connectionProps);
-
-        System.out.println("Connected to Databases");
-    }
 
     public List<Agenda> getAgendas() throws SQLException {
         if (myConnection == null) {
@@ -63,7 +55,10 @@ public class AgendaDB {
         }
         return agendaList;
 
+
     }
+
+  //  public List<Agenda> getUserAgendas
 
 
 
