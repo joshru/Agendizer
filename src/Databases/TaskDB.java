@@ -49,11 +49,11 @@ public class TaskDB {
             ResultSet results = stmt.executeQuery(query);
 
             while (results.next()) {
-                String title = results.getString("title");
                 int taskID = results.getInt("taskID");
+                String title = results.getString("title");
                 Date timestamp = results.getDate("timestamp");
                 int completed = results.getInt("completed");
-                String category = results.getString("category");
+//                String category = results.getString("category");
                 String difficulty = results.getString("difficulty");
                 String urgency = results.getString("urgency");
                 String priority = results.getString("priority");

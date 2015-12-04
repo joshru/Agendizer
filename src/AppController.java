@@ -75,7 +75,13 @@ public class AppController {
         ObservableList<Task> tasks = db.getTasks();
 //        ObservableList<Task> data = FXCollections.observableArrayList();+
         System.out.println("obs tasks found: " + tasks.size());
+
+        //when setting property values the string must MATCH the field name in the Task class
         ucTaskCol.setCellValueFactory(new PropertyValueFactory<Task, String>("taskTitle"));
+        ucDeadlineCol.setCellValueFactory(new PropertyValueFactory<Task, String>("timeStamp"));
+        ucDifficultyCol.setCellValueFactory(new PropertyValueFactory<Task, String>("difficulty"));
+        ucUrgencyCol.setCellValueFactory(new PropertyValueFactory<Task, String>("urgency"));
+        ucPriorityCol.setCellValueFactory(new PropertyValueFactory<Task, String>("priority"));
         upcomingTaskTable.setItems(tasks);
 
 

@@ -34,15 +34,24 @@ public class RegistrationController {
     }
 
     @FXML
-    private void createNewUser() {
+    private void createNewUser(final MouseEvent event) {
         boolean isValid = validateRegistration();
         int rand = (int) (Math.random() * 10001);
         User newUser;
         if (isValid) {
-            newUser = new User(rand, usernameRegisterField.getText(), firstNameField.getText(),
+            newUser = new User(usernameRegisterField.getText().hashCode(), usernameRegisterField.getText(), firstNameField.getText(),
                                lastNameField.getText(), emailField.getText(), passwordRegisterField.getText());
-            db.createUser(newUser);
+            boolean success = db.createUser(newUser);
             System.out.println("New user sent to the DB");
+
+            try {
+                if (success) {
+
+                    handleReturnToLogin(event);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 

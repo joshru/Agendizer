@@ -29,7 +29,7 @@ public class UserDB {
         System.out.println("Connected to Databases.UserDB");
     }
 
-    public void createUser(final User theUser) {
+    public boolean createUser(final User theUser) {
         String sql = "INSERT INTO _445team2.User (UserID, username, firstName, lastName, email, password) " +
                      "VALUES (?, ?, ?, ?, ?, ?);";
         PreparedStatement ps = null;
@@ -48,10 +48,13 @@ public class UserDB {
 
             int result = ps.executeUpdate();
             System.out.println("Update completed, result int: " + result);
+            return true;
+
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
+            return false;
         }
 
     }
