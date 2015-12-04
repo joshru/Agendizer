@@ -9,14 +9,13 @@ import java.util.List;
 import java.util.Properties;
 
 /**
- * Created by Brandon on 12/2/2015.
+ * Database adapter class for our Agenda database.
+ * @author Brandon Bell
+ * @version 12/3/15
  */
 public class AgendaDB extends DBHelper {
 
-    private static String userName = "_445team2";
-    private static String password = "poddoif";
-    private static String serverName = "cssgate.insttech.washington.edu";
-    private static Connection myConnection;
+
     private List<Agenda> agendaList;
 
 
