@@ -1,6 +1,5 @@
 import Databases.TaskDB;
 import Model.Task;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -8,11 +7,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Created by Josh Rueschenberg on 11/30/2015.
@@ -37,11 +33,11 @@ public class AppController {
 
 
     // these columns should probably be in an array or something. messy
-    @FXML private TableColumn ucTaskCol;
-    @FXML private TableColumn ucDeadlineCol;
-    @FXML private TableColumn ucDifficultyCol;
-    @FXML private TableColumn ucUrgencyCol;
-    @FXML private TableColumn ucPriorityCol;
+    @FXML private TableColumn<Task, String> ucTaskCol;
+    @FXML private TableColumn<Task, String> ucDeadlineCol;
+    @FXML private TableColumn<Task, String> ucDifficultyCol;
+    @FXML private TableColumn<Task, String> ucUrgencyCol;
+    @FXML private TableColumn<Task, String> ucPriorityCol;
     @FXML private TableColumn compTaskCol;
     @FXML private TableColumn compDeadlineCol;
     @FXML private TableColumn compDifficultyCol;
@@ -58,6 +54,16 @@ public class AppController {
     private TaskDB db = new TaskDB();
 
 //    ObservableList<String> difficultyVals = FXCollections.observableArrayList("one", "two");
+
+    @FXML
+    private void initialize() {
+        //when setting property values the string must MATCH the field name in the Task class
+        ucTaskCol.setCellValueFactory(new PropertyValueFactory<Task, String>("taskTitle"));
+        ucDeadlineCol.setCellValueFactory(new PropertyValueFactory<Task, String>("timeStamp"));
+        ucDifficultyCol.setCellValueFactory(new PropertyValueFactory<Task, String>("difficulty"));
+        ucUrgencyCol.setCellValueFactory(new PropertyValueFactory<Task, String>("urgency"));
+        ucPriorityCol.setCellValueFactory(new PropertyValueFactory<Task, String>("priority"));
+    }
 
     @FXML
     private void newTaskTabSetup() {
@@ -79,17 +85,8 @@ public class AppController {
     private void upcomingTabSelected() throws SQLException {
         ObservableList<Task> tasks = db.getTasks();
 //        ObservableList<Task> data = FXCollections.observableArrayList();+
-        System.out.println("obs tasks found: " + tasks.size());
-
-        //when setting property values the string must MATCH the field name in the Task class
-        ucTaskCol.setCellValueFactory(new PropertyValueFactory<Task, String>("taskTitle"));
-        ucDeadlineCol.setCellValueFactory(new PropertyValueFactory<Task, String>("timeStamp"));
-        ucDifficultyCol.setCellValueFactory(new PropertyValueFactory<Task, String>("difficulty"));
-        ucUrgencyCol.setCellValueFactory(new PropertyValueFactory<Task, String>("urgency"));
-        ucPriorityCol.setCellValueFactory(new PropertyValueFactory<Task, String>("priority"));
+//        System.out.println("obs tasks found: " + tasks.size());
         upcomingTaskTable.setItems(tasks);
-
-
     }
 
     @FXML
@@ -126,10 +123,17 @@ public class AppController {
 
         db.addTask(task);
 
-        System.out.println(taskID);
-        System.out.println(difficulty);
-        System.out.println(urgency);
-        System.out.println(priority);
+//        System.out.println(taskID);
+//        System.out.println(difficulty);
+//        System.out.println(urgency);
+//        System.out.println(priority);
+    }
+
+    private void resetNewTaskFields() {
+        newTaskDescpriton.setText("");
+        newTaskDeadline.getEditor().clear();
+//        newTaskDifficulty.
+
     }
 
 

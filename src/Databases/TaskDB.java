@@ -115,7 +115,6 @@ public class TaskDB extends DBHelper {
                 String title = results.getString("title");
                 Date timestamp = results.getDate("timestamp");
                 int completed = results.getInt("completed");
-//                String category = results.getString("category");
                 String difficulty = results.getString("difficulty");
                 String urgency = results.getString("urgency");
                 String priority = results.getString("priority");
