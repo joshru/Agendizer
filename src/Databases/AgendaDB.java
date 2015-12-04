@@ -2,6 +2,7 @@ package Databases;
 
 import Model.Agenda;
 import Model.Task;
+import Model.User;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -25,9 +26,54 @@ public class AgendaDB extends DBHelper {
         if (myConnection == null) {
             createConnection();
         }
-        Statement stmt = null;
         String query = "select * FROM " + userName + ".Agenda";
         agendaList = new ArrayList<>();
+
+        populateList(query);
+//        try {
+//
+//            stmt = myConnection.createStatement();
+//            ResultSet results = stmt.executeQuery(query);
+//
+//            while (results.next()) {
+//                int agendaID = results.getInt("agendaID");
+//                String agendaTitle = results.getString("title");
+//                int fk_userID = results.getInt("fkUser");
+//
+//                Agenda agenda = new Agenda(agendaID, agendaTitle, fk_userID);
+//                System.out.println("Agenda created");
+//
+//                agendaList.add(agenda);
+//            }
+//
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        } finally {
+//            if (stmt != null) {
+//                stmt.close();
+//            }
+//        }
+        return agendaList;
+
+
+    }
+
+    public List<Agenda> getUserAgendas(User user) throws SQLException {
+        if (myConnection == null) {
+            createConnection();
+        }
+        String query = "select * FROM " + userName + ".Agenda WHERE " + userName + ".User.UserID = " + user.getUserID();
+        agendaList = new ArrayList<>();
+
+        populateList(query);
+
+        return agendaList;
+
+    }
+
+    private void populateList(String query) throws SQLException {
+        Statement stmt = null;
+
 
         try {
 
@@ -52,19 +98,14 @@ public class AgendaDB extends DBHelper {
                 stmt.close();
             }
         }
-        return agendaList;
-
-
     }
-
-  //  public List<Agenda> getUserAgendas
 
 
 
     public void createAgenda(Agenda agenda) {
         String statement = "INSERT INTO _445team2.Agenda VALUES " +
                 "(?, ?, ?)";
-        PreparedStatement preparedStatement = null;
+        PreparedStatement preparedStatement;
 
         try {
             createConnection();
