@@ -1,4 +1,6 @@
+import Databases.AgendaDB;
 import Databases.UserDB;
+import Model.Agenda;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -29,8 +31,10 @@ public class LoginController {
     @FXML private PasswordField passwordLoginField;
     @FXML private Button loginButton;
     @FXML private Text newUserButton;
+    @FXML private Button test;
 
     private UserDB db = new UserDB();
+    private AgendaDB adb = new AgendaDB();
 
 
     @FXML
@@ -57,6 +61,12 @@ public class LoginController {
     @FXML
     private void handleRegisterButton(MouseEvent event) throws IOException {
         SceneController.swapScene("view/register.fxml", "Agendizer Registration", event, getClass());
+    }
+
+    @FXML
+    private void testAgenda(MouseEvent event) {
+//        Agenda a = new Agenda(1234, "test agenda", 1234556346);
+//        adb.createAgenda(a);
     }
 
 

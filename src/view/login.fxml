@@ -58,6 +58,7 @@
                   <Font size="13.0" />
                </font>
             </Text>
+            <Button fx:id="test" mnemonicParsing="false" onMouseClicked="#testAgenda" text="Button" />
          </children>
       </VBox>
    </children>
