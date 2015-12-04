@@ -80,14 +80,14 @@
                         </VBox>
                      </content>
                   </Tab>
-                <Tab fx:id="completedTaskTable" text="Completed Tasks">
+                <Tab text="Completed Tasks">
                      <content>
                         <VBox>
                            <children>
                               <Button fx:id="compNewTaskButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="25.0" prefWidth="907.0" text="+ New Task +" VBox.vgrow="ALWAYS" />
                               <VBox VBox.vgrow="ALWAYS">
                                  <children>
-                                    <TableView VBox.vgrow="ALWAYS">
+                                    <TableView fx:id="completedTaskTable" VBox.vgrow="ALWAYS">
                                       <columns>
                                           <TableColumn fx:id="compTaskCol" prefWidth="75.0" sortType="DESCENDING" text="Task" />
                                           <TableColumn fx:id="compDeadlineCol" prefWidth="75.0" sortType="DESCENDING" text="Date Completed" />
