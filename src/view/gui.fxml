@@ -73,6 +73,14 @@
                                        <columnResizePolicy>
                                           <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                        </columnResizePolicy>
+                                       <contextMenu>
+                                          <ContextMenu fx:id="taskRowMenu">
+                                            <items>
+                                              <MenuItem fx:id="cMenuCompleted" mnemonicParsing="false" text="Completed" />
+                                                <MenuItem fx:id="cMenuDelete" mnemonicParsing="false" onAction="#handleContextDelete" text="Delete" />
+                                            </items>
+                                          </ContextMenu>
+                                       </contextMenu>
                                     </TableView>
                                  </children>
                               </VBox>

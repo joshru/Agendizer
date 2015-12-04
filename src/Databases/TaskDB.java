@@ -17,7 +17,7 @@ public class TaskDB extends DBHelper {
 //    private static String userName = "_445team2";
 //    private static String password = "poddoif";
 //    private static String serverName = "cssgate.insttech.washington.edu";
-//   // private static Connection myConnection;
+//    private static Connection myConnection;
 //    private List<Task> taskList;
     private ObservableList<Task> obsTasks;
 
@@ -54,6 +54,22 @@ public class TaskDB extends DBHelper {
 
 
         return obsTasks;
+    }
+
+    public void removeTask(Task delete) {
+        String sql = "DELETE FROM _445team2.Task WHERE taskID = ?";
+        PreparedStatement ps;
+        try {
+            createConnection();
+            ps = myConnection.prepareStatement(sql);
+            ps.setInt(1, delete.getTaskID());
+            int result = ps.executeUpdate();
+            System.out.println("deleted statement. result = " + result);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+
     }
 
     public void addTask(Task task) {

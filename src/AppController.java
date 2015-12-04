@@ -31,6 +31,11 @@ public class AppController {
     @FXML private TableView upcomingTaskTable;
     @FXML private TableView completedTaskTable;
 
+    @FXML private ContextMenu taskRowMenu;
+    @FXML private MenuItem cMenuCompleted;
+    @FXML private MenuItem cMenuDelete;
+
+
     // these columns should probably be in an array or something. messy
     @FXML private TableColumn ucTaskCol;
     @FXML private TableColumn ucDeadlineCol;
@@ -85,6 +90,14 @@ public class AppController {
         upcomingTaskTable.setItems(tasks);
 
 
+    }
+
+    @FXML
+    private void handleContextDelete() {
+        Task selected = (Task) upcomingTaskTable.getSelectionModel().getSelectedItem();
+//        System.out.println(selected.toString());
+        db.removeTask(selected);
+        upcomingTaskTable.getItems().removeAll(upcomingTaskTable.getSelectionModel().getSelectedItem());
     }
 
 
