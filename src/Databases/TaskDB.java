@@ -1,5 +1,6 @@
 package Databases;
 
+import Model.Agenda;
 import Model.Task;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableArray;
@@ -37,49 +38,32 @@ public class TaskDB {
         if (myConnection == null) {
             createConnection();
         }
-        Statement stmt = null;
         String query = "select * FROM " + userName + ".Task";
         taskList = new ArrayList<>();
         obsTasks = FXCollections.observableArrayList();
 
         //Here's where the fun begins
+        parseResultSet(query);
 
-        try {
-            stmt = myConnection.createStatement();
-            ResultSet results = stmt.executeQuery(query);
-
-            while (results.next()) {
-                int taskID = results.getInt("taskID");
-                String title = results.getString("title");
-                Date timestamp = results.getDate("timestamp");
-                int completed = results.getInt("completed");
-//                String category = results.getString("category");
-                String difficulty = results.getString("difficulty");
-                String urgency = results.getString("urgency");
-                String priority = results.getString("priority");
-                Date timeCompleted = results.getDate("timeCompleted");
-                String notes = results.getString("notes");
-                String location = results.getString("location");
-                int agendaID = results.getInt("agenda_agendaID");
-
-                Task task = new Task(taskID, title, timestamp, completed, difficulty,
-                                     urgency, priority, timeCompleted, notes, location, agendaID);
-
-                System.out.println("created a task");
-                taskList.add(task);
-                obsTasks.add(task);
-
-                System.out.println("Grabbed Task  = " + task.toString());
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        } finally {
-            if (stmt != null) {
-                stmt.close();
-            }
-        }
 
         System.out.println(taskList.toString());
+        return obsTasks;
+    }
+
+
+
+    public ObservableList<Task> getAgendaTask(Agenda agenda) throws SQLException {
+        if (myConnection == null) {
+            createConnection();
+        }
+        Statement stmt = null;
+        String query = "select * FROM " + userName + ".Task WHERE " + userName +" .Task.agenda_agendaID = " + agenda.getAgendaID();
+        taskList = new ArrayList<>();
+        obsTasks = FXCollections.observableArrayList();
+
+        parseResultSet(query);
+
+
         return obsTasks;
     }
 
@@ -111,6 +95,48 @@ public class TaskDB {
             System.out.println(e.getMessage());
             e.printStackTrace();
         }
+    }
+
+    private void parseResultSet(String query) throws SQLException {
+        Statement stmt = null;
+
+
+        try {
+            stmt = myConnection.createStatement();
+            ResultSet results = stmt.executeQuery(query);
+
+            while (results.next()) {
+                int taskID = results.getInt("taskID");
+                String title = results.getString("title");
+                Date timestamp = results.getDate("timestamp");
+                int completed = results.getInt("completed");
+//                String category = results.getString("category");
+                String difficulty = results.getString("difficulty");
+                String urgency = results.getString("urgency");
+                String priority = results.getString("priority");
+                Date timeCompleted = results.getDate("timeCompleted");
+                String notes = results.getString("notes");
+                String location = results.getString("location");
+                int agendaID = results.getInt("agenda_agendaID");
+
+                Task task = new Task(taskID, title, timestamp, completed, difficulty,
+                        urgency, priority, timeCompleted, notes, location, agendaID);
+
+                System.out.println("created a task");
+                taskList.add(task);
+                obsTasks.add(task);
+
+                System.out.println("Grabbed Task  = " + task.toString());
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            if (stmt != null) {
+                stmt.close();
+            }
+        }
+
+
     }
 
 }
