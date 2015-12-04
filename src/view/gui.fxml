@@ -44,7 +44,7 @@
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></Button>
-                  <TextField prefHeight="25.0" prefWidth="297.0" promptText="Search for a task" HBox.hgrow="SOMETIMES" />
+                  <TextField fx:id="searchField" prefHeight="25.0" prefWidth="297.0" promptText="Search for a task" HBox.hgrow="SOMETIMES" />
                </children>
                <opaqueInsets>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -53,13 +53,13 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
             </HBox>
-            <TabPane prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+            <TabPane fx:id="tabContainer" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
               <tabs>
                 <Tab fx:id="upcomingTab" onSelectionChanged="#upcomingTabSelected" text="Upcoming Tasks">
                      <content>
                         <VBox>
                            <children>
-                              <Button fx:id="upNewTaskButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="25.0" prefWidth="907.0" text="+ New Task +" VBox.vgrow="ALWAYS" />
+                              <Button fx:id="upcomingNewTaskButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="25.0" prefWidth="907.0" text="+ New Task +" VBox.vgrow="ALWAYS" />
                               <VBox VBox.vgrow="ALWAYS">
                                  <children>
                                     <TableView fx:id="upcomingTaskTable" editable="true" VBox.vgrow="ALWAYS">
@@ -76,7 +76,7 @@
                                        <contextMenu>
                                           <ContextMenu fx:id="taskRowMenu">
                                             <items>
-                                              <MenuItem fx:id="cMenuCompleted" mnemonicParsing="false" text="Completed" />
+                                              <MenuItem fx:id="cMenuCompleted" mnemonicParsing="false" onAction="#handleContextComplete" text="Completed" />
                                                 <MenuItem fx:id="cMenuDelete" mnemonicParsing="false" onAction="#handleContextDelete" text="Delete" />
                                             </items>
                                           </ContextMenu>
@@ -88,11 +88,11 @@
                         </VBox>
                      </content>
                   </Tab>
-                <Tab text="Completed Tasks">
+                <Tab fx:id="completedTab" onSelectionChanged="#completedTabSelected" text="Completed Tasks">
                      <content>
                         <VBox>
                            <children>
-                              <Button fx:id="compNewTaskButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="25.0" prefWidth="907.0" text="+ New Task +" VBox.vgrow="ALWAYS" />
+                              <Button fx:id="completedNewTaskButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="25.0" prefWidth="907.0" text="+ New Task +" VBox.vgrow="ALWAYS" />
                               <VBox VBox.vgrow="ALWAYS">
                                  <children>
                                     <TableView fx:id="completedTaskTable" VBox.vgrow="ALWAYS">
@@ -113,7 +113,7 @@
                         </VBox>
                      </content>
                   </Tab>
-                  <Tab text="New Task">
+                  <Tab fx:id="newTaskTab" text="New Task">
                      <content>
                         <VBox prefHeight="292.0" prefWidth="610.0">
                            <children>

@@ -24,22 +24,43 @@ public class TaskDB extends DBHelper {
 
 
 
-    public ObservableList<Task> getTasks() throws SQLException {
+    public ObservableList<Task> getUpcomingTasks() throws SQLException {
         if (myConnection == null) {
             createConnection();
         }
-        String query = "select * FROM " + userName + ".Task;";
-        //taskList = new ArrayList<>();
+        String query = "SELECT * FROM " + userName + ".Task WHERE completed = 0;";
         obsTasks = FXCollections.observableArrayList();
-
-        //Here's where the fun begins
         parseResultSet(query);
-
-
-        //System.out.println(taskList.toString());
         return obsTasks;
     }
 
+    public ObservableList<Task> getCompletedTasks() throws SQLException {
+        if (myConnection == null) {
+            createConnection();
+        }
+        String query = "SELECT * FROM " + userName + ".Task WHERE completed = 1";
+        obsTasks = FXCollections.observableArrayList();
+        parseResultSet(query);
+        return obsTasks;
+    }
+
+    public void completeTask(Task complete) throws SQLException {
+        if (myConnection == null) {
+            createConnection();
+        }
+        String query = "UPDATE `_445team2`.Task SET completed = 1 WHERE taskID = ?;";
+        PreparedStatement ps = null;
+
+        try {
+            ps = myConnection.prepareStatement(query);
+            ps.setInt(1, complete.getTaskID());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+
+    }
 
 
     public ObservableList<Task> getAgendaTasks(Agenda agenda) throws SQLException {
