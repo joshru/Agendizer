@@ -62,7 +62,7 @@
                               <Button fx:id="upNewTaskButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="25.0" prefWidth="907.0" text="+ New Task +" VBox.vgrow="ALWAYS" />
                               <VBox VBox.vgrow="ALWAYS">
                                  <children>
-                                    <TableView fx:id="upcomingTaskTable" VBox.vgrow="ALWAYS">
+                                    <TableView fx:id="upcomingTaskTable" editable="true" VBox.vgrow="ALWAYS">
                                       <columns>
                                         <TableColumn fx:id="ucTaskCol" prefWidth="75.0" sortType="DESCENDING" text="Task" />
                                         <TableColumn fx:id="ucDeadlineCol" prefWidth="75.0" sortType="DESCENDING" text="Complete By" />

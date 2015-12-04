@@ -111,11 +111,11 @@ public class TaskDB extends DBHelper {
                 Task task = new Task(taskID, title, timestamp, completed, difficulty,
                         urgency, priority, timeCompleted, notes, location, agendaID);
 
-                System.out.println("created a task");
+//                System.out.println("created a task");
                 //taskList.add(task);
                 obsTasks.add(task);
 
-                System.out.println("Grabbed Task  = " + task.toString());
+//                System.out.println("Grabbed Task  = " + task.toString());
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());

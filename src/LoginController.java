@@ -58,5 +58,10 @@ public class LoginController {
 //        adb.createAgenda(a);
     }
 
+    @FXML
+    private void bypassLogin(MouseEvent event) throws IOException {
+        SceneController.swapScene("view/gui.fxml", "Agendizer", event, getClass());
+    }
+
 
 }

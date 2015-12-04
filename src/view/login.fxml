@@ -58,7 +58,8 @@
                   <Font size="13.0" />
                </font>
             </Text>
-            <Button fx:id="test" mnemonicParsing="false" onMouseClicked="#testAgenda" text="Button" />
+            <Button fx:id="test" mnemonicParsing="false" onMouseClicked="#testAgenda" text="Method Testing Button" />
+            <Button mnemonicParsing="false" onMouseClicked="#bypassLogin" text="Bypass Login" />
          </children>
       </VBox>
    </children>
