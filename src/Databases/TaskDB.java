@@ -25,22 +25,27 @@ public class TaskDB extends DBHelper {
 
 
     public ObservableList<Task> getUpcomingTasks() throws SQLException {
-        if (myConnection == null) {
-            createConnection();
-        }
-        String query = "SELECT * FROM " + userName + ".Task WHERE completed = 0;";
-        obsTasks = FXCollections.observableArrayList();
-        parseResultSet(query);
-        return obsTasks;
+        return getSpecifiedTask(true);
     }
 
     public ObservableList<Task> getCompletedTasks() throws SQLException {
+        return getSpecifiedTask(false);
+    }
+
+    private ObservableList<Task> getSpecifiedTask(final boolean upcoming) {
         if (myConnection == null) {
             createConnection();
         }
-        String query = "SELECT * FROM " + userName + ".Task WHERE completed = 1";
+        String query = "";
+        if (upcoming) query = "SELECT * FROM " + userName + ".Task WHERE completed = 0;";
+        if (!upcoming) query = "SELECT * FROM " + userName + ".Task WHERE completed = 1;";
         obsTasks = FXCollections.observableArrayList();
-        parseResultSet(query);
+
+        try {
+            parseResultSet(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return obsTasks;
     }
 

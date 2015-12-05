@@ -42,7 +42,7 @@ public class AgendaDB extends DBHelper {
 
     }
 
-    public Agenda getAdendaByTitle(String title) throws SQLException {
+    public Agenda getAgendaByTitle(String title) throws SQLException {
         getUserAgendas();
         Agenda result = null;
 

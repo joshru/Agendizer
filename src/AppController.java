@@ -31,8 +31,8 @@ public class AppController implements Initializable {
     @FXML private Tab newTaskTab;
     @FXML private Button upcomingNewTaskButton;
     @FXML private Button completedNewTaskButton;
-    @FXML private TableView upcomingTaskTable;
-    @FXML private TableView completedTaskTable;
+    @FXML private TableView<Task> upcomingTaskTable;
+    @FXML private TableView<Task> completedTaskTable;
 
     @FXML private ContextMenu taskRowMenu;
     @FXML private MenuItem cMenuCompleted;
@@ -83,9 +83,12 @@ public class AppController implements Initializable {
         compDifficultyCol.setCellValueFactory(new PropertyValueFactory<>("difficulty"));
         compUrgencyCol.setCellValueFactory(new PropertyValueFactory<>("urgency"));
         compPriorityCol.setCellValueFactory(new PropertyValueFactory<>("priority"));
+
         agendaGroup = new ToggleGroup();
+
         upcomingTaskTable.setPlaceholder(new Label("Please select an agenda or create a new task."));
         completedTaskTable.setPlaceholder(new Label("Please select an agenda."));
+
         populateAgendaList();
     }
 
@@ -112,8 +115,10 @@ public class AppController implements Initializable {
 //        ObservableList<Task> data = FXCollections.observableArrayList();+
 //        System.out.println("obs tasks found: " + tasks.size());
 
-        Agenda selected = adb.getAdendaByTitle(Context.getInstance().getCurrentAgendaName());
+        Agenda selected = adb.getAgendaByTitle(Context.getInstance().getCurrentAgendaName());
+
         Context.getInstance().setCurrentAgendaID(selected.getAgendaID());
+
         ObservableList<Task> obs = db.getAgendaTasks(selected);
         upcomingTaskTable.setItems(obs);
 
@@ -222,7 +227,7 @@ public class AppController implements Initializable {
         //TODO populate list with shit
         menuItem.setOnAction(e -> { //hella hax
             try {
-                Agenda selected = adb.getAdendaByTitle(menuItem.getText());
+                Agenda selected = adb.getAgendaByTitle(menuItem.getText());
                 Context.getInstance().setCurrentAgendaID(selected.getAgendaID());
                 Context.getInstance().setCurrentAgendaName(agenda.getAgendaTitle());
                 ObservableList<Task> obs = db.getAgendaTasks(selected);

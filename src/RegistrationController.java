@@ -82,9 +82,8 @@ public class RegistrationController {
     private boolean emailFormatCheck(final String theEmail) {
         boolean isValid = false;
         final String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
-        final CharSequence inputStr = theEmail;
         final Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
-        Matcher matcher = pattern.matcher(inputStr);
+        Matcher matcher = pattern.matcher(theEmail);
         if (matcher.matches()) {
             isValid = true;
         }

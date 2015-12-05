@@ -21,15 +21,11 @@
               <menus>
                 <Menu mnemonicParsing="false" text="File">
                   <items>
-                        <MenuItem mnemonicParsing="false" text="Switch Users" />
+                    <MenuItem mnemonicParsing="false" text="Switch Users" />
                     <MenuItem mnemonicParsing="false" text="Close" />
                   </items>
                 </Menu>
-                <Menu fx:id="AgendasMenu" mnemonicParsing="false" text="Agendas">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="Delete" />
-                  </items>
-                </Menu>
+                <Menu fx:id="AgendasMenu" mnemonicParsing="false" text="Agendas" />
               </menus>
             </MenuBar>
             <HBox nodeOrientation="LEFT_TO_RIGHT" prefHeight="0.0" prefWidth="600.0">
