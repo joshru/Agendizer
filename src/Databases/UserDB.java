@@ -37,7 +37,6 @@ public class UserDB extends DBHelper {
 
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
             e.printStackTrace();
             return false;
         }
@@ -68,7 +67,6 @@ public class UserDB extends DBHelper {
             }
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
             e.printStackTrace();
         }
         return correctLogin;

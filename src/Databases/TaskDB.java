@@ -56,7 +56,6 @@ public class TaskDB extends DBHelper {
             ps.setInt(1, complete.getTaskID());
             ps.executeUpdate();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
             e.printStackTrace();
         }
 
@@ -87,7 +86,6 @@ public class TaskDB extends DBHelper {
             int result = ps.executeUpdate();
             System.out.println("deleted statement. result = " + result);
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
             e.printStackTrace();
         }
 
@@ -118,7 +116,6 @@ public class TaskDB extends DBHelper {
 
             System.out.println("Update complete. Result int: " + result);
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
             e.printStackTrace();
         }
     }
@@ -154,7 +151,7 @@ public class TaskDB extends DBHelper {
 //                System.out.println("Grabbed Task  = " + task.toString());
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         } finally {
             if (stmt != null) {
                 stmt.close();

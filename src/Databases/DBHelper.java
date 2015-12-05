@@ -18,12 +18,16 @@ public abstract class DBHelper {
      * establishes a connection with the team Database
      * @throws SQLException
      */
-    public void createConnection() throws SQLException {
+    public void createConnection()  {
         Properties connectionProps = new Properties();
         connectionProps.put("user", userName);
         connectionProps.put("password", password);
 
-        myConnection = DriverManager.getConnection("jdbc:" + "mysql" + "://" + serverName + "/", connectionProps);
+        try {
+            myConnection = DriverManager.getConnection("jdbc:" + "mysql" + "://" + serverName + "/", connectionProps);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         System.out.println("Connected to Databases.UserDB");
     }
