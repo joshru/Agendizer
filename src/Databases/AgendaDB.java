@@ -1,6 +1,7 @@
 package Databases;
 
 import Model.Agenda;
+import Model.Context;
 import Model.Task;
 import Model.User;
 import javafx.collections.FXCollections;
@@ -59,11 +60,11 @@ public class AgendaDB extends DBHelper {
         return result;
     }
 
-    public List<Agenda> getUserAgendas(int userID) throws SQLException {
+    public List<Agenda> getUserAgendas() throws SQLException {
         if (myConnection == null) {
             createConnection();
         }
-        String query = "select * FROM " + userName + ".Agenda WHERE " + userName + ".User.UserID = " + userID;
+        String query = "SELECT * FROM " + userName + ".Agenda WHERE " + userName + ".Agenda.fkUser = ?;";
         agendaList = new ArrayList<>();
         obsAgendaList = FXCollections.observableArrayList();
 
@@ -74,13 +75,15 @@ public class AgendaDB extends DBHelper {
     }
 
     private void populateList(String query) throws SQLException {
-        Statement stmt = null;
+        PreparedStatement stmt = null;
 
 
         try {
-
-            stmt = myConnection.createStatement();
-            ResultSet results = stmt.executeQuery(query);
+            createConnection();
+            stmt = myConnection.prepareStatement(query);
+            stmt.setInt(1, Context.getInstance().getCurrentUserID());
+            System.out.println(stmt.toString());
+            ResultSet results = stmt.executeQuery();
 
             while (results.next()) {
                 int agendaID = results.getInt("agendaID");

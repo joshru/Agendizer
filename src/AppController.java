@@ -80,7 +80,7 @@ public class AppController implements Initializable {
         compDifficultyCol.setCellValueFactory(new PropertyValueFactory<>("difficulty"));
         compUrgencyCol.setCellValueFactory(new PropertyValueFactory<>("urgency"));
         compPriorityCol.setCellValueFactory(new PropertyValueFactory<>("priority"));
-        //populateAgendaList();
+        populateAgendaList();
     }
 
     @FXML
@@ -182,8 +182,9 @@ public class AppController implements Initializable {
 
     private void populateAgendaList() {
         int currUserId = Context.getInstance().getCurrentUserID();
+        System.out.println("Logged in user: " + currUserId);
         try {
-            ArrayList<Agenda> agendas = (ArrayList<Agenda>) adb.getUserAgendas(currUserId);
+            ArrayList<Agenda> agendas = (ArrayList<Agenda>) adb.getUserAgendas();
 
             for (Agenda current : agendas) {
                 MenuItem menuItem = new MenuItem(current.getAgendaTitle());
