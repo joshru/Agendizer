@@ -1,4 +1,7 @@
+import Databases.AgendaDB;
 import Databases.TaskDB;
+import Model.Agenda;
+import Model.Context;
 import Model.Task;
 import javafx.application.Application;
 import javafx.collections.ObservableArray;
@@ -12,6 +15,7 @@ import javafx.scene.image.ImageView;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -35,6 +39,7 @@ public class AppController implements Initializable {
     @FXML private ContextMenu taskRowMenu;
     @FXML private MenuItem cMenuCompleted;
     @FXML private MenuItem cMenuDelete;
+    @FXML private Menu AgendasMenu;
 
 
     // these columns should probably be in an array or something. messy
@@ -56,7 +61,8 @@ public class AppController implements Initializable {
     @FXML private ChoiceBox newTaskPriority;
     @FXML private Button newTaskButton;
 
-    private TaskDB db = new TaskDB();
+    private static TaskDB db = new TaskDB();
+    private static AgendaDB adb = new AgendaDB();
 
 //    ObservableList<String> difficultyVals = FXCollections.observableArrayList("one", "two");
 
@@ -74,6 +80,7 @@ public class AppController implements Initializable {
         compDifficultyCol.setCellValueFactory(new PropertyValueFactory<>("difficulty"));
         compUrgencyCol.setCellValueFactory(new PropertyValueFactory<>("urgency"));
         compPriorityCol.setCellValueFactory(new PropertyValueFactory<>("priority"));
+        //populateAgendaList();
     }
 
     @FXML
@@ -93,14 +100,8 @@ public class AppController implements Initializable {
     }
 
     @FXML
-    private void upcomingTabSelected() {
-        ObservableList<Task> tasks = null;
-        try {
-            tasks = db.getUpcomingTasks();
-            upcomingTaskTable.setItems(tasks);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    private void upcomingTabSelected() throws SQLException {
+        ObservableList<Task> tasks = db.getUpcomingTasks();
 //        ObservableList<Task> data = FXCollections.observableArrayList();+
 //        System.out.println("obs tasks found: " + tasks.size());
 
@@ -175,6 +176,27 @@ public class AppController implements Initializable {
         newTaskDescpriton.setText("");
         newTaskDeadline.getEditor().clear();
 //        newTaskDifficulty.
+
+    }
+
+
+    private void populateAgendaList() {
+        int currUserId = Context.getInstance().getCurrentUserID();
+        try {
+            ArrayList<Agenda> agendas = (ArrayList<Agenda>) adb.getUserAgendas(currUserId);
+
+            for (Agenda current : agendas) {
+                MenuItem menuItem = new MenuItem(current.getAgendaTitle());
+
+                //TODO populate list with shit
+
+                AgendasMenu.getItems().add(menuItem);
+            }
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 

@@ -1,5 +1,6 @@
 import Databases.AgendaDB;
 import Databases.UserDB;
+import Model.Context;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -38,6 +39,9 @@ public class LoginController {
             pass = passwordLoginField.getText();
             if (db.hasAccount(user, pass)) {
                 System.out.println("matching account found");
+
+                Context.getInstance().setCurrentUserID(user.hashCode());
+
                 SceneController.swapScene("view/gui.fxml", "Agendizer", event, getClass());
 
             } else {
