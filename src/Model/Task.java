@@ -20,7 +20,7 @@ public class Task {
     private Integer fk_agendaID;
 
 
-
+    // TODO get rid of urgency in Task
     public Task(int taskID, String title, Date timeStamp, int completed, String difficulty, String urgency,
                 String priority, Date timeCompleted, String notes, String location, Integer fk_agendaID) {
         this.taskID = taskID;
