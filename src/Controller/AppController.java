@@ -1,3 +1,5 @@
+package Controller;
+
 import Databases.AgendaDB;
 import Databases.TaskDB;
 import Model.Agenda;
@@ -208,9 +210,13 @@ public class AppController implements Initializable {
         try {
             ArrayList<Agenda> agendas = (ArrayList<Agenda>) adb.getUserAgendas();
 
-            for (Agenda current : agendas) {
-                addAgendaMenuItem(current);
-            }
+
+            //From this
+//            for (Agenda current : agendas) {
+//                addAgendaMenuItem(current);
+//            }
+            //To this
+            agendas.forEach(element -> addAgendaMenuItem(element));
 
 
         } catch (SQLException e) {
@@ -222,7 +228,7 @@ public class AppController implements Initializable {
     private void addAgendaMenuItem(final Agenda agenda) {
         RadioMenuItem menuItem = new RadioMenuItem(agenda.getAgendaTitle());
 
-        //TODO populate list with shit
+        //TODO populate list with stuff
         menuItem.setOnAction(e -> { //hella hax
             try {
                 Agenda selected = adb.getAgendaByTitle(menuItem.getText());

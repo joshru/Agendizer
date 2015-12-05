@@ -1,3 +1,5 @@
+package Controller;
+
 import Databases.UserDB;
 import Model.User;
 import javafx.fxml.FXML;
