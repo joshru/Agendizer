@@ -61,6 +61,11 @@ public class AppController implements Initializable {
     @FXML private ChoiceBox newTaskPriority;
     @FXML private Button newTaskButton;
 
+    @FXML private TextField newAgendaName;
+    @FXML private Button newAgendaButton;
+
+    private ToggleGroup agendaGroup;
+
     private static TaskDB db = new TaskDB();
     private static AgendaDB adb = new AgendaDB();
 
@@ -80,6 +85,7 @@ public class AppController implements Initializable {
         compDifficultyCol.setCellValueFactory(new PropertyValueFactory<>("difficulty"));
         compUrgencyCol.setCellValueFactory(new PropertyValueFactory<>("urgency"));
         compPriorityCol.setCellValueFactory(new PropertyValueFactory<>("priority"));
+        agendaGroup = new ToggleGroup();
         populateAgendaList();
     }
 
@@ -140,6 +146,15 @@ public class AppController implements Initializable {
 
     }
 
+    @FXML
+    private void handleCreateAgenda() {
+        String title = newAgendaName.getText();
+        int ID = title.hashCode();
+        int user = Context.getInstance().getCurrentUserID();
+        Agenda agenda = new Agenda(ID, title, user);
+        adb.createAgenda(agenda);
+    }
+
 
     //https://community.oracle.com/thread/2486012?tstart=0
     // helpful link about combo boxes
@@ -184,21 +199,7 @@ public class AppController implements Initializable {
             ArrayList<Agenda> agendas = (ArrayList<Agenda>) adb.getUserAgendas();
 
             for (Agenda current : agendas) {
-                MenuItem menuItem = new MenuItem(current.getAgendaTitle());
-
-                //TODO populate list with shit
-                menuItem.setOnAction(e -> { //hella hax
-                    try {
-                        Agenda selected = adb.getAdendaByTitle(menuItem.getText());
-                        Context.getInstance().setCurrentAgendaID(selected.getAgendaID());
-                        ObservableList<Task> obs = db.getAgendaTasks(selected);
-                        upcomingTaskTable.setItems(obs);
-                    } catch (SQLException e1) {
-                        e1.printStackTrace();
-                    }
-                });
-
-                AgendasMenu.getItems().add(menuItem);
+                addAgendaMenuItem(current);
             }
 
 
@@ -206,6 +207,24 @@ public class AppController implements Initializable {
             e.printStackTrace();
         }
 
+    }
+
+    private void addAgendaMenuItem(final Agenda agenda) {
+        RadioMenuItem menuItem = new RadioMenuItem(agenda.getAgendaTitle());
+
+        //TODO populate list with shit
+        menuItem.setOnAction(e -> { //hella hax
+            try {
+                Agenda selected = adb.getAdendaByTitle(menuItem.getText());
+                Context.getInstance().setCurrentAgendaID(selected.getAgendaID());
+                ObservableList<Task> obs = db.getAgendaTasks(selected);
+                upcomingTaskTable.setItems(obs);
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+        });
+        menuItem.setToggleGroup(agendaGroup);
+        AgendasMenu.getItems().add(menuItem);
     }
 
 }

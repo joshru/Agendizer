@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="DataSourceManagerImpl" format="xml" hash="2288225260">
-    <data-source source="LOCAL" name="cssgate" uuid="de0e9c66-45dd-4d43-800a-0f31cb60db88">
+  <component name="DataSourceManagerImpl" format="xml" hash="1252050019">
+    <data-source source="LOCAL" name="cssgate" uuid="bda91e70-5e7b-42a7-aebc-d466ccb1b765">
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://cssgate.insttech.washington.edu:3306</jdbc-url>
+      <jdbc-url>jdbc:mysql://cssgate.insttech.washington.edu:3306/_445team2</jdbc-url>
       <driver-properties>
         <property name="zeroDateTimeBehavior" value="convertToNull" />
         <property name="tinyInt1isBit" value="false" />
@@ -13,21 +13,6 @@
         <property name="characterSetResults" value="utf8" />
         <property name="yearIsDateType" value="false" />
       </driver-properties>
-      <libraries />
-    </data-source>
-    <data-source source="LOCAL" name="AgendizerDB" uuid="9e621913-8382-4a0f-a63f-6ca9e3c171f3">
-      <driver-ref>mysql</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://cssgate.insttech.washington.edu:3306</jdbc-url>
-      <driver-properties>
-        <property name="zeroDateTimeBehavior" value="convertToNull" />
-        <property name="tinyInt1isBit" value="false" />
-        <property name="characterEncoding" value="utf8" />
-        <property name="characterSetResults" value="utf8" />
-        <property name="yearIsDateType" value="false" />
-      </driver-properties>
-      <libraries />
     </data-source>
   </component>
 </project>

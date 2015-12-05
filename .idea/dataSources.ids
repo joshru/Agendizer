@@ -1,222 +1,574 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component name="dataSourceStorage">
-  <data-source name="cssgate" uuid="de0e9c66-45dd-4d43-800a-0f31cb60db88">
+  <data-source name="cssgate" uuid="bda91e70-5e7b-42a7-aebc-d466ccb1b765">
     <database-info product="MySQL" version="5.1.39-community" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
       <extra-name-characters>#@</extra-name-characters>
       <identifier-quote-string>`</identifier-quote-string>
     </database-info>
     <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact"/>
-  </data-source>
-  <data-source name="AgendizerDB" uuid="9e621913-8382-4a0f-a63f-6ca9e3c171f3">
-    <database-info product="MySQL" version="5.1.39-community" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
-      <extra-name-characters>#@</extra-name-characters>
-      <identifier-quote-string>`</identifier-quote-string>
-    </database-info>
-    <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact"/>
-    <schema name="" catalog="_445team2"/>
-    <table name="Agenda" schema="" catalog="_445team2" type="TABLE">
-      <column name="agendaID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <column name="title" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
-      <column name="fkUser" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <primary-key name="PRIMARY" columns="agendaID,fkUser"/>
-      <index name="userID_idx" unique="false" columns="fkUser"/>
-    </table>
-    <table name="Reminder" schema="" catalog="_445team2" type="TABLE">
-      <column name="reminderID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <column name="reminderTime" sqlType="DATE" precision="10" scale="0" nullable="false" jdbcType="91"/>
-      <column name="fkTaskID" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <primary-key name="PRIMARY" columns="reminderID"/>
-      <index name="taskID_idx" unique="false" columns="fkTaskID"/>
-    </table>
-    <table name="Section" schema="" catalog="_445team2" type="TABLE">
-      <column name="sectionID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <column name="sectionHeader" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
-      <column name="separatorType" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
-      <column name="agenda_agendaID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <primary-key name="PRIMARY" columns="sectionID"/>
-      <index name="agendaID_idx" unique="false" columns="agenda_agendaID"/>
-    </table>
-    <table name="Task" schema="" catalog="_445team2" type="TABLE">
-      <column name="taskID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <column name="title" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
-      <column name="timestamp" sqlType="DATE" precision="10" scale="0" nullable="false" jdbcType="91"/>
-      <column name="completed" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <column name="difficulty" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
-      <column name="urgency" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
-      <column name="priority" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
-      <column name="timeCompleted" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
-      <column name="notes" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="true" jdbcType="-1"/>
-      <column name="location" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
-      <column name="agenda_agendaID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <primary-key name="PRIMARY" columns="taskID"/>
-      <index name="agendaID_idx" unique="false" columns="agenda_agendaID"/>
-    </table>
-    <table name="User" schema="" catalog="_445team2" type="TABLE">
-      <column name="UserID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <column name="username" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
-      <column name="firstName" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
-      <column name="lastName" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
-      <column name="email" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
-      <column name="password" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
-      <primary-key name="PRIMARY" columns="UserID"/>
-    </table>
-    <table name="attachment" schema="" catalog="_445team2" type="TABLE">
-      <column name="type" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
-      <column name="id" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
-      <column name="filename" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
-      <column name="size" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <column name="time" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
-      <column name="description" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
-      <column name="author" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
-      <column name="ipnr" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
-      <primary-key name="PRIMARY" columns="type,id,filename"/>
-    </table>
-    <table name="auth_cookie" schema="" catalog="_445team2" type="TABLE">
-      <column name="cookie" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
-      <column name="name" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
-      <column name="ipnr" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
-      <column name="time" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <primary-key name="PRIMARY" columns="cookie,ipnr,name"/>
-    </table>
-    <table name="cache" schema="" catalog="_445team2" type="TABLE">
-      <column name="id" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
-      <column name="generation" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <primary-key name="PRIMARY" columns="id"/>
-    </table>
-    <table name="component" schema="" catalog="_445team2" type="TABLE">
-      <column name="name" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
-      <column name="owner" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
-      <column name="description" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
-      <primary-key name="PRIMARY" columns="name"/>
-    </table>
-    <table name="enum" schema="" catalog="_445team2" type="TABLE">
-      <column name="type" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
-      <column name="name" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
-      <column name="value" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
-      <primary-key name="PRIMARY" columns="type,name"/>
-    </table>
-    <table name="milestone" schema="" catalog="_445team2" type="TABLE">
-      <column name="name" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
-      <column name="due" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
-      <column name="completed" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
-      <column name="description" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
-      <primary-key name="PRIMARY" columns="name"/>
-    </table>
-    <table name="node_change" schema="" catalog="_445team2" type="TABLE">
-      <column name="repos" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
-      <column name="rev" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
-      <column name="path" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
-      <column name="node_type" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
-      <column name="change_type" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
-      <column name="base_path" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
-      <column name="base_rev" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
-      <primary-key name="PRIMARY" columns="repos,rev,path,change_type"/>
-      <index name="node_change_repos_rev_idx" unique="false" columns="repos,rev"/>
-    </table>
-    <table name="permission" schema="" catalog="_445team2" type="TABLE">
-      <column name="username" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
-      <column name="action" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
-      <primary-key name="PRIMARY" columns="username,action"/>
-    </table>
-    <table name="report" schema="" catalog="_445team2" type="TABLE">
-      <column name="id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
-      <column name="author" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
-      <column name="title" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
-      <column name="query" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
-      <column name="description" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
-      <primary-key name="PRIMARY" columns="id"/>
-    </table>
-    <table name="repository" schema="" catalog="_445team2" type="TABLE">
-      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
-      <column name="name" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
-      <column name="value" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
-      <primary-key name="PRIMARY" columns="id,name"/>
-    </table>
-    <table name="revision" schema="" catalog="_445team2" type="TABLE">
-      <column name="repos" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
-      <column name="rev" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
-      <column name="time" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
-      <column name="author" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
-      <column name="message" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
-      <primary-key name="PRIMARY" columns="repos,rev"/>
-      <index name="revision_repos_time_idx" unique="false" columns="repos,time"/>
-    </table>
-    <table name="session" schema="" catalog="_445team2" type="TABLE">
-      <column name="sid" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
-      <column name="authenticated" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
-      <column name="last_visit" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <primary-key name="PRIMARY" columns="sid,authenticated"/>
-      <index name="session_authenticated_idx" unique="false" columns="authenticated"/>
-      <index name="session_last_visit_idx" unique="false" columns="last_visit"/>
-    </table>
-    <table name="session_attribute" schema="" catalog="_445team2" type="TABLE">
-      <column name="sid" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
-      <column name="authenticated" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
-      <column name="name" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
-      <column name="value" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
-      <primary-key name="PRIMARY" columns="sid,authenticated,name"/>
-    </table>
-    <table name="system" schema="" catalog="_445team2" type="TABLE">
-      <column name="name" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
-      <column name="value" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
-      <primary-key name="PRIMARY" columns="name"/>
-    </table>
-    <table name="ticket" schema="" catalog="_445team2" type="TABLE">
-      <column name="id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
-      <column name="type" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
-      <column name="time" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
-      <column name="changetime" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
-      <column name="component" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
-      <column name="severity" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
-      <column name="priority" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
-      <column name="owner" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
-      <column name="reporter" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
-      <column name="cc" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
-      <column name="version" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
-      <column name="milestone" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
-      <column name="status" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
-      <column name="resolution" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
-      <column name="summary" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
-      <column name="description" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
-      <column name="keywords" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
-      <primary-key name="PRIMARY" columns="id"/>
-      <index name="ticket_status_idx" unique="false" columns="status"/>
-      <index name="ticket_time_idx" unique="false" columns="time"/>
-    </table>
-    <table name="ticket_change" schema="" catalog="_445team2" type="TABLE">
-      <column name="ticket" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
-      <column name="time" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" def="MA=="/>
-      <column name="author" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
-      <column name="field" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
-      <column name="oldvalue" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
-      <column name="newvalue" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
-      <primary-key name="PRIMARY" columns="ticket,time,field"/>
-      <index name="ticket_change_ticket_idx" unique="false" columns="ticket"/>
-      <index name="ticket_change_time_idx" unique="false" columns="time"/>
-    </table>
-    <table name="ticket_custom" schema="" catalog="_445team2" type="TABLE">
-      <column name="ticket" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
-      <column name="name" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
-      <column name="value" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
-      <primary-key name="PRIMARY" columns="ticket,name"/>
-    </table>
-    <table name="version" schema="" catalog="_445team2" type="TABLE">
-      <column name="name" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
-      <column name="time" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
-      <column name="description" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
-      <primary-key name="PRIMARY" columns="name"/>
-    </table>
-    <table name="wiki" schema="" catalog="_445team2" type="TABLE">
-      <column name="name" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
-      <column name="version" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
-      <column name="time" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
-      <column name="author" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
-      <column name="ipnr" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
-      <column name="text" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
-      <column name="comment" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
-      <column name="readonly" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <primary-key name="PRIMARY" columns="name,version"/>
-      <index name="wiki_time_idx" unique="false" columns="time"/>
-    </table>
+    <database-model serializer="dbm" rdbms="MYSQL" format-version="2.2">
+      <schema id="1" name="_445team2"/>
+      <table id="2" parent="1" name="Agenda"/>
+      <table id="3" parent="1" name="Reminder"/>
+      <table id="4" parent="1" name="Section"/>
+      <table id="5" parent="1" name="Task"/>
+      <table id="6" parent="1" name="User"/>
+      <table id="7" parent="1" name="attachment"/>
+      <table id="8" parent="1" name="auth_cookie"/>
+      <table id="9" parent="1" name="cache"/>
+      <table id="10" parent="1" name="component"/>
+      <table id="11" parent="1" name="enum"/>
+      <table id="12" parent="1" name="milestone"/>
+      <table id="13" parent="1" name="node_change"/>
+      <table id="14" parent="1" name="permission"/>
+      <table id="15" parent="1" name="report"/>
+      <table id="16" parent="1" name="repository"/>
+      <table id="17" parent="1" name="revision"/>
+      <table id="18" parent="1" name="session"/>
+      <table id="19" parent="1" name="session_attribute"/>
+      <table id="20" parent="1" name="system"/>
+      <table id="21" parent="1" name="ticket"/>
+      <table id="22" parent="1" name="ticket_change"/>
+      <table id="23" parent="1" name="ticket_custom"/>
+      <table id="24" parent="1" name="version"/>
+      <table id="25" parent="1" name="wiki"/>
+      <column id="26" parent="2" name="agendaID">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="27" parent="2" name="title">
+        <mandatory>1</mandatory>
+        <data-type>varchar(45)</data-type>
+      </column>
+      <column id="28" parent="2" name="fkUser">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <key id="29" parent="2" name="PRIMARY">
+        <columns>agendaID
+fkUser</columns>
+        <primary>1</primary>
+      </key>
+      <column id="30" parent="3" name="reminderID">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="31" parent="3" name="reminderTime">
+        <mandatory>1</mandatory>
+        <data-type>date</data-type>
+      </column>
+      <column id="32" parent="3" name="fkTaskID">
+        <data-type>int(11)</data-type>
+      </column>
+      <key id="33" parent="3" name="PRIMARY">
+        <columns>reminderID</columns>
+        <primary>1</primary>
+      </key>
+      <column id="34" parent="4" name="sectionID">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="35" parent="4" name="sectionHeader">
+        <mandatory>1</mandatory>
+        <data-type>varchar(45)</data-type>
+      </column>
+      <column id="36" parent="4" name="separatorType">
+        <data-type>varchar(45)</data-type>
+      </column>
+      <column id="37" parent="4" name="agenda_agendaID">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <key id="38" parent="4" name="PRIMARY">
+        <columns>sectionID</columns>
+        <primary>1</primary>
+      </key>
+      <column id="39" parent="5" name="taskID">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="40" parent="5" name="title">
+        <mandatory>1</mandatory>
+        <data-type>varchar(45)</data-type>
+      </column>
+      <column id="41" parent="5" name="timestamp">
+        <mandatory>1</mandatory>
+        <data-type>date</data-type>
+      </column>
+      <column id="42" parent="5" name="completed">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="43" parent="5" name="difficulty">
+        <data-type>varchar(45)</data-type>
+      </column>
+      <column id="44" parent="5" name="urgency">
+        <data-type>varchar(45)</data-type>
+      </column>
+      <column id="45" parent="5" name="priority">
+        <data-type>varchar(45)</data-type>
+      </column>
+      <column id="46" parent="5" name="timeCompleted">
+        <data-type>date</data-type>
+      </column>
+      <column id="47" parent="5" name="notes">
+        <data-type>longtext</data-type>
+      </column>
+      <column id="48" parent="5" name="location">
+        <data-type>varchar(45)</data-type>
+      </column>
+      <column id="49" parent="5" name="agenda_agendaID">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <key id="50" parent="5" name="PRIMARY">
+        <columns>taskID</columns>
+        <primary>1</primary>
+      </key>
+      <column id="51" parent="6" name="UserID">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="52" parent="6" name="username">
+        <mandatory>1</mandatory>
+        <data-type>varchar(45)</data-type>
+      </column>
+      <column id="53" parent="6" name="firstName">
+        <mandatory>1</mandatory>
+        <data-type>varchar(45)</data-type>
+      </column>
+      <column id="54" parent="6" name="lastName">
+        <mandatory>1</mandatory>
+        <data-type>varchar(45)</data-type>
+      </column>
+      <column id="55" parent="6" name="email">
+        <mandatory>1</mandatory>
+        <data-type>varchar(45)</data-type>
+      </column>
+      <column id="56" parent="6" name="password">
+        <mandatory>1</mandatory>
+        <data-type>varchar(45)</data-type>
+      </column>
+      <key id="57" parent="6" name="PRIMARY">
+        <columns>UserID</columns>
+        <primary>1</primary>
+      </key>
+      <column id="58" parent="7" name="type">
+        <mandatory>1</mandatory>
+        <data-type>text</data-type>
+      </column>
+      <column id="59" parent="7" name="id">
+        <mandatory>1</mandatory>
+        <data-type>text</data-type>
+      </column>
+      <column id="60" parent="7" name="filename">
+        <mandatory>1</mandatory>
+        <data-type>text</data-type>
+      </column>
+      <column id="61" parent="7" name="size">
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="62" parent="7" name="time">
+        <data-type>bigint(20)</data-type>
+      </column>
+      <column id="63" parent="7" name="description">
+        <data-type>text</data-type>
+      </column>
+      <column id="64" parent="7" name="author">
+        <data-type>text</data-type>
+      </column>
+      <column id="65" parent="7" name="ipnr">
+        <data-type>text</data-type>
+      </column>
+      <key id="66" parent="7" name="PRIMARY">
+        <columns>type
+id
+filename</columns>
+        <primary>1</primary>
+      </key>
+      <column id="67" parent="8" name="cookie">
+        <mandatory>1</mandatory>
+        <data-type>text</data-type>
+      </column>
+      <column id="68" parent="8" name="name">
+        <mandatory>1</mandatory>
+        <data-type>text</data-type>
+      </column>
+      <column id="69" parent="8" name="ipnr">
+        <mandatory>1</mandatory>
+        <data-type>text</data-type>
+      </column>
+      <column id="70" parent="8" name="time">
+        <data-type>int(11)</data-type>
+      </column>
+      <key id="71" parent="8" name="PRIMARY">
+        <columns>cookie
+ipnr
+name</columns>
+        <primary>1</primary>
+      </key>
+      <column id="72" parent="9" name="id">
+        <mandatory>1</mandatory>
+        <data-type>text</data-type>
+      </column>
+      <column id="73" parent="9" name="generation">
+        <data-type>int(11)</data-type>
+      </column>
+      <key id="74" parent="9" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="75" parent="10" name="name">
+        <mandatory>1</mandatory>
+        <data-type>text</data-type>
+      </column>
+      <column id="76" parent="10" name="owner">
+        <data-type>text</data-type>
+      </column>
+      <column id="77" parent="10" name="description">
+        <data-type>text</data-type>
+      </column>
+      <key id="78" parent="10" name="PRIMARY">
+        <columns>name</columns>
+        <primary>1</primary>
+      </key>
+      <column id="79" parent="11" name="type">
+        <mandatory>1</mandatory>
+        <data-type>text</data-type>
+      </column>
+      <column id="80" parent="11" name="name">
+        <mandatory>1</mandatory>
+        <data-type>text</data-type>
+      </column>
+      <column id="81" parent="11" name="value">
+        <data-type>text</data-type>
+      </column>
+      <key id="82" parent="11" name="PRIMARY">
+        <columns>type
+name</columns>
+        <primary>1</primary>
+      </key>
+      <column id="83" parent="12" name="name">
+        <mandatory>1</mandatory>
+        <data-type>text</data-type>
+      </column>
+      <column id="84" parent="12" name="due">
+        <data-type>bigint(20)</data-type>
+      </column>
+      <column id="85" parent="12" name="completed">
+        <data-type>bigint(20)</data-type>
+      </column>
+      <column id="86" parent="12" name="description">
+        <data-type>text</data-type>
+      </column>
+      <key id="87" parent="12" name="PRIMARY">
+        <columns>name</columns>
+        <primary>1</primary>
+      </key>
+      <column id="88" parent="13" name="repos">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="89" parent="13" name="rev">
+        <mandatory>1</mandatory>
+        <data-type>text</data-type>
+      </column>
+      <column id="90" parent="13" name="path">
+        <mandatory>1</mandatory>
+        <data-type>text</data-type>
+      </column>
+      <column id="91" parent="13" name="node_type">
+        <data-type>text</data-type>
+      </column>
+      <column id="92" parent="13" name="change_type">
+        <mandatory>1</mandatory>
+        <data-type>text</data-type>
+      </column>
+      <column id="93" parent="13" name="base_path">
+        <data-type>text</data-type>
+      </column>
+      <column id="94" parent="13" name="base_rev">
+        <data-type>text</data-type>
+      </column>
+      <key id="95" parent="13" name="PRIMARY">
+        <columns>repos
+rev
+path
+change_type</columns>
+        <primary>1</primary>
+      </key>
+      <column id="96" parent="14" name="username">
+        <mandatory>1</mandatory>
+        <data-type>text</data-type>
+      </column>
+      <column id="97" parent="14" name="action">
+        <mandatory>1</mandatory>
+        <data-type>text</data-type>
+      </column>
+      <key id="98" parent="14" name="PRIMARY">
+        <columns>username
+action</columns>
+        <primary>1</primary>
+      </key>
+      <column id="99" parent="15" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(10) unsigned</data-type>
+      </column>
+      <column id="100" parent="15" name="author">
+        <data-type>text</data-type>
+      </column>
+      <column id="101" parent="15" name="title">
+        <data-type>text</data-type>
+      </column>
+      <column id="102" parent="15" name="query">
+        <data-type>text</data-type>
+      </column>
+      <column id="103" parent="15" name="description">
+        <data-type>text</data-type>
+      </column>
+      <key id="104" parent="15" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="105" parent="16" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="106" parent="16" name="name">
+        <mandatory>1</mandatory>
+        <data-type>text</data-type>
+      </column>
+      <column id="107" parent="16" name="value">
+        <data-type>text</data-type>
+      </column>
+      <key id="108" parent="16" name="PRIMARY">
+        <columns>id
+name</columns>
+        <primary>1</primary>
+      </key>
+      <column id="109" parent="17" name="repos">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="110" parent="17" name="rev">
+        <mandatory>1</mandatory>
+        <data-type>text</data-type>
+      </column>
+      <column id="111" parent="17" name="time">
+        <data-type>bigint(20)</data-type>
+      </column>
+      <column id="112" parent="17" name="author">
+        <data-type>text</data-type>
+      </column>
+      <column id="113" parent="17" name="message">
+        <data-type>text</data-type>
+      </column>
+      <key id="114" parent="17" name="PRIMARY">
+        <columns>repos
+rev</columns>
+        <primary>1</primary>
+      </key>
+      <column id="115" parent="18" name="sid">
+        <mandatory>1</mandatory>
+        <data-type>text</data-type>
+      </column>
+      <column id="116" parent="18" name="authenticated">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="117" parent="18" name="last_visit">
+        <data-type>int(11)</data-type>
+      </column>
+      <key id="118" parent="18" name="PRIMARY">
+        <columns>sid
+authenticated</columns>
+        <primary>1</primary>
+      </key>
+      <column id="119" parent="19" name="sid">
+        <mandatory>1</mandatory>
+        <data-type>text</data-type>
+      </column>
+      <column id="120" parent="19" name="authenticated">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="121" parent="19" name="name">
+        <mandatory>1</mandatory>
+        <data-type>text</data-type>
+      </column>
+      <column id="122" parent="19" name="value">
+        <data-type>text</data-type>
+      </column>
+      <key id="123" parent="19" name="PRIMARY">
+        <columns>sid
+authenticated
+name</columns>
+        <primary>1</primary>
+      </key>
+      <column id="124" parent="20" name="name">
+        <mandatory>1</mandatory>
+        <data-type>text</data-type>
+      </column>
+      <column id="125" parent="20" name="value">
+        <data-type>text</data-type>
+      </column>
+      <key id="126" parent="20" name="PRIMARY">
+        <columns>name</columns>
+        <primary>1</primary>
+      </key>
+      <column id="127" parent="21" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(10) unsigned</data-type>
+      </column>
+      <column id="128" parent="21" name="type">
+        <data-type>text</data-type>
+      </column>
+      <column id="129" parent="21" name="time">
+        <data-type>bigint(20)</data-type>
+      </column>
+      <column id="130" parent="21" name="changetime">
+        <data-type>bigint(20)</data-type>
+      </column>
+      <column id="131" parent="21" name="component">
+        <data-type>text</data-type>
+      </column>
+      <column id="132" parent="21" name="severity">
+        <data-type>text</data-type>
+      </column>
+      <column id="133" parent="21" name="priority">
+        <data-type>text</data-type>
+      </column>
+      <column id="134" parent="21" name="owner">
+        <data-type>text</data-type>
+      </column>
+      <column id="135" parent="21" name="reporter">
+        <data-type>text</data-type>
+      </column>
+      <column id="136" parent="21" name="cc">
+        <data-type>text</data-type>
+      </column>
+      <column id="137" parent="21" name="version">
+        <data-type>text</data-type>
+      </column>
+      <column id="138" parent="21" name="milestone">
+        <data-type>text</data-type>
+      </column>
+      <column id="139" parent="21" name="status">
+        <data-type>text</data-type>
+      </column>
+      <column id="140" parent="21" name="resolution">
+        <data-type>text</data-type>
+      </column>
+      <column id="141" parent="21" name="summary">
+        <data-type>text</data-type>
+      </column>
+      <column id="142" parent="21" name="description">
+        <data-type>text</data-type>
+      </column>
+      <column id="143" parent="21" name="keywords">
+        <data-type>text</data-type>
+      </column>
+      <key id="144" parent="21" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="145" parent="22" name="ticket">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="146" parent="22" name="time">
+        <mandatory>1</mandatory>
+        <data-type>bigint(20)</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="147" parent="22" name="author">
+        <data-type>text</data-type>
+      </column>
+      <column id="148" parent="22" name="field">
+        <mandatory>1</mandatory>
+        <data-type>text</data-type>
+      </column>
+      <column id="149" parent="22" name="oldvalue">
+        <data-type>text</data-type>
+      </column>
+      <column id="150" parent="22" name="newvalue">
+        <data-type>text</data-type>
+      </column>
+      <key id="151" parent="22" name="PRIMARY">
+        <columns>ticket
+time
+field</columns>
+        <primary>1</primary>
+      </key>
+      <column id="152" parent="23" name="ticket">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="153" parent="23" name="name">
+        <mandatory>1</mandatory>
+        <data-type>text</data-type>
+      </column>
+      <column id="154" parent="23" name="value">
+        <data-type>text</data-type>
+      </column>
+      <key id="155" parent="23" name="PRIMARY">
+        <columns>ticket
+name</columns>
+        <primary>1</primary>
+      </key>
+      <column id="156" parent="24" name="name">
+        <mandatory>1</mandatory>
+        <data-type>text</data-type>
+      </column>
+      <column id="157" parent="24" name="time">
+        <data-type>bigint(20)</data-type>
+      </column>
+      <column id="158" parent="24" name="description">
+        <data-type>text</data-type>
+      </column>
+      <key id="159" parent="24" name="PRIMARY">
+        <columns>name</columns>
+        <primary>1</primary>
+      </key>
+      <column id="160" parent="25" name="name">
+        <mandatory>1</mandatory>
+        <data-type>text</data-type>
+      </column>
+      <column id="161" parent="25" name="version">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="162" parent="25" name="time">
+        <data-type>bigint(20)</data-type>
+      </column>
+      <column id="163" parent="25" name="author">
+        <data-type>text</data-type>
+      </column>
+      <column id="164" parent="25" name="ipnr">
+        <data-type>text</data-type>
+      </column>
+      <column id="165" parent="25" name="text">
+        <data-type>text</data-type>
+      </column>
+      <column id="166" parent="25" name="comment">
+        <data-type>text</data-type>
+      </column>
+      <column id="167" parent="25" name="readonly">
+        <data-type>int(11)</data-type>
+      </column>
+      <key id="168" parent="25" name="PRIMARY">
+        <columns>name
+version</columns>
+        <primary>1</primary>
+      </key>
+    </database-model>
   </data-source>
 </component>

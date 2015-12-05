@@ -201,12 +201,12 @@
                                           <Font size="15.0" />
                                        </font>
                                     </Label>
-                                    <TextField alignment="CENTER" layoutX="186.0" layoutY="136.0" prefHeight="27.0" prefWidth="373.0" promptText="Enter Desired Agenda Name">
+                                    <TextField fx:id="newAgendaName" alignment="CENTER" layoutX="186.0" layoutY="136.0" prefHeight="27.0" prefWidth="373.0" promptText="Enter Desired Agenda Name">
                                        <VBox.margin>
                                           <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                                        </VBox.margin>
                                     </TextField>
-                                    <Button alignment="CENTER" layoutX="245.0" layoutY="186.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="162.0" text="Create New Agenda">
+                                    <Button fx:id="newAgendaButton" alignment="CENTER" layoutX="245.0" layoutY="186.0" mnemonicParsing="false" onMouseClicked="#handleCreateAgenda" prefHeight="29.0" prefWidth="162.0" text="Create New Agenda">
                                        <font>
                                           <Font size="13.0" />
                                        </font>

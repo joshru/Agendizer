@@ -43,7 +43,7 @@ public class AgendaDB extends DBHelper {
     }
 
     public Agenda getAdendaByTitle(String title) throws SQLException {
-        getAgendas();
+        getUserAgendas();
         Agenda result = null;
 
         Iterator<Agenda> itr = obsAgendaList.iterator();
@@ -109,8 +109,7 @@ public class AgendaDB extends DBHelper {
 
 
     public void createAgenda(Agenda agenda) {
-        String statement = "INSERT INTO _445team2.Agenda VALUES " +
-                "(?, ?, ?)";
+        String statement = "INSERT INTO _445team2.Agenda VALUES (?, ?, ?)";
         PreparedStatement preparedStatement;
 
         try {
