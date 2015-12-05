@@ -52,7 +52,7 @@ public class AppController implements Initializable {
     @FXML private TableColumn<Task, String> compUrgencyCol;
     @FXML private TableColumn<Task, String> compPriorityCol;
 
-    @FXML private TextField newTaskDescpriton;
+    @FXML private TextField newTaskDescription;
     @FXML private DatePicker newTaskDeadline;
     @FXML private ChoiceBox newTaskDifficulty;
     @FXML private ChoiceBox newTaskUrgency;
@@ -117,7 +117,7 @@ public class AppController implements Initializable {
 
         Agenda selected = adb.getAgendaByTitle(Context.getInstance().getCurrentAgendaName());
 
-        Context.getInstance().setCurrentAgendaID(selected.getAgendaID());
+        Context.getInstance().setCurrentAgendaID(selected.getAgendaID()); //TODO fix the exception thrown here at login
 
         ObservableList<Task> obs = db.getAgendaTasks(selected);
         upcomingTaskTable.setItems(obs);
@@ -126,7 +126,7 @@ public class AppController implements Initializable {
 
     @FXML
     private void completedTabSelected() {
-        ObservableList<Task> tasks = null;
+        ObservableList<Task> tasks;
         try {
             tasks = db.getCompletedTasks();
             completedTaskTable.setItems(tasks);
@@ -139,7 +139,7 @@ public class AppController implements Initializable {
 
     @FXML
     private void handleContextDelete() {
-        Task selected = (Task) upcomingTaskTable.getSelectionModel().getSelectedItem();
+        Task selected = upcomingTaskTable.getSelectionModel().getSelectedItem();
 //        System.out.println(selected.toString());
         db.removeTask(selected);
         upcomingTaskTable.getItems().removeAll(upcomingTaskTable.getSelectionModel().getSelectedItem());
@@ -147,7 +147,7 @@ public class AppController implements Initializable {
 
     @FXML
     private void handleContextComplete() {
-        Task selected = (Task) upcomingTaskTable.getSelectionModel().getSelectedItem();
+        Task selected = upcomingTaskTable.getSelectionModel().getSelectedItem();
         try {
             db.completeTask(selected);
             upcomingTaskTable.getItems().removeAll(upcomingTaskTable.getSelectionModel().getSelectedItems());
@@ -168,11 +168,9 @@ public class AppController implements Initializable {
     }
 
 
-    //https://community.oracle.com/thread/2486012?tstart=0
-    // helpful link about combo boxes
     @FXML
     private void getTaskDetails() {
-        String taskName = newTaskDescpriton.getText();
+        String taskName = newTaskDescription.getText();
 
         int taskID = taskName.hashCode(); //hella sneaky sneaks
         LocalDate ld = newTaskDeadline.getValue();
@@ -197,7 +195,7 @@ public class AppController implements Initializable {
     }
 
     private void resetNewTaskFields() {
-        newTaskDescpriton.setText("");
+        newTaskDescription.setText("");
         newTaskDeadline.getEditor().clear();
 //        newTaskDifficulty.
 

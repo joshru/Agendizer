@@ -37,19 +37,17 @@ public class Task {
     }
 
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(taskID + ", ");
-        sb.append(taskTitle + ", ");
-        sb.append(timeStamp + ", ");
-        sb.append(completed + ", ");
-        sb.append(difficulty + ", ");
-        sb.append(urgency + ", ");
-        sb.append(priority + ", ");
-        sb.append(timeCompleted + ", ");
-        sb.append(notes + ", ");
-        sb.append(Location + ", ");
-        sb.append(fk_agendaID + ", ");
-        return sb.toString();
+        return (taskID + ", ") +
+                taskTitle + ", " +
+                timeStamp + ", " +
+                completed + ", " +
+                difficulty + ", " +
+                urgency + ", " +
+                priority + ", " +
+                timeCompleted + ", " +
+                notes + ", " +
+                Location + ", " +
+                fk_agendaID + ", ";
 
     }
 

@@ -75,13 +75,11 @@ public class User {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(userID + ", ");
-        sb.append(username + ", ");
-        sb.append(firstName + ", ");
-        sb.append(lastName + ", ");
-        sb.append(email + ", ");
-        sb.append(password);
-        return sb.toString();
+        return (userID + ", ") +
+                username + ", " +
+                firstName + ", " +
+                lastName + ", " +
+                email + ", " +
+                password;
     }
 }

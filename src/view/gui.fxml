@@ -118,7 +118,7 @@
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="newTaskDescpriton" promptText="Task Name" />
+                              <TextField fx:id="newTaskDescription" promptText="Task Name" />
                               <HBox prefHeight="18.0" prefWidth="610.0" />
                               <Label text="Deadline:">
                                  <font>

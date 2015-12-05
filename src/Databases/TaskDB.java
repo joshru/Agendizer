@@ -54,7 +54,7 @@ public class TaskDB extends DBHelper {
             createConnection();
         }
         String query = "UPDATE `_445team2`.Task SET completed = 1 WHERE taskID = ?;";
-        PreparedStatement ps = null;
+        PreparedStatement ps;
 
         try {
             ps = myConnection.prepareStatement(query);

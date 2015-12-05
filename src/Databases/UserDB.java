@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * Database adapter class for our User databse.
+ * Database adapter class for our User database.
  * @author Brandon Bell
  * @version 12/3/15
  */

@@ -36,7 +36,6 @@ public class RegistrationController {
     @FXML
     private void createNewUser(final MouseEvent event) {
         boolean isValid = validateRegistration();
-        int rand = (int) (Math.random() * 10001);
         User newUser;
         if (isValid) {
             newUser = new User(usernameRegisterField.getText().hashCode(), usernameRegisterField.getText(), firstNameField.getText(),
@@ -68,7 +67,7 @@ public class RegistrationController {
 
         } else if (!validEmail) {
             registerWarningLabel.setText("Invalid Email.");
-        } else if (!passwordsMatch) {
+        } else {
             registerWarningLabel.setText("Passwords do not match.");
         }
         return isValid;
