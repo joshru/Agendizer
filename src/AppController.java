@@ -159,17 +159,14 @@ public class AppController implements Initializable {
         java.sql.Date timeCompleted = new java.sql.Date(System.currentTimeMillis());
         String notes = "test notes";
         String location = "ur mum's house";
-        int agendaID = 666;
+        int agendaID = Context.getInstance().getCurrentAgenda();
 
         Task task = new Task(taskID, taskName, timestamp, completed, difficulty,
                 urgency, priority, timeCompleted, notes, location, agendaID);
 
         db.addTask(task);
 
-//        System.out.println(taskID);
-//        System.out.println(difficulty);
-//        System.out.println(urgency);
-//        System.out.println(priority);
+
     }
 
     private void resetNewTaskFields() {
@@ -190,6 +187,16 @@ public class AppController implements Initializable {
                 MenuItem menuItem = new MenuItem(current.getAgendaTitle());
 
                 //TODO populate list with shit
+                menuItem.setOnAction(e -> { //hella hax
+                    try {
+                        Agenda selected = adb.getAdendaByTitle(menuItem.getText());
+                        Context.getInstance().setCurrentAgendaID(selected.getAgendaID());
+                        ObservableList<Task> obs = db.getAgendaTasks(selected);
+                        upcomingTaskTable.setItems(obs);
+                    } catch (SQLException e1) {
+                        e1.printStackTrace();
+                    }
+                });
 
                 AgendasMenu.getItems().add(menuItem);
             }

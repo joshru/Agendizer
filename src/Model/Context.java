@@ -8,7 +8,7 @@ public class Context {
     private static Context instance;
 
     private int currentUserID; // = new Context();
-    private Agenda currentAgenda;
+    private int currentAgendaID;
 
     public static Context getInstance() {
         if (instance == null) instance = new Context();
@@ -25,12 +25,12 @@ public class Context {
         return currentUserID;
     }
 
-    public void setCurrentAgenda(Agenda theAgenda) {
-        currentAgenda = theAgenda;
+    public void setCurrentAgendaID(int theAgenda) {
+        currentAgendaID = theAgenda;
     }
 
-    public Agenda getCurrentAgenda() {
-        return currentAgenda;
+    public int getCurrentAgenda() {
+        return currentAgendaID;
     }
 
 }
