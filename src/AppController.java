@@ -3,8 +3,6 @@ import Databases.TaskDB;
 import Model.Agenda;
 import Model.Context;
 import Model.Task;
-import javafx.application.Application;
-import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -86,6 +84,8 @@ public class AppController implements Initializable {
         compUrgencyCol.setCellValueFactory(new PropertyValueFactory<>("urgency"));
         compPriorityCol.setCellValueFactory(new PropertyValueFactory<>("priority"));
         agendaGroup = new ToggleGroup();
+        upcomingTaskTable.setPlaceholder(new Label("Please select an agenda or create a new task."));
+        completedTaskTable.setPlaceholder(new Label("Please select an agenda."));
         populateAgendaList();
     }
 
@@ -107,9 +107,15 @@ public class AppController implements Initializable {
 
     @FXML
     private void upcomingTabSelected() throws SQLException {
-        ObservableList<Task> tasks = db.getUpcomingTasks();
+//        ObservableList<Task> tasks = db.getUpcomingTasks();
+//        upcomingTaskTable.setItems(tasks);
 //        ObservableList<Task> data = FXCollections.observableArrayList();+
 //        System.out.println("obs tasks found: " + tasks.size());
+
+        Agenda selected = adb.getAdendaByTitle(Context.getInstance().getCurrentAgendaName());
+        Context.getInstance().setCurrentAgendaID(selected.getAgendaID());
+        ObservableList<Task> obs = db.getAgendaTasks(selected);
+        upcomingTaskTable.setItems(obs);
 
     }
 
@@ -153,6 +159,7 @@ public class AppController implements Initializable {
         int user = Context.getInstance().getCurrentUserID();
         Agenda agenda = new Agenda(ID, title, user);
         adb.createAgenda(agenda);
+        addAgendaMenuItem(agenda);
     }
 
 
@@ -174,7 +181,7 @@ public class AppController implements Initializable {
         java.sql.Date timeCompleted = new java.sql.Date(System.currentTimeMillis());
         String notes = "test notes";
         String location = "ur mum's house";
-        int agendaID = Context.getInstance().getCurrentAgenda();
+        int agendaID = Context.getInstance().getCurrentAgendaID();
 
         Task task = new Task(taskID, taskName, timestamp, completed, difficulty,
                 urgency, priority, timeCompleted, notes, location, agendaID);
@@ -217,6 +224,7 @@ public class AppController implements Initializable {
             try {
                 Agenda selected = adb.getAdendaByTitle(menuItem.getText());
                 Context.getInstance().setCurrentAgendaID(selected.getAgendaID());
+                Context.getInstance().setCurrentAgendaName(agenda.getAgendaTitle());
                 ObservableList<Task> obs = db.getAgendaTasks(selected);
                 upcomingTaskTable.setItems(obs);
             } catch (SQLException e1) {

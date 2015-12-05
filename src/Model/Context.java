@@ -9,6 +9,7 @@ public class Context {
 
     private int currentUserID; // = new Context();
     private int currentAgendaID;
+    private String currentAgendaName;
 
     public static Context getInstance() {
         if (instance == null) instance = new Context();
@@ -29,8 +30,16 @@ public class Context {
         currentAgendaID = theAgenda;
     }
 
-    public int getCurrentAgenda() {
+    public int getCurrentAgendaID() {
         return currentAgendaID;
+    }
+
+    public String getCurrentAgendaName() {
+        return currentAgendaName;
+    }
+
+    public void setCurrentAgendaName(String currentAgendaName) {
+        this.currentAgendaName = currentAgendaName;
     }
 
 }
