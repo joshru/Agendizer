@@ -11,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import view.AgendaMenuItem;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -117,12 +118,25 @@ public class AppController implements Initializable {
 //        ObservableList<Task> data = FXCollections.observableArrayList();+
 //        System.out.println("obs tasks found: " + tasks.size());
 
-        Agenda selected = adb.getAgendaByTitle(Context.getInstance().getCurrentAgendaName());
+//        Agenda selected = adb.getAgendaByTitle(Context.getInstance().getCurrentAgendaName());
+        Agenda selected = null;
+        if (Context.getInstance().getCurrentAgendaName() != null) {
+            selected = adb.getAgendaByTitle();
+        }
 
-        Context.getInstance().setCurrentAgendaID(selected.getAgendaID()); //TODO fix the exception thrown here at login
+        if (selected != null) {
 
-        ObservableList<Task> obs = db.getAgendaTasks(selected);
-        upcomingTaskTable.setItems(obs);
+
+            System.out.println("Agenda obtained: " + selected.getAgendaTitle());
+
+            Context.getInstance().setCurrentAgendaID(selected.getAgendaID()); //TODO fix the exception thrown here at login
+
+            ObservableList<Task> obs = db.getAgendaTasks(selected);
+
+            //TODO loop through list and add tasks to the appropriate list
+
+            upcomingTaskTable.setItems(obs);
+        }
 
     }
 
@@ -212,11 +226,11 @@ public class AppController implements Initializable {
 
 
             //From this
-//            for (Agenda current : agendas) {
-//                addAgendaMenuItem(current);
-//            }
+            for (Agenda current : agendas) {
+                addAgendaMenuItem(current);
+            }
             //To this
-            agendas.forEach(element -> addAgendaMenuItem(element));
+           // agendas.forEach(element -> addAgendaMenuItem(element));
 
 
         } catch (SQLException e) {
@@ -225,15 +239,19 @@ public class AppController implements Initializable {
 
     }
 
-    private void addAgendaMenuItem(final Agenda agenda) {
-        RadioMenuItem menuItem = new RadioMenuItem(agenda.getAgendaTitle());
+    public void addAgendaMenuItem(final Agenda agenda) {
+        AgendaMenuItem menuItem = new AgendaMenuItem(agenda);
 
-        //TODO populate list with stuff
-        menuItem.setOnAction(e -> { //hella hax
+        //TODO This may be one of the places that causes the login exception
+        menuItem.setOnAction(e -> {
             try {
-                Agenda selected = adb.getAgendaByTitle(menuItem.getText());
+              //  Agenda selected = adb.getAgendaByTitle(menuItem.getText()); //TODO think over this decision to extend RadioMenuItem
+                Agenda selected = menuItem.getMyAgenda();
+
+                System.out.println("Selected menu item " + menuItem.getText());
+
                 Context.getInstance().setCurrentAgendaID(selected.getAgendaID());
-                Context.getInstance().setCurrentAgendaName(agenda.getAgendaTitle());
+                Context.getInstance().setCurrentAgendaName(selected.getAgendaTitle());
                 ObservableList<Task> obs = db.getAgendaTasks(selected);
                 upcomingTaskTable.setItems(obs);
             } catch (SQLException e1) {

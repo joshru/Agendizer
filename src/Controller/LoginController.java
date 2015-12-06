@@ -44,7 +44,7 @@ public class LoginController {
 
                 Context.getInstance().setCurrentUserID(user.hashCode());
 
-                SceneController.swapScene("view/gui.fxml", "Agendizer", event, getClass());
+                SceneController.swapScene("/view/gui.fxml", "Agendizer", event, getClass());
 
             } else {
                 loginError.setText("Invalid Login Information.");
@@ -56,7 +56,7 @@ public class LoginController {
 
     @FXML
     private void handleRegisterButton(MouseEvent event) throws IOException {
-        SceneController.swapScene("view/register.fxml", "Agendizer Registration", event, getClass());
+        SceneController.swapScene("/view/register.fxml", "Agendizer Registration", event, getClass());
     }
 
     @FXML
@@ -67,7 +67,7 @@ public class LoginController {
 
     @FXML
     private void bypassLogin(MouseEvent event) throws IOException {
-        SceneController.swapScene("view/gui.fxml", "Agendizer", event, getClass());
+        SceneController.swapScene("/view/gui.fxml", "Agendizer", event, getClass());
     }
 
 

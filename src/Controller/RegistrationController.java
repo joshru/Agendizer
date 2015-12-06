@@ -1,6 +1,11 @@
 package Controller;
 
+import Databases.AgendaDB;
+import Databases.TaskDB;
 import Databases.UserDB;
+import Model.Agenda;
+import Model.Context;
+import Model.Task;
 import Model.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -28,11 +33,13 @@ public class RegistrationController {
     @FXML private Label registerWarningLabel;
 
     private UserDB db = new UserDB();
+    private AgendaDB adb = new AgendaDB();
+    private TaskDB taskDB = new TaskDB();
 
 
     @FXML
     private void handleReturnToLogin(final MouseEvent event) throws IOException {
-        SceneController.swapScene("view/login.fxml", "Please Log In To Agendizer", event, getClass());
+        SceneController.swapScene("/view/login.fxml", "Please Log In To Agendizer", event, getClass());
     }
 
     @FXML
@@ -47,6 +54,12 @@ public class RegistrationController {
 
             try {
                 if (success) {
+                    //TODO create "Getting Started" agenda
+                    //TODO Populate that agenda with some basic tasks for the user to play with
+
+                    //createTutorialAgenda();
+
+
 
                     handleReturnToLogin(event);
                 }
@@ -54,6 +67,37 @@ public class RegistrationController {
                 e.printStackTrace();
             }
         }
+    }
+
+
+    private void createTutorialAgenda() {
+        String agendaTitle = "Getting Started";
+        Agenda agenda = new Agenda(agendaTitle.hashCode(), agendaTitle , usernameRegisterField.hashCode());
+        adb.createAgenda(agenda);
+
+
+        //Create task 1
+        String tutTaskTitle = "Create a task!";
+        java.sql.Date timeStamp = new java.sql.Date(System.currentTimeMillis());
+        Task tutTask1 = new Task(tutTaskTitle.hashCode(), tutTaskTitle, timeStamp, 0, "Easy!", "None", "High", null, "",
+                "", agendaTitle.hashCode());
+
+        //Create task 2
+        String secondTitle = "Create an Agenda!";
+        int secondHash = secondTitle.hashCode();
+        timeStamp = new java.sql.Date(System.currentTimeMillis());
+        Task tutTask2 = new Task(secondHash, secondTitle, timeStamp, 0, "Easy!", "None", "High", null, "",
+                "", secondHash);
+
+        taskDB.addTask(tutTask1);
+        taskDB.addTask(tutTask2);
+
+
+        Context context = Context.getInstance();
+
+        context.setCurrentAgendaID(agendaTitle.hashCode());
+        context.setCurrentAgendaName(agendaTitle);
+
     }
 
     @FXML

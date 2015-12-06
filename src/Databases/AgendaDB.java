@@ -25,6 +25,9 @@ public class AgendaDB extends DBHelper {
     private ObservableList<Agenda> obsAgendaList;
 
 
+    boolean gettingUserAgendas; //dirty
+    boolean gettingTitleAgenda; //also dirty
+
 
 
     public List<Agenda> getAgendas() throws SQLException {
@@ -42,11 +45,39 @@ public class AgendaDB extends DBHelper {
 
     }
 
-    public Agenda getAgendaByTitle(String title) throws SQLException {
+    public Agenda getAgendaByTitle() throws SQLException { //TODO change me back to requiring a string if this breaks
+        if (myConnection == null) {
+            createConnection();
+        }
+        String query = "select * from " + userName + ".Agenda WHERE " + userName + ".Agenda.title = ?;";
+
+        agendaList = new ArrayList<>();
+        obsAgendaList = FXCollections.observableArrayList();
+
+        gettingTitleAgenda = true;
+        populateList(query);
+        gettingTitleAgenda = false;
+
+        Agenda result = null;
+
+        if (!obsAgendaList.isEmpty()) {
+            obsAgendaList.get(0);
+            System.out.println("Retrieved agenda by title Expected: " + Context.getInstance().getCurrentAgendaName()
+            + " Actual: " + obsAgendaList.get(0).getAgendaTitle());
+        }
+
+        return result;
+
+
+
+    }
+
+   /* public Agenda getAgendaByTitle(String title) throws SQLException {
         getUserAgendas();
         Agenda result = null;
 
         Iterator<Agenda> itr = obsAgendaList.iterator();
+        //result = obsAgendaList.stream().filter(e -> title.equalsIgnoreCase(e.getAgendaTitle()) ).findFirst();
         boolean found = false;
 
         while (!found && itr.hasNext()) {
@@ -58,7 +89,7 @@ public class AgendaDB extends DBHelper {
         }
 
         return result;
-    }
+    }*/
 
     public List<Agenda> getUserAgendas() throws SQLException {
         if (myConnection == null) {
@@ -68,7 +99,10 @@ public class AgendaDB extends DBHelper {
         agendaList = new ArrayList<>();
         obsAgendaList = FXCollections.observableArrayList();
 
+
+        gettingUserAgendas = true;
         populateList(query);
+        gettingUserAgendas = false;
 
         return agendaList;
 
@@ -81,8 +115,13 @@ public class AgendaDB extends DBHelper {
         try {
             createConnection();
             stmt = myConnection.prepareStatement(query);
-            stmt.setInt(1, Context.getInstance().getCurrentUserID());
+
+            //Super duper dirty way of doing this //TODO fix me
+            if (gettingUserAgendas) stmt.setInt(1, Context.getInstance().getCurrentUserID());
+            if (gettingTitleAgenda) stmt.setString(1, Context.getInstance().getCurrentAgendaName());
+
             System.out.println(stmt.toString());
+
             ResultSet results = stmt.executeQuery();
 
             while (results.next()) {
