@@ -102,6 +102,13 @@
                                       <columnResizePolicy>
                                           <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                       </columnResizePolicy>
+                                       <contextMenu>
+                                          <ContextMenu fx:id="completedContextMenu">
+                                            <items>
+                                              <MenuItem fx:id="cCompletedDelete" mnemonicParsing="false" onAction="#handleCompletedContextDelete" text="Delete" />
+                                            </items>
+                                          </ContextMenu>
+                                       </contextMenu>
                                     </TableView>
                                  </children>
                               </VBox>

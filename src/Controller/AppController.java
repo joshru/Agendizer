@@ -43,6 +43,9 @@ public class AppController implements Initializable {
     @FXML private Menu AgendasMenu;
 
 
+    @FXML private ContextMenu completedContextMenu;
+    @FXML private MenuItem cCompleteDelete;
+
     // these columns should probably be in an array or something. messy
     @FXML private TableColumn<Task, String> ucTaskCol;
     @FXML private TableColumn<Task, String> ucDeadlineCol;
@@ -143,9 +146,6 @@ public class AppController implements Initializable {
                 }
             });
 
-            //TODO loop through list and add tasks to the appropriate list
-
-           // upcomingTaskTable.setItems(obs);
 
         }
 
@@ -182,6 +182,14 @@ public class AppController implements Initializable {
             e.printStackTrace();
         }
 
+    }
+
+    @FXML
+    private void handleCompletedContextDelete() {
+        Task selected = completedTaskTable.getSelectionModel().getSelectedItem();
+//        System.out.println(selected.toString());
+        db.removeTask(selected);
+        completedTaskTable.getItems().removeAll(completedTaskTable.getSelectionModel().getSelectedItem());
     }
 
     @FXML
