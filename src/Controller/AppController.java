@@ -115,17 +115,201 @@ public class AppController implements Initializable {
         populateAgendaList();
     }
 
+
+
+
     /**
-     * Unused TODO delete me
+     * Helper method. Enables column values to be edited for the upcoming task table.
+     * Updates the database with the Users Changes
      */
-    @FXML
-    private void newTaskTabSetup() {
-//        newTaskDifficulty.setItems(difficultyVals);
+    private void setOnEditCommitHandlers()  {
+
+            ucTaskCol.setCellFactory(TextFieldTableCell.forTableColumn());
+            ucTaskCol.setOnEditCommit(event -> {
+//                ((Task) event.getTableView().getItems().get
+//                        (event.getTablePosition().getRow()).setTaskTitle(
+//                        event.getNewValue()));
+                event.getRowValue().setTaskTitle(event.getNewValue());
+                try {
+                    db.updateTask("title", event.getNewValue(), event.getRowValue().getTaskID());
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
+
+            });
+
+            //TODO find out how to update date column
+            /*ucDeadlineCol.setCellFactory(TextFieldTableCell.forTableColumn());
+            ucDeadlineCol.setOnEditCommit(e -> {
+
+
+
+                try {
+                    db.updateTask("timestamp", e.getNewValue(), e.getRowValue().getTaskID());
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+
+                //TODO add invalid input checking
+                e.getRowValue().setTimeStamp(java.sql.Date.valueOf(e.getNewValue()));
+            });*/
+
+
+            ucDifficultyCol.setCellFactory(TextFieldTableCell.forTableColumn());
+            ucDifficultyCol.setOnEditCommit(e -> {
+                try {
+                    db.updateTask("difficulty", e.getNewValue(), e.getRowValue().getTaskID());
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+
+                e.getRowValue().setDifficulty(e.getNewValue());
+
+            });
+
+            ucUrgencyCol.setCellFactory(TextFieldTableCell.forTableColumn());
+            ucUrgencyCol.setOnEditCommit(e -> {
+                try {
+                    db.updateTask("urgency", e.getNewValue(), e.getRowValue().getTaskID());
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+
+                e.getRowValue().setUrgency(e.getNewValue());
+
+            });
+            ucPriorityCol.setCellFactory(TextFieldTableCell.forTableColumn());
+            ucPriorityCol.setOnEditCommit(e -> {
+                try {
+                    db.updateTask("priority", e.getNewValue(), e.getRowValue().getTaskID());
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+
+                e.getRowValue().setPriority(e.getNewValue());
+            });
+
+    }
+
+
+
+    /**
+     * Resets fields in the create task tab
+     * TODO complete me
+     */
+    private void resetNewTaskFields() {
+        newTaskDescription.setText("");
+        newTaskDeadline.getEditor().clear();
+        newTaskDifficulty.getSelectionModel().selectFirst();
+        newTaskPriority.getSelectionModel().selectFirst();
+        newTaskUrgency.getSelectionModel().selectFirst();
+//        newTaskDifficulty.
+
     }
 
     /**
+     * Populates the list of agendas for the currently logged in user
+     * Called when the user logs in
+     */
+    private void populateAgendaList() {
+        int currUserId = Context.getInstance().getCurrentUserID();
+        System.out.println("Logged in user: " + currUserId);
+
+        ArrayList<Agenda> agendas = (ArrayList<Agenda>) adb.getUserAgendas();
+
+
+        //From this
+        /*for (Agenda current : agendas) {
+            addAgendaMenuItem(current);
+         }*/
+
+        //To this
+        agendas.forEach(this::addAgendaMenuItem);
+
+
+    }
+
+    /**
+     * Adds an Agenda to the Agendas drop down menu
+     *
+     * @param agenda to be added
+     */
+    public void addAgendaMenuItem(final Agenda agenda) {
+        AgendaMenuItem menuItem = new AgendaMenuItem(agenda);
+
+        //May seem confusing at first, a lambda essentially cleans up the syntax for anonymous inner classes
+        menuItem.setOnAction(e -> {
+            try {
+              //  Agenda selected = adb.getAgendaByTitle(menuItem.getText()); //TODO think over this decision to extend RadioMenuItem
+                Agenda selected = menuItem.getMyAgenda();
+
+                System.out.println("Selected menu item " + menuItem.getText());
+
+                Context.getInstance().setCurrentAgendaID(selected.getAgendaID());
+                Context.getInstance().setCurrentAgendaName(selected.getAgendaTitle());
+                ObservableList<Task> obsUpcoming = db.getAgendaTasks(selected, false);
+                ObservableList<Task> obsCompleted = db.getAgendaTasks(selected, true);
+                upcomingTaskTable.setItems(obsUpcoming);
+                completedTaskTable.setItems(obsCompleted);
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+        });
+
+        //Add mew agenda to button group and add it the menu.
+        menuItem.setToggleGroup(agendaGroup);
+        AgendasMenu.getItems().add(menuItem);
+    }
+
+    //------------------------------------------------------------------------------------------------------------------
+    // Define behavior for UI elements
+    //------------------------------------------------------------------------------------------------------------------
+
+
+    /**
+     * Defines the behavior for the create task button
+     * TODO rename me to make it clear a task is being created
+     */
+    @FXML
+    private void getTaskDetails() {
+        String taskName = newTaskDescription.getText();
+
+
+        //TODO change primary keys to INTEGER AUTOINCREMENT
+        int taskID = taskName.hashCode(); //hella sneaky sneaks
+
+        LocalDate ld = newTaskDeadline.getValue();
+        java.sql.Date timestamp = null;
+
+        if (ld != null) timestamp = java.sql.Date.valueOf(ld);
+
+        System.out.println(timestamp);
+
+
+        int completed = 0;
+        String difficulty = newTaskDifficulty.getSelectionModel().getSelectedItem().toString();
+        String urgency = newTaskUrgency.getSelectionModel().getSelectedItem().toString();
+        String priority = newTaskPriority.getSelectionModel().getSelectedItem().toString();
+        java.sql.Date timeCompleted = new java.sql.Date(System.currentTimeMillis());
+        String notes = "test notes";
+        String location = "ur mum's house";
+        int agendaID = Context.getInstance().getCurrentAgendaID();
+
+        Task task = new Task(taskID, taskName, timestamp, completed, difficulty,
+                urgency, priority, timeCompleted, notes, location, agendaID);
+
+        db.addTask(task);
+        upcomingTaskTable.getItems().add(task);
+        resetNewTaskFields();
+
+
+    }
+
+
+    /**
      * Test method for GUI elements TODO delete me
-      */
+     */
     @FXML
     private void test() {
         System.out.println("button did a thing");
@@ -179,6 +363,11 @@ public class AppController implements Initializable {
 
     }
 
+    /**
+     *  Define behavior of selecting the completed Tab.
+     *  Populates list with upcoming tasks.
+     * @throws SQLException
+     */
     @FXML
     private void completedTabSelected() throws SQLException {
 
@@ -212,79 +401,6 @@ public class AppController implements Initializable {
 
     }
 
-    /**
-     * Helper method. Enables column values to be edited for the upcoming task table.
-     * Updates the database with the Users Changes
-     */
-    private void setOnEditCommitHandlers()  {
-
-            ucTaskCol.setCellFactory(TextFieldTableCell.forTableColumn());
-            ucTaskCol.setOnEditCommit(event -> {
-//                ((Task) event.getTableView().getItems().get
-//                        (event.getTablePosition().getRow()).setTaskTitle(
-//                        event.getNewValue()));
-                event.getRowValue().setTaskTitle(event.getNewValue());
-                try {
-                    db.updateTask("title", event.getNewValue(), event.getRowValue().getTaskID());
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-
-
-            });
-
-            //TODO find out how to update date column
-            /*ucDeadlineCol.setCellFactory(TextFieldTableCell.forTableColumn());
-            ucDeadlineCol.setOnEditCommit(e -> {
-
-
-
-               *//* try {
-                    db.updateTask("timestamp", e.getNewValue(), e.getRowValue().getTaskID());
-                } catch (SQLException e1) {
-                    e1.printStackTrace();
-                }*//*
-
-                //TODO add invalid input checking
-                e.getRowValue().setTimeStamp(java.sql.Date.valueOf(e.getNewValue()));
-            });*/
-
-
-            ucDifficultyCol.setCellFactory(TextFieldTableCell.forTableColumn());
-            ucDifficultyCol.setOnEditCommit(e -> {
-                try {
-                    db.updateTask("difficulty", e.getNewValue(), e.getRowValue().getTaskID());
-                } catch (SQLException e1) {
-                    e1.printStackTrace();
-                }
-
-                e.getRowValue().setDifficulty(e.getNewValue());
-
-            });
-
-            ucUrgencyCol.setCellFactory(TextFieldTableCell.forTableColumn());
-            ucUrgencyCol.setOnEditCommit(e -> {
-                try {
-                    db.updateTask("urgency", e.getNewValue(), e.getRowValue().getTaskID());
-                } catch (SQLException e1) {
-                    e1.printStackTrace();
-                }
-
-                e.getRowValue().setUrgency(e.getNewValue());
-
-            });
-            ucPriorityCol.setCellFactory(TextFieldTableCell.forTableColumn());
-            ucPriorityCol.setOnEditCommit(e -> {
-                try {
-                    db.updateTask("priority", e.getNewValue(), e.getRowValue().getTaskID());
-                } catch (SQLException e1) {
-                    e1.printStackTrace();
-                }
-
-                e.getRowValue().setPriority(e.getNewValue());
-            });
-
-    }
 
     /**
      * Defines the functionality for the delete Context Menu option
@@ -335,108 +451,13 @@ public class AppController implements Initializable {
         Agenda agenda = new Agenda(ID, title, user);
         adb.createAgenda(agenda);
         addAgendaMenuItem(agenda);
+
+        newAgendaName.setText("");
     }
 
-    /**
-     * Defines the behavior for the create task button
-     * TODO rename me to make it clear a task is being created
-     */
-    @FXML
-    private void getTaskDetails() {
-        String taskName = newTaskDescription.getText();
 
 
-        //TODO change primary keys to INTEGER AUTOINCREMENT
-        int taskID = taskName.hashCode(); //hella sneaky sneaks
-        LocalDate ld = newTaskDeadline.getValue();
-        java.sql.Date timestamp = null;
-        if (ld != null) timestamp = java.sql.Date.valueOf(ld);
-        System.out.println(timestamp);
-        int completed = 0;
-        String difficulty = newTaskDifficulty.getSelectionModel().getSelectedItem().toString();
-        String urgency = newTaskUrgency.getSelectionModel().getSelectedItem().toString();
-        String priority = newTaskPriority.getSelectionModel().getSelectedItem().toString();
-        java.sql.Date timeCompleted = new java.sql.Date(System.currentTimeMillis());
-        String notes = "test notes";
-        String location = "ur mum's house";
-        int agendaID = Context.getInstance().getCurrentAgendaID();
-
-        Task task = new Task(taskID, taskName, timestamp, completed, difficulty,
-                urgency, priority, timeCompleted, notes, location, agendaID);
-
-        db.addTask(task);
-        upcomingTaskTable.getItems().add(task);
 
 
-    }
-
-    /**
-     * Resets fields in the create task tab
-     * TODO complete me
-     */
-    private void resetNewTaskFields() {
-        newTaskDescription.setText("");
-        newTaskDeadline.getEditor().clear();
-//        newTaskDifficulty.
-
-    }
-
-    /**
-     * Populates the list of agendas for the currently logged in user
-     * Called when the user logs in
-     */
-    private void populateAgendaList() {
-        int currUserId = Context.getInstance().getCurrentUserID();
-        System.out.println("Logged in user: " + currUserId);
-       // try {
-            ArrayList<Agenda> agendas = (ArrayList<Agenda>) adb.getUserAgendas();
-
-
-            //From this
-            /*for (Agenda current : agendas) {
-                addAgendaMenuItem(current);
-            }*/
-
-            //To this
-            agendas.forEach(this::addAgendaMenuItem);
-
-
-       // } catch (SQLException e) {
-       //     e.printStackTrace();
-       // }
-
-    }
-
-    /**
-     * Adds an Agenda to the Agendas drop down menu
-     *
-     * @param agenda to be added
-     */
-    public void addAgendaMenuItem(final Agenda agenda) {
-        AgendaMenuItem menuItem = new AgendaMenuItem(agenda);
-
-        //May seem confusing at first, a lambda essentially cleans up the syntax for anonymous inner classes
-        menuItem.setOnAction(e -> {
-            try {
-              //  Agenda selected = adb.getAgendaByTitle(menuItem.getText()); //TODO think over this decision to extend RadioMenuItem
-                Agenda selected = menuItem.getMyAgenda();
-
-                System.out.println("Selected menu item " + menuItem.getText());
-
-                Context.getInstance().setCurrentAgendaID(selected.getAgendaID());
-                Context.getInstance().setCurrentAgendaName(selected.getAgendaTitle());
-                ObservableList<Task> obsUpcoming = db.getAgendaTasks(selected, false);
-                ObservableList<Task> obsCompleted = db.getAgendaTasks(selected, true);
-                upcomingTaskTable.setItems(obsUpcoming);
-                completedTaskTable.setItems(obsCompleted);
-            } catch (SQLException e1) {
-                e1.printStackTrace();
-            }
-        });
-
-        //Add mew agenda to button group and add it the menu.
-        menuItem.setToggleGroup(agendaGroup);
-        AgendasMenu.getItems().add(menuItem);
-    }
 
 }
