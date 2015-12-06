@@ -8,10 +8,13 @@ import java.util.Properties;
  * @version 12/3/2015
  */
 public abstract class DBHelper {
-
+    /**Team MySQL username*/
     protected static String userName = "_445team2";
+    /**Team MySQL password*/
     protected static String password = "poddoif";
+    /**cssgate server URL*/
     protected static String serverName = "cssgate.insttech.washington.edu";
+    /**Connection to the server*/
     protected static Connection myConnection;
 
     /**

@@ -27,6 +27,14 @@ import java.util.ResourceBundle;
  */
 public class AppController implements Initializable {
 
+    /**
+     *
+     * All fields with @FXML tag are references to GUI elements defined in
+     * the FXML files located in the /view package.
+     *
+     */
+    //TODO remove unused references to GUI elements
+
     @FXML private ImageView appLogo;
     @FXML private Button searchButton;
     @FXML private TextField searchField;
@@ -70,13 +78,20 @@ public class AppController implements Initializable {
     @FXML private TextField newAgendaName;
     @FXML private Button newAgendaButton;
 
+    /**Group for toggle buttons in the adenda drop down menu*/
     private ToggleGroup agendaGroup;
-
+    /** Reference to task DB */
     private static TaskDB db = new TaskDB();
+    /** Reference to Agenda database*/
     private static AgendaDB adb = new AgendaDB();
 
 //    ObservableList<String> difficultyVals = FXCollections.observableArrayList("one", "two");
 
+    /**
+     * Runs on startup. Used to initialize GUI elements/assign listeners as appropriate
+     * @param location -
+     * @param resources -
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         //when setting property values the string must MATCH the field name in the Task class
@@ -100,30 +115,41 @@ public class AppController implements Initializable {
         populateAgendaList();
     }
 
+    /**
+     * Unused TODO delete me
+     */
     @FXML
     private void newTaskTabSetup() {
 //        newTaskDifficulty.setItems(difficultyVals);
     }
 
+    /**
+     * Test method for GUI elements TODO delete me
+      */
     @FXML
     private void test() {
         System.out.println("button did a thing");
     }
 
+    /**
+     * Test function for DB TODO delete me before turning in
+     * @throws SQLException
+     */
     @FXML
     private void testDB() throws SQLException {
         List<Task> tasks = db.getUpcomingTasks();
         System.out.println("Tasks grabbed = " +  tasks.size());
     }
 
+    /**
+     * Callback method to handle behavior when the upcoming tasks
+     * tab is selected.
+     * @throws SQLException
+     */
     @FXML
     private void upcomingTabSelected() throws SQLException {
-//        ObservableList<Task> tasks = db.getUpcomingTasks();
-//        upcomingTaskTable.setItems(tasks);
-//        ObservableList<Task> data = FXCollections.observableArrayList();+
-//        System.out.println("obs tasks found: " + tasks.size());
 
-//        Agenda selected = adb.getAgendaByTitle(Context.getInstance().getCurrentAgendaName());
+        //TODO redistribute some of this behavior
         Agenda selected = null;
         if (Context.getInstance().getCurrentAgendaName() != null) {
             selected = adb.getAgendaByTitle();
@@ -155,14 +181,7 @@ public class AppController implements Initializable {
 
     @FXML
     private void completedTabSelected() throws SQLException {
-//        ObservableList<Task> tasks;
-//        try {
-//            tasks = db.getCompletedTasks();
-//            completedTaskTable.setItems(tasks);
-//
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
+
         Agenda selected = null;
         if (Context.getInstance().getCurrentAgendaName() != null) {
             selected = adb.getAgendaByTitle();
@@ -178,7 +197,7 @@ public class AppController implements Initializable {
             ObservableList<Task> obs = db.getAgendaTasks(selected, true); //true = completed tasks
 
 
-            //Lambda warning: Don't look directly into the loop.
+            //Lambda warning: Don't look directly into the loop; you may be absorbed by its elegance
             obs.forEach(e -> {
                 if (e.getCompleted() == 0) {
                     completedTaskTable.getItems().add(e);
@@ -187,13 +206,16 @@ public class AppController implements Initializable {
                 }
             });
 
-            // upcomingTaskTable.setItems(obs);
+
 
         }
 
     }
 
-
+    /**
+     * Helper method. Enables column values to be edited for the upcoming task table.
+     * Updates the database with the Users Changes
+     */
     private void setOnEditCommitHandlers()  {
 
             ucTaskCol.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -201,9 +223,9 @@ public class AppController implements Initializable {
 //                ((Task) event.getTableView().getItems().get
 //                        (event.getTablePosition().getRow()).setTaskTitle(
 //                        event.getNewValue()));
+                event.getRowValue().setTaskTitle(event.getNewValue());
                 try {
-                    db.updateTask("title", event.getNewValue(), upcomingTaskTable.getSelectionModel().getSelectedItem().getTaskID());
-                    System.out.println(event.getNewValue());
+                    db.updateTask("title", event.getNewValue(), event.getRowValue().getTaskID());
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -211,39 +233,62 @@ public class AppController implements Initializable {
 
             });
 
+            //TODO find out how to update date column
+            /*ucDeadlineCol.setCellFactory(TextFieldTableCell.forTableColumn());
+            ucDeadlineCol.setOnEditCommit(e -> {
 
 
-//            ucDeadlineCol.setOnEditCommit(e -> {
-//                try {
-//                    db.updateTask("timestamp", e.getNewValue());
-//                } catch (SQLException e1) {
-//                    e1.printStackTrace();
-//                }
-//            });
-//            ucDifficultyCol.setOnEditCommit(e -> {
-//                try {
-//                    db.updateTask("difficulty", e.getNewValue());
-//                } catch (SQLException e1) {
-//                    e1.printStackTrace();
-//                }
-//            });
-//            ucUrgencyCol.setOnEditCommit(e -> {
-//                try {
-//                    db.updateTask("urgency", e.getNewValue());
-//                } catch (SQLException e1) {
-//                    e1.printStackTrace();
-//                }
-//            });
-//            ucPriorityCol.setOnEditCommit(e -> {
-//                try {
-//                    db.updateTask("priority", e.getNewValue());
-//                } catch (SQLException e1) {
-//                    e1.printStackTrace();
-//                }
-//            });
+
+               *//* try {
+                    db.updateTask("timestamp", e.getNewValue(), e.getRowValue().getTaskID());
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }*//*
+
+                //TODO add invalid input checking
+                e.getRowValue().setTimeStamp(java.sql.Date.valueOf(e.getNewValue()));
+            });*/
+
+
+            ucDifficultyCol.setCellFactory(TextFieldTableCell.forTableColumn());
+            ucDifficultyCol.setOnEditCommit(e -> {
+                try {
+                    db.updateTask("difficulty", e.getNewValue(), e.getRowValue().getTaskID());
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+
+                e.getRowValue().setDifficulty(e.getNewValue());
+
+            });
+
+            ucUrgencyCol.setCellFactory(TextFieldTableCell.forTableColumn());
+            ucUrgencyCol.setOnEditCommit(e -> {
+                try {
+                    db.updateTask("urgency", e.getNewValue(), e.getRowValue().getTaskID());
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+
+                e.getRowValue().setUrgency(e.getNewValue());
+
+            });
+            ucPriorityCol.setCellFactory(TextFieldTableCell.forTableColumn());
+            ucPriorityCol.setOnEditCommit(e -> {
+                try {
+                    db.updateTask("priority", e.getNewValue(), e.getRowValue().getTaskID());
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+
+                e.getRowValue().setPriority(e.getNewValue());
+            });
 
     }
 
+    /**
+     * Defines the functionality for the delete Context Menu option
+     */
     @FXML
     private void handleContextDelete() {
         Task selected = upcomingTaskTable.getSelectionModel().getSelectedItem();
@@ -252,6 +297,9 @@ public class AppController implements Initializable {
         upcomingTaskTable.getItems().removeAll(upcomingTaskTable.getSelectionModel().getSelectedItem());
     }
 
+    /**
+     * Defines the functionality for the mark complete Context Menu option
+     */
     @FXML
     private void handleContextComplete() {
         Task selected = upcomingTaskTable.getSelectionModel().getSelectedItem();
@@ -265,6 +313,9 @@ public class AppController implements Initializable {
 
     }
 
+    /**
+     * Defines the functionality for deleting from the completed task table
+     */
     @FXML
     private void handleCompletedContextDelete() {
         Task selected = completedTaskTable.getSelectionModel().getSelectedItem();
@@ -273,6 +324,9 @@ public class AppController implements Initializable {
         completedTaskTable.getItems().removeAll(completedTaskTable.getSelectionModel().getSelectedItem());
     }
 
+    /**
+     * Defines the behavior for the create agenda button
+     */
     @FXML
     private void handleCreateAgenda() {
         String title = newAgendaName.getText();
@@ -283,7 +337,9 @@ public class AppController implements Initializable {
         addAgendaMenuItem(agenda);
     }
 
-
+    /**
+     * Defines the behavior for the create task button
+     */
     @FXML
     private void getTaskDetails() {
         String taskName = newTaskDescription.getText();
@@ -311,6 +367,10 @@ public class AppController implements Initializable {
 
     }
 
+    /**
+     * Resets fields in the create task tab
+     * TODO complete me
+     */
     private void resetNewTaskFields() {
         newTaskDescription.setText("");
         newTaskDeadline.getEditor().clear();
@@ -318,7 +378,9 @@ public class AppController implements Initializable {
 
     }
 
-
+    /**
+     * Populates the list of agendas for the currently logged in user
+     */
     private void populateAgendaList() {
         int currUserId = Context.getInstance().getCurrentUserID();
         System.out.println("Logged in user: " + currUserId);
@@ -340,8 +402,15 @@ public class AppController implements Initializable {
 
     }
 
+    /**
+     * Adds an Agenda to the Agendas drop down menu
+     *
+     * @param agenda to be added
+     */
     public void addAgendaMenuItem(final Agenda agenda) {
         AgendaMenuItem menuItem = new AgendaMenuItem(agenda);
+
+        //May seem confusing at first, a lambda essentially cleans up the syntax for anonymous inner classes
         menuItem.setOnAction(e -> {
             try {
               //  Agenda selected = adb.getAgendaByTitle(menuItem.getText()); //TODO think over this decision to extend RadioMenuItem
@@ -359,6 +428,8 @@ public class AppController implements Initializable {
                 e1.printStackTrace();
             }
         });
+
+
         menuItem.setToggleGroup(agendaGroup);
         AgendasMenu.getItems().add(menuItem);
     }

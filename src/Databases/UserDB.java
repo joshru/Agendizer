@@ -13,7 +13,11 @@ import java.sql.SQLException;
  */
 public class UserDB extends DBHelper {
 
-
+    /**
+     * Creates and adds a user to the DB
+     * @param theUser to be added
+     * @return success flag
+     */
     public boolean createUser(final User theUser) {
         String sql = "INSERT INTO _445team2.User (UserID, username, firstName, lastName, email, password) " +
                      "VALUES (?, ?, ?, ?, ?, ?);";
@@ -43,6 +47,12 @@ public class UserDB extends DBHelper {
 
     }
 
+    /**
+     * Checks if the user has inputted valid credentials
+     * @param theUsername username
+     * @param password password
+     * @return success flag
+     */
     public boolean hasAccount(final String theUsername, final String password) {
         boolean correctLogin = false;
         String sql = "SELECT * FROM _445team2.User WHERE username = ? AND password = ?;";

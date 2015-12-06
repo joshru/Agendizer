@@ -12,10 +12,20 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 /**
- * Created by Josh on 12/1/2015.
+ * Helper class to handle swapping scenes.
+ * @author Josh Rueschenberg
+ * @version 1340
  */
 public class SceneController {
-
+    /**
+     * Replaces the current scene
+     * TODO Josh verify javadoc param definitions here
+     * @param fxml defining ui elements
+     * @param title of the scene
+     * @param event being fired
+     * @param context to place scene on
+     * @throws IOException
+     */
     @FXML
     public static void swapScene(final String fxml, final String title, MouseEvent event, Class context) throws IOException {
         Parent root = FXMLLoader.load(context.getResource(fxml));

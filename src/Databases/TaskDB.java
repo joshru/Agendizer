@@ -19,24 +19,41 @@ public class TaskDB extends DBHelper {
 //    private static String serverName = "cssgate.insttech.washington.edu";
 //    private static Connection myConnection;
 //    private List<Task> taskList;
+
+    /** List of upcoming tasks*/
     private ObservableList<Task> upcomingTasks;
+    /** List of completed tasks*/
     private ObservableList<Task> completedTasks;
 
 
-
-
+    /**
+     * Obtains a list of upcoming tasks
+     * @return upcoming tasks
+     * @throws SQLException
+     */
     public ObservableList<Task> getUpcomingTasks() throws SQLException {
         return getSpecifiedTask(true);
     }
 
+    /**
+     * Obtains a list of completed tasks
+     * @return completed tasks
+     * @throws SQLException
+     */
     public ObservableList<Task> getCompletedTasks() throws SQLException {
         return getSpecifiedTask(false);
     }
 
+    /**
+     * Obtains tasks for a given user
+     * @param upcoming flag to determine whether to retrieve upcoming or completed tasks
+     * @return List of tasks
+     */
     private ObservableList<Task> getSpecifiedTask(final boolean upcoming) {
         if (myConnection == null) {
             createConnection();
         }
+        //TODO do we need to specify which user we're getting tasks for?
         String query = "";
         if (upcoming) query = "SELECT * FROM " + userName + ".Task WHERE completed = 0;";
         if (!upcoming) query = "SELECT * FROM " + userName + ".Task WHERE completed = 1;";
@@ -47,9 +64,14 @@ public class TaskDB extends DBHelper {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return upcomingTasks;
+        return upcomingTasks; //TODO should we have a conditional here to determine which list to return?
     }
 
+    /**
+     * Marks a given task as complete.
+     * @param complete task to flip the complete value
+     * @throws SQLException
+     */
     public void completeTask(Task complete) throws SQLException {
         if (myConnection == null) {
             createConnection();
@@ -67,6 +89,13 @@ public class TaskDB extends DBHelper {
 
     }
 
+    /**
+     * Updates a task entry in the DB
+     * @param column to update
+     * @param newVal to set column value to
+     * @param id of the task being affected
+     * @throws SQLException
+     */
     public void updateTask(final String column, final String newVal, final int id) throws SQLException {
         if (myConnection == null) {
             createConnection();
@@ -91,7 +120,13 @@ public class TaskDB extends DBHelper {
         }
     }
 
-
+    /**
+     * Gets the tasks for a given agenda.
+     * @param agenda to retrieve tasks for
+     * @param completed flag determining whether to return completed or upcoming tasks
+     * @return list of tasks
+     * @throws SQLException
+     */
     public ObservableList<Task> getAgendaTasks(Agenda agenda, boolean completed) throws SQLException {
         if (myConnection == null) {
             createConnection();
@@ -109,6 +144,10 @@ public class TaskDB extends DBHelper {
 //        return parseResultSet(query);
     }
 
+    /**
+     * Removes task from the DB
+     * @param delete task to be deleted
+     */
     public void removeTask(Task delete) {
         String sql = "DELETE FROM _445team2.Task WHERE taskID = ?";
         PreparedStatement ps;
@@ -124,6 +163,10 @@ public class TaskDB extends DBHelper {
 
     }
 
+    /**
+     * Adds a task to the database
+     * @param task to be added
+     */
     public void addTask(Task task) {
         String statement = "INSERT INTO _445team2.Task (taskID, title, timestamp, completed, difficulty," +
                            "urgency, priority, timeCompleted, notes, location, agenda_agendaID) VALUES " +
@@ -153,6 +196,11 @@ public class TaskDB extends DBHelper {
         }
     }
 
+    /**
+     * Populates the lists of upcoming and completed tasks given a query
+     * @param query to be executed on the DB
+     * @throws SQLException
+     */
     private void parseResultSet(String query) throws SQLException {
         Statement stmt = null;
 

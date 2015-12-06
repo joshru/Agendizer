@@ -18,10 +18,15 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created by Josh on 12/1/2015.
+ * Controller class to handle register Scene behavior
+ * @author Josh Rueschenberg
+ * @version 1339
  */
 public class RegistrationController {
-
+    /**
+     * All fields with @FXML tags correspond with a GUI element defined in the /view/register.fxml file
+     * Names for these fields are the same as the FX:ID tag assigned to them
+    */
     @FXML private TextField firstNameField;
     @FXML private TextField lastNameField;
     @FXML private TextField usernameRegisterField;
@@ -32,16 +37,29 @@ public class RegistrationController {
     @FXML private Button returnToLoginButton;
     @FXML private Label registerWarningLabel;
 
+    /**
+     * References to databases
+     */
     private UserDB db = new UserDB();
     private AgendaDB adb = new AgendaDB();
     private TaskDB taskDB = new TaskDB();
 
-
+    /**
+     * Handles behavior for return to login button
+     * @param event fired when button is pressed
+     * @throws IOException
+     */
     @FXML
     private void handleReturnToLogin(final MouseEvent event) throws IOException {
         SceneController.swapScene("/view/login.fxml", "Please Log In To Agendizer", event, getClass());
     }
 
+    /**
+     * Handles behavior when create user button is pressed
+     * Validates user input and creates a user if successful
+     * TODO handle invalid attempt?
+     * @param event fired when button is pressed
+     */
     @FXML
     private void createNewUser(final MouseEvent event) {
         boolean isValid = validateRegistration();
@@ -69,7 +87,10 @@ public class RegistrationController {
         }
     }
 
-
+    /**
+     * Creates tutorial agenda on user creation
+     * TODO rethink or delete
+     */
     private void createTutorialAgenda() {
         String agendaTitle = "Getting Started";
         Agenda agenda = new Agenda(agendaTitle.hashCode(), agendaTitle , usernameRegisterField.hashCode());
@@ -100,6 +121,10 @@ public class RegistrationController {
 
     }
 
+    /**
+     * Checks if user has given valid input before accepting registration
+     * @return success flag
+     */
     @FXML
     private boolean validateRegistration() {
         boolean isValid = false;
@@ -121,6 +146,7 @@ public class RegistrationController {
 
     /**
      * Verifies that the email has proper qualities of an email.
+     * TODO add google acknowledgement?
      * @param theEmail the email string to be tested.
      * @return the boolean indicating if the email was valid successful(true), or not(false).
      */

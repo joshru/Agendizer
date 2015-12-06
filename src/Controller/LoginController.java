@@ -14,24 +14,35 @@ import javafx.scene.text.Text;
 import java.io.IOException;
 
 /**
- * Created by Josh Rueschenberg on 11/30/2015.
+ * Controller for defining behavior in the login screen
+ * @author Josh Rueschenberg
+ * @version 1338
  */
 public class LoginController {
-
+    /**
+     * All fields with @FXML tags correspond with a GUI element defined in the /view/login.fxml file
+     * Names for these fields are the same as the FX:ID tag assigned to them
+     */
     @FXML private Label loginError;
     @FXML private TextField usernameLoginField;
     @FXML private PasswordField passwordLoginField;
     @FXML private Button loginButton;
     @FXML private Text newUserButton;
     @FXML private Button test;
-
+    /**
+     * References to Databases
+     */
     private UserDB db = new UserDB();
     private AgendaDB adb = new AgendaDB();
 
-
+    /**
+     * Defines login button behavior
+     * @param event that gets fired when the button is pressed
+     * @throws IOException
+     */
     @FXML
     private void handleLoginButton(MouseEvent event) throws IOException {
-        System.out.println("button pressed");
+        System.out.println("button pressed"); //debug
         loginError.setText("");
         String user;
         String pass;
@@ -54,17 +65,31 @@ public class LoginController {
 
     }
 
+    /**
+     * Swaps to a register Scene when register button is pressed
+     * @param event fired when button pressed
+     * @throws IOException
+     */
     @FXML
     private void handleRegisterButton(MouseEvent event) throws IOException {
         SceneController.swapScene("/view/register.fxml", "Agendizer Registration", event, getClass());
     }
 
+    /**
+     * Test method for creating agendas TODO delete me
+     * @param event
+     */
     @FXML
     private void testAgenda(MouseEvent event) {
 //        Agenda a = new Agenda(1234, "test agenda", 1234556346);
 //        adb.createAgenda(a);
     }
 
+    /**
+     * Super dirty debugging function TODO delete me
+     * @param event
+     * @throws IOException
+     */
     @FXML
     private void bypassLogin(MouseEvent event) throws IOException {
         SceneController.swapScene("/view/gui.fxml", "Agendizer", event, getClass());

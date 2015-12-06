@@ -20,16 +20,22 @@ import java.util.Properties;
  */
 public class AgendaDB extends DBHelper {
 
-
+    /**List of Agendas*/
     private List<Agenda> agendaList;
+    /**List of Agendas that can be placed into table view */
     private ObservableList<Agenda> obsAgendaList;
 
-
+    /**Helper flag for populateList()*/
     boolean gettingUserAgendas; //dirty
+    /**Helper flag for populateList()*/
     boolean gettingTitleAgenda; //also dirty
 
 
-
+    /**
+     * Obtains the entire list of Agendas
+     * @return list of agendas
+     * @throws SQLException
+     */
     public List<Agenda> getAgendas() throws SQLException {
         if (myConnection == null) {
             createConnection();
@@ -45,6 +51,11 @@ public class AgendaDB extends DBHelper {
 
     }
 
+    /**
+     * Obtains a specific agenda by its title
+     * @return the Agenda
+     * @throws SQLException
+     */
     public Agenda getAgendaByTitle() throws SQLException { //TODO change me back to requiring a string if this breaks
         if (myConnection == null) {
             createConnection();
@@ -91,6 +102,11 @@ public class AgendaDB extends DBHelper {
         return result;
     }*/
 
+    /**
+     * Gets the agendas for the current user
+     * @return The Agenda list
+     * @throws SQLException
+     */
     public List<Agenda> getUserAgendas() throws SQLException {
         if (myConnection == null) {
             createConnection();
@@ -108,6 +124,11 @@ public class AgendaDB extends DBHelper {
 
     }
 
+    /**
+     * Populates the list of agendas given a query
+     * @param query to be executed on the DB
+     * @throws SQLException
+     */
     private void populateList(String query) throws SQLException {
         PreparedStatement stmt = null;
 
@@ -146,7 +167,10 @@ public class AgendaDB extends DBHelper {
     }
 
 
-
+    /**
+     * Adds an Agenda to the DB
+     * @param agenda to be added
+     */
     public void createAgenda(Agenda agenda) {
         String statement = "INSERT INTO _445team2.Agenda VALUES (?, ?, ?)";
         PreparedStatement preparedStatement;
