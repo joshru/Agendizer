@@ -62,15 +62,18 @@ public class AgendaDB extends DBHelper {
         }
         String query = "select * from " + userName + ".Agenda WHERE " + userName + ".Agenda.title = ?;";
 
+        //Clear out lists
         agendaList = new ArrayList<>();
         obsAgendaList = FXCollections.observableArrayList();
 
+        //Set flag to let populateList know which arguments to pass to the statement
         gettingTitleAgenda = true;
         populateList(query);
         gettingTitleAgenda = false;
 
         Agenda result = null;
 
+        //Return the Agenda if it exists
         if (!obsAgendaList.isEmpty()) {
             obsAgendaList.get(0);
             System.out.println("Retrieved agenda by title Expected: " + Context.getInstance().getCurrentAgendaName()
@@ -105,9 +108,8 @@ public class AgendaDB extends DBHelper {
     /**
      * Gets the agendas for the current user
      * @return The Agenda list
-     * @throws SQLException
      */
-    public List<Agenda> getUserAgendas() throws SQLException {
+    public List<Agenda> getUserAgendas() {
         if (myConnection == null) {
             createConnection();
         }
@@ -115,10 +117,15 @@ public class AgendaDB extends DBHelper {
         agendaList = new ArrayList<>();
         obsAgendaList = FXCollections.observableArrayList();
 
-
+        //Set flag to let populateList know what arguments to pass into the statement
         gettingUserAgendas = true;
-        populateList(query);
-        gettingUserAgendas = false;
+
+       // try {
+            populateList(query);
+        // } catch (SQLException e) {
+       //     e.printStackTrace();
+      //  }
+        gettingUserAgendas = false; //reset flag
 
         return agendaList;
 
@@ -127,17 +134,16 @@ public class AgendaDB extends DBHelper {
     /**
      * Populates the list of agendas given a query
      * @param query to be executed on the DB
-     * @throws SQLException
      */
-    private void populateList(String query) throws SQLException {
+    private void populateList(String query) {
         PreparedStatement stmt = null;
 
 
         try {
-            createConnection();
+            createConnection(); //TODO is this necessary? It should happen in the calling method
             stmt = myConnection.prepareStatement(query);
 
-            //Super duper dirty way of doing this //TODO fix me
+            //Super duper dirty way of doing this //TODO This actually doesn't seem TOO dirty...
             if (gettingUserAgendas) stmt.setInt(1, Context.getInstance().getCurrentUserID());
             if (gettingTitleAgenda) stmt.setString(1, Context.getInstance().getCurrentAgendaName());
 
@@ -151,7 +157,7 @@ public class AgendaDB extends DBHelper {
                 int fk_userID = results.getInt("fkUser");
 
                 Agenda agenda = new Agenda(agendaID, agendaTitle, fk_userID);
-                System.out.println("Agenda created");
+                System.out.println("Agenda created: " + agendaTitle);
 
                 agendaList.add(agenda);
                 obsAgendaList.add(agenda);
@@ -161,7 +167,12 @@ public class AgendaDB extends DBHelper {
             e.printStackTrace();
         } finally {
             if (stmt != null) {
-                stmt.close();
+                //TODO take a bath
+                try {
+                    stmt.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

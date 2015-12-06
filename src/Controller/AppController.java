@@ -339,11 +339,14 @@ public class AppController implements Initializable {
 
     /**
      * Defines the behavior for the create task button
+     * TODO rename me to make it clear a task is being created
      */
     @FXML
     private void getTaskDetails() {
         String taskName = newTaskDescription.getText();
 
+
+        //TODO change primary keys to INTEGER AUTOINCREMENT
         int taskID = taskName.hashCode(); //hella sneaky sneaks
         LocalDate ld = newTaskDeadline.getValue();
         java.sql.Date timestamp = null;
@@ -380,25 +383,27 @@ public class AppController implements Initializable {
 
     /**
      * Populates the list of agendas for the currently logged in user
+     * Called when the user logs in
      */
     private void populateAgendaList() {
         int currUserId = Context.getInstance().getCurrentUserID();
         System.out.println("Logged in user: " + currUserId);
-        try {
+       // try {
             ArrayList<Agenda> agendas = (ArrayList<Agenda>) adb.getUserAgendas();
 
 
             //From this
-            for (Agenda current : agendas) {
+            /*for (Agenda current : agendas) {
                 addAgendaMenuItem(current);
-            }
+            }*/
+
             //To this
-           // agendas.forEach(element -> addAgendaMenuItem(element));
+            agendas.forEach(this::addAgendaMenuItem);
 
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+       // } catch (SQLException e) {
+       //     e.printStackTrace();
+       // }
 
     }
 
@@ -429,7 +434,7 @@ public class AppController implements Initializable {
             }
         });
 
-
+        //Add mew agenda to button group and add it the menu.
         menuItem.setToggleGroup(agendaGroup);
         AgendasMenu.getItems().add(menuItem);
     }
