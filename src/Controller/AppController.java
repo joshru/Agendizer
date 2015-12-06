@@ -6,10 +6,12 @@ import Model.Agenda;
 import Model.Context;
 import Model.Task;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.ImageView;
 import view.AgendaMenuItem;
 
@@ -192,15 +194,24 @@ public class AppController implements Initializable {
     }
 
 
-    private void setOnEditCommitHandlers() {
-        try {
-            ucTaskCol.setOnEditCommit(e -> {
+    private void setOnEditCommitHandlers()  {
+
+            ucTaskCol.setCellFactory(TextFieldTableCell.forTableColumn());
+            ucTaskCol.setOnEditCommit(event -> {
+//                ((Task) event.getTableView().getItems().get
+//                        (event.getTablePosition().getRow()).setTaskTitle(
+//                        event.getNewValue()));
                 try {
-                    db.updateTask("title", e.getRowValue().getTaskTitle());
-                } catch (SQLException e1) {
-                    e1.printStackTrace();
+                    db.updateTask("title", event.getNewValue());
+                } catch (SQLException e) {
+                    e.printStackTrace();
                 }
+
+
             });
+
+
+
             ucDeadlineCol.setOnEditCommit(e -> {
                 try {
                     db.updateTask("timestamp", e.getNewValue());
@@ -229,9 +240,7 @@ public class AppController implements Initializable {
                     e1.printStackTrace();
                 }
             });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
     }
 
     @FXML
