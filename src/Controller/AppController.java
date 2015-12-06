@@ -94,7 +94,7 @@ public class AppController implements Initializable {
 
         upcomingTaskTable.setPlaceholder(new Label("Please select an agenda or create a new task."));
         completedTaskTable.setPlaceholder(new Label("Please select an agenda."));
-
+        setOnEditCommitHandlers();
         populateAgendaList();
     }
 
@@ -189,6 +189,15 @@ public class AppController implements Initializable {
 
         }
 
+    }
+
+    @FXML
+    private void setOnEditCommitHandlers() {
+        ucTaskCol.setOnEditCommit(e -> db.updateTask("title", e.getRowValue().getTaskTitle()));
+        ucDeadlineCol.setOnEditCommit(e -> db.updateTask("timestamp", e.getNewValue()));
+        ucDifficultyCol.setOnEditCommit(e -> db.updateTask("difficulty", e.getNewValue()));
+        ucUrgencyCol.setOnEditCommit(e -> db.updateTask("urgency", e.getNewValue()));
+        ucPriorityCol.setOnEditCommit(e -> db.updateTask("priority", e.getNewValue()));
     }
 
     @FXML
