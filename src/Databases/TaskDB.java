@@ -67,6 +67,23 @@ public class TaskDB extends DBHelper {
 
     }
 
+    public void updateTask(final String column, final String newVal) throws SQLException {
+        if (myConnection == null) {
+            createConnection();
+        }
+
+
+        String query = "UPDATE `_445team2`.Task SET " + column + " = " + newVal + ";";
+        PreparedStatement ps;
+
+        try {
+            ps = myConnection.prepareStatement(query);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public ObservableList<Task> getAgendaTasks(Agenda agenda, boolean completed) throws SQLException {
         if (myConnection == null) {

@@ -132,7 +132,7 @@ public class AppController implements Initializable {
 
             System.out.println("Agenda obtained: " + selected.getAgendaTitle());
 
-            Context.getInstance().setCurrentAgendaID(selected.getAgendaID()); //TODO fix the exception thrown here at login
+            Context.getInstance().setCurrentAgendaID(selected.getAgendaID());
 
             ObservableList<Task> obs = db.getAgendaTasks(selected, false); //false = upcoming tasks
 
@@ -171,7 +171,7 @@ public class AppController implements Initializable {
 
             System.out.println("Agenda obtained: " + selected.getAgendaTitle());
 
-            Context.getInstance().setCurrentAgendaID(selected.getAgendaID()); //TODO fix the exception thrown here at login
+            Context.getInstance().setCurrentAgendaID(selected.getAgendaID());
 
             ObservableList<Task> obs = db.getAgendaTasks(selected, true); //true = completed tasks
 
@@ -184,8 +184,6 @@ public class AppController implements Initializable {
                     upcomingTaskTable.getItems().add(e);
                 }
             });
-
-            //TODO loop through list and add tasks to the appropriate list
 
             // upcomingTaskTable.setItems(obs);
 
@@ -291,8 +289,6 @@ public class AppController implements Initializable {
 
     public void addAgendaMenuItem(final Agenda agenda) {
         AgendaMenuItem menuItem = new AgendaMenuItem(agenda);
-
-        //TODO This may be one of the places that causes the login exception
         menuItem.setOnAction(e -> {
             try {
               //  Agenda selected = adb.getAgendaByTitle(menuItem.getText()); //TODO think over this decision to extend RadioMenuItem
