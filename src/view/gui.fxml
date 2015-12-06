@@ -55,7 +55,11 @@
                      <content>
                         <VBox>
                            <children>
-                              <Button fx:id="upcomingNewTaskButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="25.0" prefWidth="907.0" text="+ New Task +" VBox.vgrow="ALWAYS" />
+                              <Label fx:id="upcomingTaskError" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" prefHeight="17.0" prefWidth="652.0" text="ERROR" textFill="RED">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
                               <VBox VBox.vgrow="ALWAYS">
                                  <children>
                                     <TableView fx:id="upcomingTaskTable" editable="true" VBox.vgrow="ALWAYS">
@@ -88,7 +92,11 @@
                      <content>
                         <VBox>
                            <children>
-                              <Button fx:id="completedNewTaskButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="25.0" prefWidth="907.0" text="+ New Task +" VBox.vgrow="ALWAYS" />
+                              <Label fx:id="completedTaskError" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" prefHeight="17.0" prefWidth="1110.0" text="ERROR" textFill="RED" VBox.vgrow="ALWAYS">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
                               <VBox VBox.vgrow="ALWAYS">
                                  <children>
                                     <TableView fx:id="completedTaskTable" VBox.vgrow="ALWAYS">

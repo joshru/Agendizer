@@ -32,8 +32,8 @@ public class AppController implements Initializable {
     @FXML private Tab upcomingTab;
     @FXML private Tab completedTab;
     @FXML private Tab newTaskTab;
-    @FXML private Button upcomingNewTaskButton;
-    @FXML private Button completedNewTaskButton;
+    @FXML private Label upcomingTaskError;
+    @FXML private Label completedTaskError;
     @FXML private TableView<Task> upcomingTaskTable;
     @FXML private TableView<Task> completedTaskTable;
 
@@ -191,13 +191,47 @@ public class AppController implements Initializable {
 
     }
 
-    @FXML
+
     private void setOnEditCommitHandlers() {
-        ucTaskCol.setOnEditCommit(e -> db.updateTask("title", e.getRowValue().getTaskTitle()));
-        ucDeadlineCol.setOnEditCommit(e -> db.updateTask("timestamp", e.getNewValue()));
-        ucDifficultyCol.setOnEditCommit(e -> db.updateTask("difficulty", e.getNewValue()));
-        ucUrgencyCol.setOnEditCommit(e -> db.updateTask("urgency", e.getNewValue()));
-        ucPriorityCol.setOnEditCommit(e -> db.updateTask("priority", e.getNewValue()));
+        try {
+            ucTaskCol.setOnEditCommit(e -> {
+                try {
+                    db.updateTask("title", e.getRowValue().getTaskTitle());
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+            });
+            ucDeadlineCol.setOnEditCommit(e -> {
+                try {
+                    db.updateTask("timestamp", e.getNewValue());
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+            });
+            ucDifficultyCol.setOnEditCommit(e -> {
+                try {
+                    db.updateTask("difficulty", e.getNewValue());
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+            });
+            ucUrgencyCol.setOnEditCommit(e -> {
+                try {
+                    db.updateTask("urgency", e.getNewValue());
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+            });
+            ucPriorityCol.setOnEditCommit(e -> {
+                try {
+                    db.updateTask("priority", e.getNewValue());
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
