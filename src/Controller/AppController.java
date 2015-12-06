@@ -202,7 +202,8 @@ public class AppController implements Initializable {
 //                        (event.getTablePosition().getRow()).setTaskTitle(
 //                        event.getNewValue()));
                 try {
-                    db.updateTask("title", event.getNewValue());
+                    db.updateTask("title", event.getNewValue(), upcomingTaskTable.getSelectionModel().getSelectedItem().getTaskID());
+                    System.out.println(event.getNewValue());
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -212,34 +213,34 @@ public class AppController implements Initializable {
 
 
 
-            ucDeadlineCol.setOnEditCommit(e -> {
-                try {
-                    db.updateTask("timestamp", e.getNewValue());
-                } catch (SQLException e1) {
-                    e1.printStackTrace();
-                }
-            });
-            ucDifficultyCol.setOnEditCommit(e -> {
-                try {
-                    db.updateTask("difficulty", e.getNewValue());
-                } catch (SQLException e1) {
-                    e1.printStackTrace();
-                }
-            });
-            ucUrgencyCol.setOnEditCommit(e -> {
-                try {
-                    db.updateTask("urgency", e.getNewValue());
-                } catch (SQLException e1) {
-                    e1.printStackTrace();
-                }
-            });
-            ucPriorityCol.setOnEditCommit(e -> {
-                try {
-                    db.updateTask("priority", e.getNewValue());
-                } catch (SQLException e1) {
-                    e1.printStackTrace();
-                }
-            });
+//            ucDeadlineCol.setOnEditCommit(e -> {
+//                try {
+//                    db.updateTask("timestamp", e.getNewValue());
+//                } catch (SQLException e1) {
+//                    e1.printStackTrace();
+//                }
+//            });
+//            ucDifficultyCol.setOnEditCommit(e -> {
+//                try {
+//                    db.updateTask("difficulty", e.getNewValue());
+//                } catch (SQLException e1) {
+//                    e1.printStackTrace();
+//                }
+//            });
+//            ucUrgencyCol.setOnEditCommit(e -> {
+//                try {
+//                    db.updateTask("urgency", e.getNewValue());
+//                } catch (SQLException e1) {
+//                    e1.printStackTrace();
+//                }
+//            });
+//            ucPriorityCol.setOnEditCommit(e -> {
+//                try {
+//                    db.updateTask("priority", e.getNewValue());
+//                } catch (SQLException e1) {
+//                    e1.printStackTrace();
+//                }
+//            });
 
     }
 

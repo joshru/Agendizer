@@ -67,17 +67,24 @@ public class TaskDB extends DBHelper {
 
     }
 
-    public void updateTask(final String column, final String newVal) throws SQLException {
+    public void updateTask(final String column, final String newVal, final int id) throws SQLException {
         if (myConnection == null) {
             createConnection();
         }
 
 
-        String query = "UPDATE `_445team2`.Task SET " + column + " = " + newVal + ";";
+        String query = "UPDATE `_445team2`.Task SET " + column + " = ? WHERE taskID = ?;";
+
         PreparedStatement ps;
 
         try {
             ps = myConnection.prepareStatement(query);
+//            ps.setString(1, column);
+            ps.setString(1, newVal);
+            ps.setInt(2, id);
+
+            System.out.println(ps.toString());
+
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
