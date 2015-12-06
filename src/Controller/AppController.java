@@ -133,9 +133,19 @@ public class AppController implements Initializable {
 
             ObservableList<Task> obs = db.getAgendaTasks(selected);
 
+
+            //Lambda warning: Don't look directly into the loop.
+            obs.forEach(e -> {
+                if (e.getCompleted() == 0) {
+                    completedTaskTable.getItems().add(e);
+                } else {
+                    upcomingTaskTable.getItems().add(e);
+                }
+            });
+
             //TODO loop through list and add tasks to the appropriate list
 
-            upcomingTaskTable.setItems(obs);
+           // upcomingTaskTable.setItems(obs);
 
         }
 
