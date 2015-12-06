@@ -136,6 +136,7 @@ public class AppController implements Initializable {
             //TODO loop through list and add tasks to the appropriate list
 
             upcomingTaskTable.setItems(obs);
+
         }
 
     }
@@ -206,6 +207,7 @@ public class AppController implements Initializable {
                 urgency, priority, timeCompleted, notes, location, agendaID);
 
         db.addTask(task);
+        upcomingTaskTable.getItems().add(task);
 
 
     }
