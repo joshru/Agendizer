@@ -19,7 +19,8 @@ public class TaskDB extends DBHelper {
 //    private static String serverName = "cssgate.insttech.washington.edu";
 //    private static Connection myConnection;
 //    private List<Task> taskList;
-    private ObservableList<Task> obsTasks;
+    private ObservableList<Task> upcomingTasks;
+    private ObservableList<Task> completedTasks;
 
 
 
@@ -39,14 +40,14 @@ public class TaskDB extends DBHelper {
         String query = "";
         if (upcoming) query = "SELECT * FROM " + userName + ".Task WHERE completed = 0;";
         if (!upcoming) query = "SELECT * FROM " + userName + ".Task WHERE completed = 1;";
-        obsTasks = FXCollections.observableArrayList();
+        upcomingTasks = FXCollections.observableArrayList();
 
         try {
             parseResultSet(query);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return obsTasks;
+        return upcomingTasks;
     }
 
     public void completeTask(Task complete) throws SQLException {
@@ -67,18 +68,21 @@ public class TaskDB extends DBHelper {
     }
 
 
-    public ObservableList<Task> getAgendaTasks(Agenda agenda) throws SQLException {
+    public ObservableList<Task> getAgendaTasks(Agenda agenda, boolean completed) throws SQLException {
         if (myConnection == null) {
             createConnection();
         }
 
         String query = "select * FROM " + userName + ".Task WHERE " + userName +" .Task.agenda_agendaID = " + agenda.getAgendaID();
-        obsTasks = FXCollections.observableArrayList();
+        upcomingTasks = FXCollections.observableArrayList();
+        completedTasks = FXCollections.observableArrayList();
 
         parseResultSet(query);
 
 
-        return obsTasks;
+        if (!completed) return upcomingTasks;
+        return completedTasks;
+//        return parseResultSet(query);
     }
 
     public void removeTask(Task delete) {
@@ -151,7 +155,8 @@ public class TaskDB extends DBHelper {
 
 //                System.out.println("created a task");
                 //taskList.add(task);
-                obsTasks.add(task);
+                if (completed == 0) upcomingTasks.add(task);
+                if (completed == 1) completedTasks.add(task);
 
 //                System.out.println("Grabbed Task  = " + task.toString());
             }

@@ -134,7 +134,7 @@ public class AppController implements Initializable {
 
             Context.getInstance().setCurrentAgendaID(selected.getAgendaID()); //TODO fix the exception thrown here at login
 
-            ObservableList<Task> obs = db.getAgendaTasks(selected);
+            ObservableList<Task> obs = db.getAgendaTasks(selected, false); //false = upcoming tasks
 
 
             //Lambda warning: Don't look directly into the loop.
@@ -152,14 +152,43 @@ public class AppController implements Initializable {
     }
 
     @FXML
-    private void completedTabSelected() {
-        ObservableList<Task> tasks;
-        try {
-            tasks = db.getCompletedTasks();
-            completedTaskTable.setItems(tasks);
+    private void completedTabSelected() throws SQLException {
+//        ObservableList<Task> tasks;
+//        try {
+//            tasks = db.getCompletedTasks();
+//            completedTaskTable.setItems(tasks);
+//
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+        Agenda selected = null;
+        if (Context.getInstance().getCurrentAgendaName() != null) {
+            selected = adb.getAgendaByTitle();
+        }
 
-        } catch (SQLException e) {
-            e.printStackTrace();
+        if (selected != null) {
+
+
+            System.out.println("Agenda obtained: " + selected.getAgendaTitle());
+
+            Context.getInstance().setCurrentAgendaID(selected.getAgendaID()); //TODO fix the exception thrown here at login
+
+            ObservableList<Task> obs = db.getAgendaTasks(selected, true); //true = completed tasks
+
+
+            //Lambda warning: Don't look directly into the loop.
+            obs.forEach(e -> {
+                if (e.getCompleted() == 0) {
+                    completedTaskTable.getItems().add(e);
+                } else {
+                    upcomingTaskTable.getItems().add(e);
+                }
+            });
+
+            //TODO loop through list and add tasks to the appropriate list
+
+            // upcomingTaskTable.setItems(obs);
+
         }
 
     }
@@ -178,6 +207,7 @@ public class AppController implements Initializable {
         try {
             db.completeTask(selected);
             upcomingTaskTable.getItems().removeAll(upcomingTaskTable.getSelectionModel().getSelectedItems());
+            completedTaskTable.getItems().add(selected);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -272,8 +302,10 @@ public class AppController implements Initializable {
 
                 Context.getInstance().setCurrentAgendaID(selected.getAgendaID());
                 Context.getInstance().setCurrentAgendaName(selected.getAgendaTitle());
-                ObservableList<Task> obs = db.getAgendaTasks(selected);
-                upcomingTaskTable.setItems(obs);
+                ObservableList<Task> obsUpcoming = db.getAgendaTasks(selected, false);
+                ObservableList<Task> obsCompleted = db.getAgendaTasks(selected, true);
+                upcomingTaskTable.setItems(obsUpcoming);
+                completedTaskTable.setItems(obsCompleted);
             } catch (SQLException e1) {
                 e1.printStackTrace();
             }
