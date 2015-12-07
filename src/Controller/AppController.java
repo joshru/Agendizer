@@ -54,9 +54,6 @@ public class AppController implements Initializable {
 
     @FXML private Menu AgendasMenu;
 
-
-
-
     // these columns should probably be in an array or something. messy
     @FXML private TableColumn<Task, String> ucTaskCol;
     @FXML private TableColumn<Task, String> ucDeadlineCol;
@@ -88,7 +85,6 @@ public class AppController implements Initializable {
     /** Reference to Agenda database*/
     private static final AgendaDB adb = new AgendaDB();
 
-//    ObservableList<String> difficultyVals = FXCollections.observableArrayList("one", "two");
 
     /**
      * Runs on startup. Used to initialize GUI elements/assign listeners as appropriate
@@ -184,8 +180,6 @@ public class AppController implements Initializable {
             });
 
     }
-
-
 
 
     /**
@@ -358,8 +352,6 @@ public class AppController implements Initializable {
             completedTaskTable.setItems(obs);
 
             taskList.addAll(obs);
-
-
 
         }
 
