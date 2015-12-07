@@ -110,7 +110,7 @@ public class AppController implements Initializable {
         compDifficultyCol.setCellValueFactory(new PropertyValueFactory<>("difficulty"));
         compPriorityCol.setCellValueFactory(new PropertyValueFactory<>("priority"));
 
-        currentUser.setText(Context.getInstance().getCurrentUsername());
+        currentUser.setText("Current User:  " + Context.getInstance().getCurrentUsername());
         agendaGroup = new ToggleGroup();
 
         upcomingTaskTable.setPlaceholder(new Label("Please select an agenda or create a new task."));
