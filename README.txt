@@ -22,3 +22,5 @@ Main Features:
 How to run our program (Java 8 required!):
 	-> Simply run the included .jar file to get things going. From here you can create a new user or log in with an existing one. 
 	-> After logging in you can create new agendas, create tasks within those agendas and get on to managing your life like a superstar!
+	
+	**NOTE: You might have to add the sql connector jar to the project yourself. The way IntelliJ structures its libraries might cause it to be different in the ide of your choice
