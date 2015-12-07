@@ -35,7 +35,7 @@
                              <Image url="@res/logo.png" />
                          </image>
                      </ImageView>
-                     <HBox prefHeight="32.0" prefWidth="159.0" />
+                     <HBox prefHeight="32.0" prefWidth="159.0" HBox.hgrow="ALWAYS" />
                   <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="32.0" prefWidth="94.0" text="Current User:   ">
                      <font>
                         <Font size="14.0" />

@@ -73,12 +73,14 @@ public class TaskDB extends DBHelper {
             createConnection();
         }
         java.sql.Date ts = new java.sql.Date(System.currentTimeMillis());
-        String query = "UPDATE `_445team2`.Task SET completed = 1 AND timeCompleted = " + ts + " WHERE taskID = ?;";
+        String query = "UPDATE `_445team2`.Task SET Task.completed = 1, Task.timeCompleted = ? WHERE taskID = ?;";
         PreparedStatement ps;
 
         try {
             ps = myConnection.prepareStatement(query);
-            ps.setInt(1, complete.getTaskID());
+            ps.setDate(1, ts);
+            ps.setInt(2, complete.getTaskID());
+            System.out.println(ps.toString());
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
