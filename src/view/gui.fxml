@@ -55,7 +55,7 @@
                      <content>
                         <VBox>
                            <children>
-                              <Label fx:id="upcomingTaskError" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" prefHeight="17.0" prefWidth="652.0" text="ERROR" textFill="RED">
+                              <Label fx:id="upcomingTaskError" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" prefHeight="17.0" prefWidth="652.0" text="ERROR" textFill="#468aff">
                                  <font>
                                     <Font size="14.0" />
                                  </font>

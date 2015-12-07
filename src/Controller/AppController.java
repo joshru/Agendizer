@@ -111,11 +111,26 @@ public class AppController implements Initializable {
 
         upcomingTaskTable.setPlaceholder(new Label("Please select an agenda or create a new task."));
         completedTaskTable.setPlaceholder(new Label("Please select an agenda."));
+        changeErrorLabels();
         setOnEditCommitHandlers();
         populateAgendaList();
     }
 
-
+    /**
+     * Updates the error labels with the currently selected agenda
+     * TODO rename labels and change text to blue
+     */
+    private void changeErrorLabels() {
+        if (Context.getInstance().getCurrentAgendaName() == null) {
+            String message = "Please select or create an Agenda";
+            completedTaskError.setText(message);
+            upcomingTaskError.setText(message);
+        } else {
+            String message = Context.getInstance().getCurrentAgendaName();
+            completedTaskError.setText(message);
+            upcomingTaskError.setText(message);
+        }
+    }
 
 
     /**
@@ -126,9 +141,7 @@ public class AppController implements Initializable {
 
             ucTaskCol.setCellFactory(TextFieldTableCell.forTableColumn());
             ucTaskCol.setOnEditCommit(event -> {
-//                ((Task) event.getTableView().getItems().get
-//                        (event.getTablePosition().getRow()).setTaskTitle(
-//                        event.getNewValue()));
+
                 event.getRowValue().setTaskTitle(event.getNewValue());
 
                 db.updateTask("title", event.getNewValue(), event.getRowValue().getTaskID());
@@ -138,6 +151,9 @@ public class AppController implements Initializable {
             });
 
             //TODO find out how to update date column
+            /*ucDeadlineCol.setOnEditStart(e -> {
+
+            });*/
             /*ucDeadlineCol.setCellFactory(TextFieldTableCell.forTableColumn());
             ucDeadlineCol.setOnEditCommit(e -> {
 
@@ -243,6 +259,8 @@ public class AppController implements Initializable {
             upcomingTaskTable.setItems(obsUpcoming);
             completedTaskTable.setItems(obsCompleted);
 
+            changeErrorLabels();
+
         });
 
         //Add mew agenda to button group and add it the menu.
@@ -261,35 +279,42 @@ public class AppController implements Initializable {
      */
     @FXML
     private void getTaskDetails() {
-        String taskName = newTaskDescription.getText();
+
+        if (Context.getInstance().getCurrentAgendaName() != null) {
+            String taskName = newTaskDescription.getText();
 
 
-        //TODO change primary keys to INTEGER AUTOINCREMENT
-        int taskID = taskName.hashCode(); //hella sneaky sneaks
+            //TODO change primary keys to INTEGER AUTOINCREMENT
+            int taskID = taskName.hashCode(); //hella sneaky sneaks
 
-        LocalDate ld = newTaskDeadline.getValue();
-        java.sql.Date timestamp = null;
+            LocalDate ld = newTaskDeadline.getValue();
+            java.sql.Date timestamp = null;
 
-        if (ld != null) timestamp = java.sql.Date.valueOf(ld);
+            if (ld != null) timestamp = java.sql.Date.valueOf(ld);
 
-        System.out.println(timestamp);
+            System.out.println(timestamp);
 
 
-        int completed = 0;
-        String difficulty = newTaskDifficulty.getSelectionModel().getSelectedItem().toString();
-        String urgency = newTaskUrgency.getSelectionModel().getSelectedItem().toString();
-        String priority = newTaskPriority.getSelectionModel().getSelectedItem().toString();
-        java.sql.Date timeCompleted = new java.sql.Date(System.currentTimeMillis());
-        String notes = "test notes";
-        String location = "ur mum's house";
-        int agendaID = Context.getInstance().getCurrentAgendaID();
+            int completed = 0;
+            String difficulty = newTaskDifficulty.getSelectionModel().getSelectedItem().toString();
+            String urgency = newTaskUrgency.getSelectionModel().getSelectedItem().toString();
+            String priority = newTaskPriority.getSelectionModel().getSelectedItem().toString();
+            java.sql.Date timeCompleted = new java.sql.Date(System.currentTimeMillis());
+            String notes = "test notes";
+            String location = "ur mum's house";
+            int agendaID = Context.getInstance().getCurrentAgendaID();
 
-        Task task = new Task(taskID, taskName, timestamp, completed, difficulty,
-                urgency, priority, timeCompleted, notes, location, agendaID);
+            Task task = new Task(taskID, taskName, timestamp, completed, difficulty,
+                    urgency, priority, timeCompleted, notes, location, agendaID);
 
-        db.addTask(task);
-        upcomingTaskTable.getItems().add(task);
-        resetNewTaskFields();
+            db.addTask(task);
+            upcomingTaskTable.getItems().add(task);
+            resetNewTaskFields();
+        } else {
+            String message = "Please create or select an Agenda before making a task.";
+            Alert noAgendaAlert = new Alert(Alert.AlertType.WARNING, message, ButtonType.OK);
+            noAgendaAlert.showAndWait().filter(response -> response == ButtonType.OK);
+        }
 
 
     }
@@ -395,8 +420,10 @@ public class AppController implements Initializable {
     private void handleContextDelete() {
         Task selected = upcomingTaskTable.getSelectionModel().getSelectedItem();
 
-        db.removeTask(selected);
-        upcomingTaskTable.getItems().removeAll(upcomingTaskTable.getSelectionModel().getSelectedItem());
+        if (selected != null) {
+            db.removeTask(selected);
+            upcomingTaskTable.getItems().removeAll(upcomingTaskTable.getSelectionModel().getSelectedItem());
+        } //TODO consider putting a dialog here too
     }
 
     /**
@@ -406,10 +433,15 @@ public class AppController implements Initializable {
     private void handleContextComplete() {
         Task selected = upcomingTaskTable.getSelectionModel().getSelectedItem();
 
-        db.completeTask(selected);
-        upcomingTaskTable.getItems().removeAll(upcomingTaskTable.getSelectionModel().getSelectedItems());
-        completedTaskTable.getItems().add(selected);
-
+        if (selected != null) {
+            db.completeTask(selected);
+            upcomingTaskTable.getItems().removeAll(upcomingTaskTable.getSelectionModel().getSelectedItems());
+            completedTaskTable.getItems().add(selected);
+        } else {
+            String message = "Please select a task to complete.";
+            Alert failedDeleteAlert = new Alert(Alert.AlertType.WARNING, message, ButtonType.OK) ;
+            failedDeleteAlert.showAndWait().filter(response -> response == ButtonType.OK);
+        }
 
     }
 
@@ -420,8 +452,14 @@ public class AppController implements Initializable {
     private void handleCompletedContextDelete() {
         Task selected = completedTaskTable.getSelectionModel().getSelectedItem();
 
-        db.removeTask(selected);
-        completedTaskTable.getItems().removeAll(completedTaskTable.getSelectionModel().getSelectedItem());
+        if (selected != null) {
+            db.removeTask(selected);
+            completedTaskTable.getItems().removeAll(completedTaskTable.getSelectionModel().getSelectedItem());
+        } else {
+            String message = "Please select a task to delete.";
+            Alert failedDeleteAlert = new Alert(Alert.AlertType.WARNING, message, ButtonType.OK) ;
+            failedDeleteAlert.showAndWait().filter(response -> response == ButtonType.OK);
+        }
     }
 
     /**
