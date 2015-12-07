@@ -30,7 +30,9 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 /**
- * Created by Josh Rueschenberg on 11/30/2015.
+ * Controller class for the primary GUI components.
+ * @author Josh Rueschenberg
+ * @version 12/6/15
  */
 public class AppController implements Initializable {
 
