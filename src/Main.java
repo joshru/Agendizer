@@ -13,18 +13,13 @@ public class Main extends Application {
     private static boolean DEBUG = true;
 
 
-
-    private Stage myPrimaryStage;
-    private FXMLLoader myLoader;
-
     @Override
     public void start(Stage primaryStage) throws Exception{
 //        Parent gui = FXMLLoader.load(getClass().getResource("gui.fxml"));
-        myLoader = new FXMLLoader();
+        FXMLLoader myLoader = new FXMLLoader();
 
         myLoader.setController(this);
 
-        myPrimaryStage = primaryStage;
 //        switchToLogin();
 //        primaryStage.show();
 
