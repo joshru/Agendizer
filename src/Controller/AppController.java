@@ -5,6 +5,7 @@ import Databases.TaskDB;
 import Model.Agenda;
 import Model.Context;
 import Model.Task;
+import javafx.collections.FXCollections;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
@@ -86,6 +87,10 @@ public class AppController implements Initializable {
     @FXML private TextField newAgendaName;
     @FXML private Button newAgendaButton;
 
+
+    private ObservableList<Task> taskList;
+
+
     /**Group for toggle buttons in the adenda drop down menu*/
     private ToggleGroup agendaGroup;
     /** Reference to task DB */
@@ -119,6 +124,9 @@ public class AppController implements Initializable {
 
         upcomingTaskTable.setPlaceholder(new Label("Please select an agenda or create a new task."));
         completedTaskTable.setPlaceholder(new Label("Please select an agenda."));
+
+        taskList = FXCollections.observableArrayList();
+
         changeErrorLabels();
         setOnEditCommitHandlers();
         populateAgendaList();
@@ -206,6 +214,45 @@ public class AppController implements Initializable {
 
     }
 
+/*    @FXML
+    private void searchTasks() {
+        String searchText = searchField.getText();
+
+        if (!searchText.isEmpty()) {
+
+            ObservableList<Task> results = db.searchTasks(searchText);
+
+            if (!results.isEmpty()) {
+
+                completedTaskTable.getItems().removeAll(completedTaskTable.getItems());
+                upcomingTaskTable.getItems().removeAll(upcomingTaskTable.getItems());
+
+
+                results.forEach(task -> {
+                    if (task.getCompleted() == 0) upcomingTaskTable.getItems().add(task);
+                    else completedTaskTable.getItems().add(task);
+                });
+
+
+            } else {
+                String message = "No results found";
+                Alert noResultsAlert = new Alert(Alert.AlertType.INFORMATION, message, ButtonType.OK);
+                noResultsAlert.showAndWait().filter((response -> response == ButtonType.OK));
+            }
+
+
+
+        } else {
+            String message = "Please input search terms.";
+            Alert noTextAlert = new Alert(Alert.AlertType.INFORMATION, message, ButtonType.OK);
+            noTextAlert.showAndWait().filter(result -> result == ButtonType.OK);
+        }*/
+
+
+
+
+   // }
+
 
 
     /**
@@ -265,6 +312,8 @@ public class AppController implements Initializable {
             ObservableList<Task> obsCompleted = db.getAgendaTasks(selected, true);
             upcomingTaskTable.setItems(obsUpcoming);
             completedTaskTable.setItems(obsCompleted);
+
+
 
             changeErrorLabels();
 
@@ -354,7 +403,6 @@ public class AppController implements Initializable {
      */
     @FXML
     private void upcomingTabSelected() {
-
         //TODO redistribute some of this behavior
         Agenda selected = null;
         if (Context.getInstance().getCurrentAgendaName() != null) {
@@ -371,14 +419,12 @@ public class AppController implements Initializable {
             ObservableList<Task> obs = db.getAgendaTasks(selected, false); //false = upcoming tasks
 
 
-            //Lambda warning: Don't look directly into the loop.
-            obs.forEach(e -> {
-                if (e.getCompleted() == 0) {
-                    completedTaskTable.getItems().add(e);
-                } else {
-                    upcomingTaskTable.getItems().add(e);
-                }
-            });
+
+            completedTaskTable.setItems(obs);
+            taskList.addAll(obs);
+
+
+         //   });
 
 
         }
@@ -407,14 +453,10 @@ public class AppController implements Initializable {
             ObservableList<Task> obs = db.getAgendaTasks(selected, true); //true = completed tasks
 
 
-            //Lambda warning: Don't look directly into the loop; you may be absorbed by its elegance
-            obs.forEach(e -> {
-                if (e.getCompleted() == 0) {
-                    completedTaskTable.getItems().add(e);
-                } else {
-                    upcomingTaskTable.getItems().add(e);
-                }
-            });
+
+            completedTaskTable.setItems(obs);
+
+            taskList.addAll(obs);
 
 
 

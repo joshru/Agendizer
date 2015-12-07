@@ -1,6 +1,7 @@
 package Databases;
 
 import Model.Agenda;
+import Model.Context;
 import Model.Task;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,6 +20,9 @@ public class TaskDB extends DBHelper {
     private ObservableList<Task> upcomingTasks;
     /** List of completed tasks*/
     private ObservableList<Task> completedTasks;
+
+    /**List of all tasks*/
+    private ObservableList<Task> allTasks;
 
 
     /**
@@ -82,6 +86,32 @@ public class TaskDB extends DBHelper {
 
     }
 
+    public ObservableList<Task> searchTasks(String search) {
+        if (myConnection == null) createConnection();
+
+        upcomingTasks = FXCollections.observableArrayList();
+        completedTasks = FXCollections.observableArrayList();
+
+        String query = "SELECT * FROM " + userName + ".Task WHERE " + userName + ".Task.agenda_agendaID LIKE " +
+                Context.getInstance().getCurrentAgendaID() + ";";
+
+        parseResultSet(query);
+
+        return allTasks;
+
+/*
+        try {
+            ps = myConnection.prepareStatement(query);
+            ps.setInt(1, Context.getInstance().getCurrentAgendaID());
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+*/
+
+
+    }
+
     /**
      * Updates a task entry in the DB
      * @param column to update
@@ -126,6 +156,8 @@ public class TaskDB extends DBHelper {
         String query = "select * FROM " + userName + ".Task WHERE " + userName +" .Task.agenda_agendaID = " + agenda.getAgendaID();
         upcomingTasks = FXCollections.observableArrayList();
         completedTasks = FXCollections.observableArrayList();
+
+        allTasks = FXCollections.observableArrayList();
 
         parseResultSet(query);
 
@@ -234,6 +266,7 @@ public class TaskDB extends DBHelper {
 
                 if (completed == 0) upcomingTasks.add(task);
                 if (completed == 1) completedTasks.add(task);
+                allTasks.add(task);
 
 
             }
