@@ -13,7 +13,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AppController">
+<AnchorPane fx:id="guiRoot" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AppController">
    <children>
       <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -21,8 +21,8 @@
               <menus>
                 <Menu mnemonicParsing="false" text="File">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Switch Users" />
-                    <MenuItem mnemonicParsing="false" text="Close" />
+                    <MenuItem mnemonicParsing="false" onAction="#switchUser" text="Switch Users" />
+                    <MenuItem mnemonicParsing="false" onAction="#exit" text="Close" />
                   </items>
                 </Menu>
                 <Menu fx:id="AgendasMenu" mnemonicParsing="false" text="Agendas" />
@@ -76,7 +76,7 @@
                                        <contextMenu>
                                           <ContextMenu fx:id="taskRowMenu">
                                             <items>
-                                              <MenuItem fx:id="cMenuCompleted" mnemonicParsing="false" onAction="#handleContextComplete" text="Completed" />
+                                              <MenuItem fx:id="cMenuCompleted" mnemonicParsing="false" onAction="#handleContextComplete" text="Mark Completed" />
                                                 <MenuItem fx:id="cMenuDelete" mnemonicParsing="false" onAction="#handleContextDelete" text="Delete" />
                                             </items>
                                           </ContextMenu>

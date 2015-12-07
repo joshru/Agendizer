@@ -5,15 +5,23 @@ import Databases.TaskDB;
 import Model.Agenda;
 import Model.Context;
 import Model.Task;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import view.AgendaMenuItem;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -32,6 +40,7 @@ public class AppController implements Initializable {
      *
      */
     //TODO remove unused references to GUI elements
+    @FXML private Parent guiRoot;
 
     @FXML private ImageView appLogo;
     @FXML private Button searchButton;
@@ -476,6 +485,31 @@ public class AppController implements Initializable {
         addAgendaMenuItem(agenda);
 
         newAgendaName.setText("");
+    }
+
+    @FXML
+    private void switchUser(Event event) {
+        Context.getInstance().switchUser();
+        Parent root;
+        try {
+            root = FXMLLoader.load(getClass().getResource("/view/login.fxml"));
+
+            Scene scene = new Scene(root, 1000, 700);
+            Stage stage = (Stage) guiRoot.getScene().getWindow();
+
+            stage.setScene(scene);
+            stage.setTitle("Please log in to Agendizer");
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @FXML
+    private void exit() {
+        Platform.exit();
     }
 
 

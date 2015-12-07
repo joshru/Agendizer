@@ -25,6 +25,12 @@ public class Context {
 
     }
 
+    public void switchUser() {
+        currentUserID = 0;
+        currentAgendaID = 0;
+        currentAgendaName = null;
+    }
+
     /**
      * Setter for the userID
      * @param theUser ID to reassign
