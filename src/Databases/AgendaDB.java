@@ -54,7 +54,7 @@ public class AgendaDB extends DBHelper {
      * Obtains a specific agenda by its title
      * @return the Agenda
      */
-    public Agenda getAgendaByTitle() { //TODO change me back to requiring a string if this breaks
+    public Agenda getAgendaByTitle() {
         if (myConnection == null) {
             createConnection();
         }
@@ -73,7 +73,7 @@ public class AgendaDB extends DBHelper {
 
         //Return the Agenda if it exists
         if (!obsAgendaList.isEmpty()) {
-            obsAgendaList.get(0);
+            result = obsAgendaList.get(0);
             System.out.println("Retrieved agenda by title Expected: " + Context.getInstance().getCurrentAgendaName()
             + " Actual: " + obsAgendaList.get(0).getAgendaTitle());
         }
@@ -138,7 +138,7 @@ public class AgendaDB extends DBHelper {
 
 
         try {
-            createConnection(); //TODO is this necessary? It should happen in the calling method
+           // createConnection();
             stmt = myConnection.prepareStatement(query);
 
             //Super duper dirty way of doing this

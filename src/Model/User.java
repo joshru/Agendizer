@@ -114,7 +114,7 @@ public class User {
     }
 
     /**
-     * Setter for user password TODO consider dropping me
+     * Setter for user password
      * @param password to reassign
      */
     public void setPassword(String password) {

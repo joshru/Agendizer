@@ -16,7 +16,7 @@ public class AgendaMenuItem extends RadioMenuItem {
 
     public void setMyAgenda(Agenda myAgenda) {
         this.myAgenda = myAgenda;
-        this.setText(myAgenda.getAgendaTitle()); //TODO necessary?
+        this.setText(myAgenda.getAgendaTitle());
 
     }
 

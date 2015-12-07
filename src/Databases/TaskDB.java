@@ -166,7 +166,7 @@ public class TaskDB extends DBHelper {
 
         if (!completed) return upcomingTasks;
         return completedTasks;
-//        return parseResultSet(query);
+
     }
 
     /**
