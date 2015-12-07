@@ -303,9 +303,14 @@ public class AppController implements Initializable {
 
             Task task = new Task(taskID, taskName, timestamp, completed, difficulty, priority, timeCompleted, notes, location, agendaID);
 
-            db.addTask(task);
-            upcomingTaskTable.getItems().add(task);
-            resetNewTaskFields();
+            if (db.taskExists(task)) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Duplicate task found, try again", ButtonType.OK);
+                alert.showAndWait().filter(response -> response == ButtonType.OK);
+            } else {
+                db.addTask(task);
+                upcomingTaskTable.getItems().add(task);
+                resetNewTaskFields();
+            }
         } else {
             String message = "Please create or select an Agenda before making a task.";
             Alert noAgendaAlert = new Alert(Alert.AlertType.WARNING, message, ButtonType.OK);

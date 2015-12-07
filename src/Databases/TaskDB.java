@@ -154,6 +154,24 @@ public class TaskDB extends DBHelper {
 
     }
 
+    public boolean taskExists(Task task) {
+        boolean taskFound = false;
+        String query = "SELECT * FROM _445team2.Task WHERE taskID = " + task.getTaskID() + ";";
+        Statement ps = null;
+
+        try {
+            createConnection();
+            ps = myConnection.createStatement();
+            ResultSet result = ps.executeQuery(query);
+            if (result.next()) {
+                taskFound = true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return taskFound;
+    }
+
     /**
      * Adds a task to the database
      * @param task to be added
@@ -162,7 +180,7 @@ public class TaskDB extends DBHelper {
         String statement = "INSERT INTO _445team2.Task (taskID, title, timestamp, completed, difficulty," +
                            "priority, timeCompleted, notes, location, agenda_agendaID) VALUES " +
                            "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
-        PreparedStatement preparedStatement;
+        PreparedStatement preparedStatement = null;
 
         try {
             createConnection();
