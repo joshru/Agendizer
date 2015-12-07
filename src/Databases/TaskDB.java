@@ -68,6 +68,7 @@ public class TaskDB extends DBHelper {
         if (myConnection == null) {
             createConnection();
         }
+        java.sql.Date ts = new java.sql.Date(System.currentTimeMillis());
         String query = "UPDATE `_445team2`.Task SET completed = 1 WHERE taskID = ?;";
         PreparedStatement ps;
 
@@ -159,8 +160,8 @@ public class TaskDB extends DBHelper {
      */
     public void addTask(Task task) {
         String statement = "INSERT INTO _445team2.Task (taskID, title, timestamp, completed, difficulty," +
-                           "urgency, priority, timeCompleted, notes, location, agenda_agendaID) VALUES " +
-                           "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+                           "priority, timeCompleted, notes, location, agenda_agendaID) VALUES " +
+                           "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         PreparedStatement preparedStatement;
 
         try {
@@ -171,12 +172,11 @@ public class TaskDB extends DBHelper {
             preparedStatement.setDate(3, task.getTimeStamp());
             preparedStatement.setInt(4, task.getCompleted());
             preparedStatement.setString(5, task.getDifficulty());
-            preparedStatement.setString(6, task.getUrgency());
-            preparedStatement.setString(7, task.getPriority());
-            preparedStatement.setDate(8, task.getTimeCompleted());
-            preparedStatement.setString(9, task.getNotes());
-            preparedStatement.setString(10, task.getLocation());
-            preparedStatement.setInt(11, task.getFk_agendaID());
+            preparedStatement.setString(6, task.getPriority());
+            preparedStatement.setDate(7, task.getTimeCompleted());
+            preparedStatement.setString(8, task.getNotes());
+            preparedStatement.setString(9, task.getLocation());
+            preparedStatement.setInt(10, task.getFk_agendaID());
 
             int result = preparedStatement.executeUpdate();
 
@@ -204,7 +204,6 @@ public class TaskDB extends DBHelper {
                 Date timestamp = results.getDate("timestamp");
                 int completed = results.getInt("completed");
                 String difficulty = results.getString("difficulty");
-                String urgency = results.getString("urgency");
                 String priority = results.getString("priority");
                 Date timeCompleted = results.getDate("timeCompleted");
                 String notes = results.getString("notes");
@@ -212,7 +211,7 @@ public class TaskDB extends DBHelper {
                 int agendaID = results.getInt("agenda_agendaID");
 
                 Task task = new Task(taskID, title, timestamp, completed, difficulty,
-                        urgency, priority, timeCompleted, notes, location, agendaID);
+                            priority, timeCompleted, notes, location, agendaID);
 
 
                 if (completed == 0) upcomingTasks.add(task);

@@ -82,40 +82,40 @@ public class RegistrationController {
 
         }
     }
-
-    /**
-     * Creates tutorial agenda on user creation
-     * TODO rethink or delete
-     */
-    private void createTutorialAgenda() {
-        String agendaTitle = "Getting Started";
-        Agenda agenda = new Agenda(agendaTitle.hashCode(), agendaTitle , usernameRegisterField.hashCode());
-        adb.createAgenda(agenda);
-
-
-        //Create task 1
-        String tutTaskTitle = "Create a task!";
-        java.sql.Date timeStamp = new java.sql.Date(System.currentTimeMillis());
-        Task tutTask1 = new Task(tutTaskTitle.hashCode(), tutTaskTitle, timeStamp, 0, "Easy!", "None", "High", null, "",
-                "", agendaTitle.hashCode());
-
-        //Create task 2
-        String secondTitle = "Create an Agenda!";
-        int secondHash = secondTitle.hashCode();
-        timeStamp = new java.sql.Date(System.currentTimeMillis());
-        Task tutTask2 = new Task(secondHash, secondTitle, timeStamp, 0, "Easy!", "None", "High", null, "",
-                "", secondHash);
-
-        taskDB.addTask(tutTask1);
-        taskDB.addTask(tutTask2);
-
-
-        Context context = Context.getInstance();
-
-        context.setCurrentAgendaID(agendaTitle.hashCode());
-        context.setCurrentAgendaName(agendaTitle);
-
-    }
+//
+//    /**
+//     * Creates tutorial agenda on user creation
+//     * TODO rethink or delete
+//     */
+//    private void createTutorialAgenda() {
+//        String agendaTitle = "Getting Started";
+//        Agenda agenda = new Agenda(agendaTitle.hashCode(), agendaTitle , usernameRegisterField.hashCode());
+//        adb.createAgenda(agenda);
+//
+//
+//        //Create task 1
+//        String tutTaskTitle = "Create a task!";
+//        java.sql.Date timeStamp = new java.sql.Date(System.currentTimeMillis());
+//        Task tutTask1 = new Task(tutTaskTitle.hashCode(), tutTaskTitle, timeStamp, 0, "Easy!", "None", "High", null, "",
+//                "", agendaTitle.hashCode());
+//
+//        //Create task 2
+//        String secondTitle = "Create an Agenda!";
+//        int secondHash = secondTitle.hashCode();
+//        timeStamp = new java.sql.Date(System.currentTimeMillis());
+//        Task tutTask2 = new Task(secondHash, secondTitle, timeStamp, 0, "Easy!", "None", "High", null, "",
+//                "", secondHash);
+//
+//        taskDB.addTask(tutTask1);
+//        taskDB.addTask(tutTask2);
+//
+//
+//        Context context = Context.getInstance();
+//
+//        context.setCurrentAgendaID(agendaTitle.hashCode());
+//        context.setCurrentAgendaName(agendaTitle);
+//
+//    }
 
     /**
      * Checks if user has given valid input before accepting registration

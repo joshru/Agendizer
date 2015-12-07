@@ -36,7 +36,7 @@
                      </image>
                   </ImageView>
                   <HBox prefHeight="34.0" prefWidth="51.0" />
-                  <Button fx:id="searchButton" mnemonicParsing="false" onMouseClicked="#testDB" text="Search">
+                  <Button fx:id="searchButton" mnemonicParsing="false" text="Search">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></Button>
@@ -66,8 +66,8 @@
                                       <columns>
                                         <TableColumn fx:id="ucTaskCol" prefWidth="75.0" sortType="DESCENDING" text="Task" />
                                         <TableColumn fx:id="ucDeadlineCol" prefWidth="75.0" sortType="DESCENDING" text="Complete By" />
+                                          <TableColumn fx:id="ucNotesCol" prefWidth="75.0" sortType="DESCENDING" text="Notes" />
                                           <TableColumn fx:id="ucDifficultyCol" prefWidth="75.0" sortType="DESCENDING" text="Difficulty" />
-                                          <TableColumn fx:id="ucUrgencyCol" prefWidth="75.0" sortType="DESCENDING" text="Urgency" />
                                           <TableColumn fx:id="ucPriorityCol" prefWidth="75.0" sortType="DESCENDING" text="Priority" />
                                       </columns>
                                        <columnResizePolicy>
@@ -103,8 +103,8 @@
                                       <columns>
                                           <TableColumn fx:id="compTaskCol" prefWidth="75.0" sortType="DESCENDING" text="Task" />
                                           <TableColumn fx:id="compDeadlineCol" prefWidth="75.0" sortType="DESCENDING" text="Date Completed" />
+                                          <TableColumn fx:id="compNotesCol" prefWidth="75.0" sortType="DESCENDING" text="Notes" />
                                           <TableColumn fx:id="compDifficultyCol" prefWidth="75.0" sortType="DESCENDING" text="Difficulty" />
-                                          <TableColumn fx:id="compUrgencyCol" prefWidth="75.0" sortType="DESCENDING" text="Urgency" />
                                           <TableColumn fx:id="compPriorityCol" prefWidth="75.0" sortType="DESCENDING" text="Priority" />
                                       </columns>
                                       <columnResizePolicy>
@@ -128,14 +128,28 @@
                      <content>
                         <VBox prefHeight="292.0" prefWidth="610.0">
                            <children>
-                              <Label prefHeight="27.0" prefWidth="100.0" text="Task Name:">
+                              <Label prefHeight="27.0" prefWidth="966.0" text="Task Name (should be unique):">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Label>
                               <TextField fx:id="newTaskDescription" promptText="Task Name" />
                               <HBox prefHeight="18.0" prefWidth="610.0" />
-                              <Label text="Deadline:">
+                              <HBox prefHeight="18.0" prefWidth="610.0">
+                                 <children>
+                                    <Label text="Notes: ">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                 </children></HBox>
+                              <HBox prefHeight="18.0" prefWidth="610.0">
+                                 <children>
+                                    <TextField fx:id="newTaskNotes" promptText="Enter Task Notes" HBox.hgrow="ALWAYS" />
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="18.0" prefWidth="610.0" />
+                              <Label prefHeight="20.0" prefWidth="824.0" text="Deadline (cannot be blank):">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -147,32 +161,19 @@
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <ChoiceBox fx:id="newTaskDifficulty" prefHeight="25.0" prefWidth="737.0" value="Easy" VBox.vgrow="ALWAYS">
-                                <items>
-                                    <FXCollections fx:factory="observableArrayList">
-                                        <String fx:value="Easy" />
-                                        <String fx:value="Moderate" />
-                                        <String fx:value="Hard" />
-                                        <String fx:value="Very Hard" />
-                                    </FXCollections>
-                                </items>
-                              </ChoiceBox>
-                              <HBox prefHeight="18.0" prefWidth="610.0" />
-                              <Label text="Urgency:">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
-                              <ChoiceBox fx:id="newTaskUrgency" prefHeight="25.0" prefWidth="737.0" value="Low" VBox.vgrow="ALWAYS">
-                                  <items>
-                                      <FXCollections fx:factory="observableArrayList">
-                                          <String fx:value="Low" />
-                                          <String fx:value="Medium" />
-                                          <String fx:value="High" />
-                                          <String fx:value="Urgent" />
-                                      </FXCollections>
-                                  </items>
-                              </ChoiceBox>
+                              <HBox maxWidth="-Infinity" prefHeight="18.0" prefWidth="610.0">
+                                 <children>
+                                    <ChoiceBox fx:id="newTaskDifficulty" maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="737.0" value="Easy" HBox.hgrow="ALWAYS">
+                                      <items>
+                                          <FXCollections fx:factory="observableArrayList">
+                                              <String fx:value="Easy" />
+                                              <String fx:value="Moderate" />
+                                              <String fx:value="Hard" />
+                                              <String fx:value="Very Hard" />
+                                          </FXCollections>
+                                      </items>
+                                    </ChoiceBox>
+                                 </children></HBox>
                               <HBox prefHeight="18.0" prefWidth="610.0" />
                               <Label text="Priority:">
                                  <font>

@@ -6,7 +6,6 @@ import Model.Agenda;
 import Model.Context;
 import Model.Task;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -16,7 +15,6 @@ import javafx.scene.image.ImageView;
 import view.AgendaMenuItem;
 
 import java.net.URL;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -60,15 +58,16 @@ public class AppController implements Initializable {
     @FXML private TableColumn<Task, String> ucTaskCol;
     @FXML private TableColumn<Task, String> ucDeadlineCol;
     @FXML private TableColumn<Task, String> ucDifficultyCol;
-    @FXML private TableColumn<Task, String> ucUrgencyCol;
+    @FXML private TableColumn<Task, String> ucNotesCol;
     @FXML private TableColumn<Task, String> ucPriorityCol;
     @FXML private TableColumn<Task, String> compTaskCol;
     @FXML private TableColumn<Task, String> compDeadlineCol;
     @FXML private TableColumn<Task, String> compDifficultyCol;
-    @FXML private TableColumn<Task, String> compUrgencyCol;
+    @FXML private TableColumn<Task, String> compNotesCol;
     @FXML private TableColumn<Task, String> compPriorityCol;
 
     @FXML private TextField newTaskDescription;
+    @FXML private TextField newTaskNotes;
     @FXML private DatePicker newTaskDeadline;
     @FXML private ChoiceBox newTaskDifficulty;
     @FXML private ChoiceBox newTaskUrgency;
@@ -97,14 +96,14 @@ public class AppController implements Initializable {
         //when setting property values the string must MATCH the field name in the Task class
         ucTaskCol.setCellValueFactory(new PropertyValueFactory<>("taskTitle"));
         ucDeadlineCol.setCellValueFactory(new PropertyValueFactory<>("timeStamp"));
+        ucNotesCol.setCellValueFactory(new PropertyValueFactory<>("notes"));
         ucDifficultyCol.setCellValueFactory(new PropertyValueFactory<>("difficulty"));
-        ucUrgencyCol.setCellValueFactory(new PropertyValueFactory<>("urgency"));
         ucPriorityCol.setCellValueFactory(new PropertyValueFactory<>("priority"));
 
         compTaskCol.setCellValueFactory(new PropertyValueFactory<>("taskTitle"));
         compDeadlineCol.setCellValueFactory(new PropertyValueFactory<>("timeCompleted"));
+        compNotesCol.setCellValueFactory(new PropertyValueFactory<>("notes"));
         compDifficultyCol.setCellValueFactory(new PropertyValueFactory<>("difficulty"));
-        compUrgencyCol.setCellValueFactory(new PropertyValueFactory<>("urgency"));
         compPriorityCol.setCellValueFactory(new PropertyValueFactory<>("priority"));
 
         agendaGroup = new ToggleGroup();
@@ -180,11 +179,11 @@ public class AppController implements Initializable {
 
             });
 
-            ucUrgencyCol.setCellFactory(TextFieldTableCell.forTableColumn());
-            ucUrgencyCol.setOnEditCommit(e -> {
+            ucNotesCol.setCellFactory(TextFieldTableCell.forTableColumn());
+            ucNotesCol.setOnEditCommit(e -> {
 
-                db.updateTask("urgency", e.getNewValue(), e.getRowValue().getTaskID());
-                e.getRowValue().setUrgency(e.getNewValue());
+                db.updateTask("notes", e.getNewValue(), e.getRowValue().getTaskID());
+                e.getRowValue().setNotes(e.getNewValue());
 
             });
             ucPriorityCol.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -209,7 +208,6 @@ public class AppController implements Initializable {
         newTaskDeadline.getEditor().clear();
         newTaskDifficulty.getSelectionModel().selectFirst();
         newTaskPriority.getSelectionModel().selectFirst();
-        newTaskUrgency.getSelectionModel().selectFirst();
 //        newTaskDifficulty.
 
     }
@@ -297,15 +295,13 @@ public class AppController implements Initializable {
 
             int completed = 0;
             String difficulty = newTaskDifficulty.getSelectionModel().getSelectedItem().toString();
-            String urgency = newTaskUrgency.getSelectionModel().getSelectedItem().toString();
             String priority = newTaskPriority.getSelectionModel().getSelectedItem().toString();
             java.sql.Date timeCompleted = new java.sql.Date(System.currentTimeMillis());
-            String notes = "test notes";
+            String notes = newTaskNotes.getText();
             String location = "ur mum's house";
             int agendaID = Context.getInstance().getCurrentAgendaID();
 
-            Task task = new Task(taskID, taskName, timestamp, completed, difficulty,
-                    urgency, priority, timeCompleted, notes, location, agendaID);
+            Task task = new Task(taskID, taskName, timestamp, completed, difficulty, priority, timeCompleted, notes, location, agendaID);
 
             db.addTask(task);
             upcomingTaskTable.getItems().add(task);

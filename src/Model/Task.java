@@ -18,8 +18,6 @@ public class Task {
     private int completed;
     /**Difficulty string*/
     private String difficulty;
-    /**Urgency String TODO delete me*/
-    private String urgency;
     /**Priority String*/
     private String priority;
     /**Time completed timestamp*/
@@ -41,21 +39,19 @@ public class Task {
      * @param timeStamp Deadline timestamp
      * @param completed completion flag
      * @param difficulty difficulty indicator
-     * @param urgency urgency indicator
      * @param priority priority indicator
      * @param timeCompleted completed timestamp
      * @param notes user notes
      * @param location info
      * @param fk_agendaID Agenda Foreign key
      */
-    public Task(int taskID, String title, Date timeStamp, int completed, String difficulty, String urgency,
+    public Task(int taskID, String title, Date timeStamp, int completed, String difficulty,
                 String priority, Date timeCompleted, String notes, String location, Integer fk_agendaID) {
         this.taskID = taskID;
         this.taskTitle = title;
         this.timeStamp = timeStamp;
         this.completed = completed;
         this.difficulty = difficulty;
-        this.urgency = urgency;
         this.priority = priority;
         this.timeCompleted = timeCompleted;
         this.notes = notes;
@@ -73,7 +69,6 @@ public class Task {
                 timeStamp + ", " +
                 completed + ", " +
                 difficulty + ", " +
-                urgency + ", " +
                 priority + ", " +
                 timeCompleted + ", " +
                 notes + ", " +
@@ -144,22 +139,6 @@ public class Task {
      */
     public void setDifficulty(String difficulty) {
         this.difficulty = difficulty;
-    }
-
-    /**
-     * Getter for urgency value
-     * @return urgency
-     */
-    public String getUrgency() {
-        return urgency;
-    }
-
-    /**
-     * Setter for urgency value
-     * @param urgency to reassign
-     */
-    public void setUrgency(String urgency) {
-        this.urgency = urgency;
     }
 
     /**
