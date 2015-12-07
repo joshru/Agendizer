@@ -130,11 +130,9 @@ public class AppController implements Initializable {
 //                        (event.getTablePosition().getRow()).setTaskTitle(
 //                        event.getNewValue()));
                 event.getRowValue().setTaskTitle(event.getNewValue());
-                try {
-                    db.updateTask("title", event.getNewValue(), event.getRowValue().getTaskID());
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+
+                db.updateTask("title", event.getNewValue(), event.getRowValue().getTaskID());
+
 
 
             });
@@ -158,11 +156,9 @@ public class AppController implements Initializable {
 
             ucDifficultyCol.setCellFactory(TextFieldTableCell.forTableColumn());
             ucDifficultyCol.setOnEditCommit(e -> {
-                try {
-                    db.updateTask("difficulty", e.getNewValue(), e.getRowValue().getTaskID());
-                } catch (SQLException e1) {
-                    e1.printStackTrace();
-                }
+
+                db.updateTask("difficulty", e.getNewValue(), e.getRowValue().getTaskID());
+
 
                 e.getRowValue().setDifficulty(e.getNewValue());
 
@@ -170,22 +166,16 @@ public class AppController implements Initializable {
 
             ucUrgencyCol.setCellFactory(TextFieldTableCell.forTableColumn());
             ucUrgencyCol.setOnEditCommit(e -> {
-                try {
-                    db.updateTask("urgency", e.getNewValue(), e.getRowValue().getTaskID());
-                } catch (SQLException e1) {
-                    e1.printStackTrace();
-                }
 
+                db.updateTask("urgency", e.getNewValue(), e.getRowValue().getTaskID());
                 e.getRowValue().setUrgency(e.getNewValue());
 
             });
             ucPriorityCol.setCellFactory(TextFieldTableCell.forTableColumn());
             ucPriorityCol.setOnEditCommit(e -> {
-                try {
-                    db.updateTask("priority", e.getNewValue(), e.getRowValue().getTaskID());
-                } catch (SQLException e1) {
-                    e1.printStackTrace();
-                }
+
+                db.updateTask("priority", e.getNewValue(), e.getRowValue().getTaskID());
+
 
                 e.getRowValue().setPriority(e.getNewValue());
             });
@@ -240,21 +230,19 @@ public class AppController implements Initializable {
 
         //May seem confusing at first, a lambda essentially cleans up the syntax for anonymous inner classes
         menuItem.setOnAction(e -> {
-            try {
+
               //  Agenda selected = adb.getAgendaByTitle(menuItem.getText()); //TODO think over this decision to extend RadioMenuItem
-                Agenda selected = menuItem.getMyAgenda();
+            Agenda selected = menuItem.getMyAgenda();
 
-                System.out.println("Selected menu item " + menuItem.getText());
+            System.out.println("Selected menu item " + menuItem.getText());
 
-                Context.getInstance().setCurrentAgendaID(selected.getAgendaID());
-                Context.getInstance().setCurrentAgendaName(selected.getAgendaTitle());
-                ObservableList<Task> obsUpcoming = db.getAgendaTasks(selected, false);
-                ObservableList<Task> obsCompleted = db.getAgendaTasks(selected, true);
-                upcomingTaskTable.setItems(obsUpcoming);
-                completedTaskTable.setItems(obsCompleted);
-            } catch (SQLException e1) {
-                e1.printStackTrace();
-            }
+            Context.getInstance().setCurrentAgendaID(selected.getAgendaID());
+            Context.getInstance().setCurrentAgendaName(selected.getAgendaTitle());
+            ObservableList<Task> obsUpcoming = db.getAgendaTasks(selected, false);
+            ObservableList<Task> obsCompleted = db.getAgendaTasks(selected, true);
+            upcomingTaskTable.setItems(obsUpcoming);
+            completedTaskTable.setItems(obsCompleted);
+
         });
 
         //Add mew agenda to button group and add it the menu.
@@ -317,10 +305,10 @@ public class AppController implements Initializable {
 
     /**
      * Test function for DB TODO delete me before turning in
-     * @throws SQLException
+
      */
     @FXML
-    private void testDB() throws SQLException {
+    private void testDB() {
         List<Task> tasks = db.getUpcomingTasks();
         System.out.println("Tasks grabbed = " +  tasks.size());
     }
@@ -328,10 +316,9 @@ public class AppController implements Initializable {
     /**
      * Callback method to handle behavior when the upcoming tasks
      * tab is selected.
-     * @throws SQLException
      */
     @FXML
-    private void upcomingTabSelected() throws SQLException {
+    private void upcomingTabSelected() {
 
         //TODO redistribute some of this behavior
         Agenda selected = null;
@@ -366,10 +353,9 @@ public class AppController implements Initializable {
     /**
      *  Define behavior of selecting the completed Tab.
      *  Populates list with upcoming tasks.
-     * @throws SQLException
      */
     @FXML
-    private void completedTabSelected() throws SQLException {
+    private void completedTabSelected() {
 
         Agenda selected = null;
         if (Context.getInstance().getCurrentAgendaName() != null) {
@@ -408,7 +394,7 @@ public class AppController implements Initializable {
     @FXML
     private void handleContextDelete() {
         Task selected = upcomingTaskTable.getSelectionModel().getSelectedItem();
-//        System.out.println(selected.toString());
+
         db.removeTask(selected);
         upcomingTaskTable.getItems().removeAll(upcomingTaskTable.getSelectionModel().getSelectedItem());
     }
@@ -419,13 +405,11 @@ public class AppController implements Initializable {
     @FXML
     private void handleContextComplete() {
         Task selected = upcomingTaskTable.getSelectionModel().getSelectedItem();
-        try {
-            db.completeTask(selected);
-            upcomingTaskTable.getItems().removeAll(upcomingTaskTable.getSelectionModel().getSelectedItems());
-            completedTaskTable.getItems().add(selected);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+
+        db.completeTask(selected);
+        upcomingTaskTable.getItems().removeAll(upcomingTaskTable.getSelectionModel().getSelectedItems());
+        completedTaskTable.getItems().add(selected);
+
 
     }
 
@@ -435,7 +419,7 @@ public class AppController implements Initializable {
     @FXML
     private void handleCompletedContextDelete() {
         Task selected = completedTaskTable.getSelectionModel().getSelectedItem();
-//        System.out.println(selected.toString());
+
         db.removeTask(selected);
         completedTaskTable.getItems().removeAll(completedTaskTable.getSelectionModel().getSelectedItem());
     }

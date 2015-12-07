@@ -8,9 +8,7 @@ import Model.Context;
 import Model.Task;
 import Model.User;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
@@ -47,17 +45,15 @@ public class RegistrationController {
     /**
      * Handles behavior for return to login button
      * @param event fired when button is pressed
-     * @throws IOException
      */
     @FXML
-    private void handleReturnToLogin(final MouseEvent event) throws IOException {
+    private void handleReturnToLogin(final MouseEvent event) {
         SceneController.swapScene("/view/login.fxml", "Please Log In To Agendizer", event, getClass());
     }
 
     /**
      * Handles behavior when create user button is pressed
      * Validates user input and creates a user if successful
-     * TODO handle invalid attempt?
      * @param event fired when button is pressed
      */
     @FXML
@@ -70,20 +66,20 @@ public class RegistrationController {
             boolean success = db.createUser(newUser);
             System.out.println("New user sent to the DB");
 
-            try {
-                if (success) {
+
+            if (success) {
                     //TODO create "Getting Started" agenda
                     //TODO Populate that agenda with some basic tasks for the user to play with
 
                     //createTutorialAgenda();
+                handleReturnToLogin(event);
 
+                Alert successAlert = new Alert(Alert.AlertType.INFORMATION, "User " + usernameRegisterField.getText()
+                + " Created successfully.", ButtonType.OK);
+                successAlert.showAndWait().filter(response -> response == ButtonType.OK);
 
-
-                    handleReturnToLogin(event);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
             }
+
         }
     }
 
@@ -137,9 +133,16 @@ public class RegistrationController {
             System.out.println("Registration info is valid");
 
         } else if (!validEmail) {
-            registerWarningLabel.setText("Invalid Email.");
+
+
+            //Super sexy
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Invalid Email", ButtonType.OK);
+            alert.showAndWait().filter(response -> response == ButtonType.OK);
+
         } else {
-            registerWarningLabel.setText("Passwords do not match.");
+
+            Alert pwAlert = new Alert(Alert.AlertType.WARNING, "Passwords do not match.", ButtonType.OK);
+            pwAlert.showAndWait().filter(response -> response == ButtonType.OK);
         }
         return isValid;
     }

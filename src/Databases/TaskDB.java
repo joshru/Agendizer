@@ -14,11 +14,6 @@ import java.sql.*;
  */
 public class TaskDB extends DBHelper {
 
-//    private static String userName = "_445team2";
-//    private static String password = "poddoif";
-//    private static String serverName = "cssgate.insttech.washington.edu";
-//    private static Connection myConnection;
-//    private List<Task> taskList;
 
     /** List of upcoming tasks*/
     private ObservableList<Task> upcomingTasks;
@@ -29,18 +24,17 @@ public class TaskDB extends DBHelper {
     /**
      * Obtains a list of upcoming tasks
      * @return upcoming tasks
-     * @throws SQLException
      */
-    public ObservableList<Task> getUpcomingTasks() throws SQLException {
+    public ObservableList<Task> getUpcomingTasks()  {
         return getSpecifiedTask(true);
     }
 
     /**
      * Obtains a list of completed tasks
      * @return completed tasks
-     * @throws SQLException
+
      */
-    public ObservableList<Task> getCompletedTasks() throws SQLException {
+    public ObservableList<Task> getCompletedTasks()  {
         return getSpecifiedTask(false);
     }
 
@@ -59,20 +53,18 @@ public class TaskDB extends DBHelper {
         if (!upcoming) query = "SELECT * FROM " + userName + ".Task WHERE completed = 1;";
         upcomingTasks = FXCollections.observableArrayList();
 
-        try {
+
             parseResultSet(query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+
         return upcomingTasks; //TODO should we have a conditional here to determine which list to return?
     }
 
     /**
      * Marks a given task as complete.
      * @param complete task to flip the complete value
-     * @throws SQLException
+
      */
-    public void completeTask(Task complete) throws SQLException {
+    public void completeTask(Task complete) {
         if (myConnection == null) {
             createConnection();
         }
@@ -94,9 +86,8 @@ public class TaskDB extends DBHelper {
      * @param column to update
      * @param newVal to set column value to
      * @param id of the task being affected
-     * @throws SQLException
      */
-    public void updateTask(final String column, final String newVal, final int id) throws SQLException {
+    public void updateTask(final String column, final String newVal, final int id) {
         if (myConnection == null) {
             createConnection();
         }
@@ -108,7 +99,7 @@ public class TaskDB extends DBHelper {
 
         try {
             ps = myConnection.prepareStatement(query);
-//            ps.setString(1, column);
+
             ps.setString(1, newVal);
             ps.setInt(2, id);
 
@@ -125,9 +116,8 @@ public class TaskDB extends DBHelper {
      * @param agenda to retrieve tasks for
      * @param completed flag determining whether to return completed or upcoming tasks
      * @return list of tasks
-     * @throws SQLException
      */
-    public ObservableList<Task> getAgendaTasks(Agenda agenda, boolean completed) throws SQLException {
+    public ObservableList<Task> getAgendaTasks(Agenda agenda, boolean completed) {
         if (myConnection == null) {
             createConnection();
         }
@@ -199,9 +189,8 @@ public class TaskDB extends DBHelper {
     /**
      * Populates the lists of upcoming and completed tasks given a query
      * @param query to be executed on the DB
-     * @throws SQLException
      */
-    private void parseResultSet(String query) throws SQLException {
+    private void parseResultSet(String query) {
         Statement stmt = null;
 
 
@@ -225,18 +214,22 @@ public class TaskDB extends DBHelper {
                 Task task = new Task(taskID, title, timestamp, completed, difficulty,
                         urgency, priority, timeCompleted, notes, location, agendaID);
 
-//                System.out.println("created a task");
-                //taskList.add(task);
+
                 if (completed == 0) upcomingTasks.add(task);
                 if (completed == 1) completedTasks.add(task);
 
-//                System.out.println("Grabbed Task  = " + task.toString());
+
             }
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             if (stmt != null) {
-                stmt.close();
+                //Don't like the nested try/catch, but it's better than throwing it in the method header
+                try {
+                    stmt.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         }
 

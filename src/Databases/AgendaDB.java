@@ -34,9 +34,8 @@ public class AgendaDB extends DBHelper {
     /**
      * Obtains the entire list of Agendas
      * @return list of agendas
-     * @throws SQLException
      */
-    public List<Agenda> getAgendas() throws SQLException {
+    public List<Agenda> getAgendas() {
         if (myConnection == null) {
             createConnection();
         }
@@ -54,9 +53,8 @@ public class AgendaDB extends DBHelper {
     /**
      * Obtains a specific agenda by its title
      * @return the Agenda
-     * @throws SQLException
      */
-    public Agenda getAgendaByTitle() throws SQLException { //TODO change me back to requiring a string if this breaks
+    public Agenda getAgendaByTitle() { //TODO change me back to requiring a string if this breaks
         if (myConnection == null) {
             createConnection();
         }

@@ -27,14 +27,20 @@ public class SceneController {
      * @throws IOException
      */
     @FXML
-    public static void swapScene(final String fxml, final String title, MouseEvent event, Class context) throws IOException {
-        Parent root = FXMLLoader.load(context.getResource(fxml));
-        Scene scene = new Scene(root, 1000, 700);
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    public static void swapScene(final String fxml, final String title, MouseEvent event, Class context) {
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(context.getResource(fxml));
+            Scene scene = new Scene(root, 1000, 700);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-        stage.setScene(scene);
-        stage.setTitle(title);
-        stage.show();
+            stage.setScene(scene);
+            stage.setTitle(title);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
 }

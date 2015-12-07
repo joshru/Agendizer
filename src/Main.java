@@ -29,7 +29,7 @@ public class Main extends Application {
 //        primaryStage.show();
 
 
-        Parent login = FXMLLoader.load(getClass().getResource("view/login.fxml"));
+        Parent login = FXMLLoader.load(getClass().getResource("/view/login.fxml"));
         primaryStage.setTitle("Please Log In To Agendizer");
         primaryStage.setScene(new Scene(login, 1000, 700));
         primaryStage.getIcons().add(new Image("/view/res/desktop_icons/icon_512.png"));
@@ -41,9 +41,9 @@ public class Main extends Application {
         launch(args);
     }
 
-    public void test() {
-        System.out.println("HEY MY BUTTON DID A THING! NEAT!!");
-    }
+  //  public void test() {
+       // System.out.println("HEY MY BUTTON DID A THING! NEAT!!");
+    //}
 
 
 

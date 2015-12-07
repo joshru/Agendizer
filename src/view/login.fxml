@@ -32,11 +32,11 @@
             </HBox>
             <VBox alignment="CENTER" prefHeight="43.0" prefWidth="600.0">
                <children>
-                  <Label fx:id="loginError" textFill="RED">
+                  <!--<Label fx:id="loginError" textFill="RED">
                      <font>
                         <Font size="18.0" />
                      </font>
-                  </Label>
+                  </Label>-->
                </children></VBox>
             <VBox alignment="CENTER">
                <children>
@@ -58,7 +58,7 @@
                   <Font size="13.0" />
                </font>
             </Text>
-            <Button fx:id="test" mnemonicParsing="false" onMouseClicked="#testAgenda" text="Method Testing Button" />
+            <!--<Button fx:id="test" mnemonicParsing="false" onMouseClicked="#testAgenda" text="Method Testing Button" />-->
             <Button mnemonicParsing="false" onMouseClicked="#bypassLogin" text="Bypass Login" />
          </children>
       </VBox>
