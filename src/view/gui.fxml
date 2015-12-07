@@ -13,225 +13,256 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 
-<AnchorPane fx:id="guiRoot" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AppController">
-   <children>
-      <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <MenuBar>
-              <menus>
-                <Menu mnemonicParsing="false" text="File">
-                  <items>
-                    <MenuItem mnemonicParsing="false" onAction="#switchUser" text="Switch Users" />
-                    <MenuItem mnemonicParsing="false" onAction="#exit" text="Close" />
-                  </items>
-                </Menu>
-                <Menu fx:id="AgendasMenu" mnemonicParsing="false" text="Agendas" />
-              </menus>
-            </MenuBar>
-            <HBox nodeOrientation="LEFT_TO_RIGHT" prefHeight="0.0" prefWidth="600.0">
-               <children>
-                  <ImageView fx:id="appLogo" fitHeight="32.0" fitWidth="195.0">
-                     <image>
-                        <Image url="@res/logo.png" />
-                     </image>
-                  </ImageView>
-                  <HBox prefHeight="34.0" prefWidth="51.0" />
-                  <Button fx:id="searchButton" mnemonicParsing="false" text="Search">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor></Button>
-                  <TextField fx:id="searchField" prefHeight="25.0" prefWidth="297.0" promptText="Search for a task" HBox.hgrow="SOMETIMES" />
-               </children>
-               <opaqueInsets>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </opaqueInsets>
-               <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </VBox.margin>
-            </HBox>
-            <TabPane fx:id="tabContainer" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
-              <tabs>
-                <Tab fx:id="upcomingTab" onSelectionChanged="#upcomingTabSelected" text="Upcoming Tasks">
-                     <content>
-                        <VBox>
-                           <children>
-                              <Label fx:id="upcomingTaskError" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" prefHeight="17.0" prefWidth="652.0" text="ERROR" textFill="#468aff">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
-                              <VBox VBox.vgrow="ALWAYS">
-                                 <children>
+<AnchorPane fx:id="guiRoot" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="Controller.AppController">
+    <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+          AnchorPane.topAnchor="0.0">
+        <MenuBar>
+            <Menu mnemonicParsing="false" text="File">
+                <items>
+                    <MenuItem mnemonicParsing="false" onAction="#switchUser" text="Switch Users"/>
+                    <MenuItem mnemonicParsing="false" onAction="#exit" text="Close"/>
+                </items>
+            </Menu>
+            <Menu fx:id="AgendasMenu" mnemonicParsing="false" text="Agendas"/>
+        </MenuBar>
+        <HBox nodeOrientation="LEFT_TO_RIGHT" prefHeight="0.0" prefWidth="600.0">
+            <opaqueInsets>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+            </opaqueInsets>
+            <VBox.margin>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+            </VBox.margin>
+            <ImageView fx:id="appLogo" fitHeight="32.0" fitWidth="195.0">
+                <image>
+                    <Image url="@res/logo.png"/>
+                </image>
+            </ImageView>
+            <HBox prefHeight="34.0" prefWidth="51.0"/>
+            <Button fx:id="searchButton" mnemonicParsing="false" text="Search">
+                <cursor>
+                    <Cursor fx:constant="HAND"/>
+                </cursor>
+            </Button>
+            <TextField fx:id="searchField" prefHeight="25.0" prefWidth="297.0" promptText="Search for a task"
+                       HBox.hgrow="SOMETIMES"/>
+        </HBox>
+        <TabPane fx:id="tabContainer" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE"
+                 VBox.vgrow="ALWAYS">
+            <Tab fx:id="upcomingTab" onSelectionChanged="#upcomingTabSelected" text="Upcoming Tasks">
+                <content>
+                    <VBox>
+                        <children>
+                            <Label fx:id="upcomingTaskError" alignment="CENTER" contentDisplay="CENTER"
+                                   maxWidth="1.7976931348623157E308" prefHeight="17.0" prefWidth="652.0"
+                                   text="ERROR" textFill="#468aff">
+                                <font>
+                                    <Font size="14.0"/>
+                                </font>
+                            </Label>
+                            <VBox VBox.vgrow="ALWAYS">
+                                <children>
                                     <TableView fx:id="upcomingTaskTable" editable="true" VBox.vgrow="ALWAYS">
-                                      <columns>
-                                        <TableColumn fx:id="ucTaskCol" prefWidth="75.0" sortType="DESCENDING" text="Task" />
-                                        <TableColumn fx:id="ucDeadlineCol" prefWidth="75.0" sortType="DESCENDING" text="Complete By" />
-                                          <TableColumn fx:id="ucNotesCol" prefWidth="75.0" sortType="DESCENDING" text="Notes" />
-                                          <TableColumn fx:id="ucDifficultyCol" prefWidth="75.0" sortType="DESCENDING" text="Difficulty" />
-                                          <TableColumn fx:id="ucPriorityCol" prefWidth="75.0" sortType="DESCENDING" text="Priority" />
-                                      </columns>
-                                       <columnResizePolicy>
-                                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                                       </columnResizePolicy>
-                                       <contextMenu>
-                                          <ContextMenu fx:id="taskRowMenu">
-                                            <items>
-                                              <MenuItem fx:id="cMenuCompleted" mnemonicParsing="false" onAction="#handleContextComplete" text="Mark Completed" />
-                                                <MenuItem fx:id="cMenuDelete" mnemonicParsing="false" onAction="#handleContextDelete" text="Delete" />
-                                            </items>
-                                          </ContextMenu>
-                                       </contextMenu>
+                                        <columns>
+                                            <TableColumn fx:id="ucTaskCol" prefWidth="75.0"
+                                                         sortType="DESCENDING" text="Task"/>
+                                            <TableColumn fx:id="ucDeadlineCol" prefWidth="75.0"
+                                                         sortType="DESCENDING" text="Complete By"/>
+                                            <TableColumn fx:id="ucNotesCol" prefWidth="75.0"
+                                                         sortType="DESCENDING" text="Notes"/>
+                                            <TableColumn fx:id="ucDifficultyCol" prefWidth="75.0"
+                                                         sortType="DESCENDING" text="Difficulty"/>
+                                            <TableColumn fx:id="ucPriorityCol" prefWidth="75.0"
+                                                         sortType="DESCENDING" text="Priority"/>
+                                        </columns>
+                                        <columnResizePolicy>
+                                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                                        </columnResizePolicy>
+                                        <contextMenu>
+                                            <ContextMenu fx:id="taskRowMenu">
+                                                <items>
+                                                    <MenuItem fx:id="cMenuCompleted" mnemonicParsing="false"
+                                                              onAction="#handleContextComplete"
+                                                              text="Mark Completed"/>
+                                                    <MenuItem fx:id="cMenuDelete" mnemonicParsing="false"
+                                                              onAction="#handleContextDelete" text="Delete"/>
+                                                </items>
+                                            </ContextMenu>
+                                        </contextMenu>
                                     </TableView>
-                                 </children>
-                              </VBox>
-                           </children>
-                        </VBox>
-                     </content>
-                  </Tab>
-                <Tab fx:id="completedTab" onSelectionChanged="#completedTabSelected" text="Completed Tasks">
-                     <content>
-                        <VBox>
-                           <children>
-                              <Label fx:id="completedTaskError" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" prefHeight="17.0" prefWidth="1110.0" text="ERROR" textFill="RED" VBox.vgrow="ALWAYS">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
-                              <VBox VBox.vgrow="ALWAYS">
-                                 <children>
+                                </children>
+                            </VBox>
+                        </children>
+                    </VBox>
+                </content>
+            </Tab>
+            <Tab fx:id="completedTab" onSelectionChanged="#completedTabSelected" text="Completed Tasks">
+                <content>
+                    <VBox>
+                        <children>
+                            <Label fx:id="completedTaskError" alignment="CENTER" contentDisplay="CENTER"
+                                   maxWidth="1.7976931348623157E308" prefHeight="17.0" prefWidth="1110.0"
+                                   text="ERROR" textFill="RED" VBox.vgrow="ALWAYS">
+                                <font>
+                                    <Font size="14.0"/>
+                                </font>
+                            </Label>
+                            <VBox VBox.vgrow="ALWAYS">
+                                <children>
                                     <TableView fx:id="completedTaskTable" VBox.vgrow="ALWAYS">
-                                      <columns>
-                                          <TableColumn fx:id="compTaskCol" prefWidth="75.0" sortType="DESCENDING" text="Task" />
-                                          <TableColumn fx:id="compDeadlineCol" prefWidth="75.0" sortType="DESCENDING" text="Date Completed" />
-                                          <TableColumn fx:id="compNotesCol" prefWidth="75.0" sortType="DESCENDING" text="Notes" />
-                                          <TableColumn fx:id="compDifficultyCol" prefWidth="75.0" sortType="DESCENDING" text="Difficulty" />
-                                          <TableColumn fx:id="compPriorityCol" prefWidth="75.0" sortType="DESCENDING" text="Priority" />
-                                      </columns>
-                                      <columnResizePolicy>
-                                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                                      </columnResizePolicy>
-                                       <contextMenu>
-                                          <ContextMenu fx:id="completedContextMenu">
-                                            <items>
-                                              <MenuItem fx:id="cCompletedDelete" mnemonicParsing="false" onAction="#handleCompletedContextDelete" text="Delete" />
-                                            </items>
-                                          </ContextMenu>
-                                       </contextMenu>
+                                        <columns>
+                                            <TableColumn fx:id="compTaskCol" prefWidth="75.0"
+                                                         sortType="DESCENDING" text="Task"/>
+                                            <TableColumn fx:id="compDeadlineCol" prefWidth="75.0"
+                                                         sortType="DESCENDING" text="Date Completed"/>
+                                            <TableColumn fx:id="compNotesCol" prefWidth="75.0"
+                                                         sortType="DESCENDING" text="Notes"/>
+                                            <TableColumn fx:id="compDifficultyCol" prefWidth="75.0"
+                                                         sortType="DESCENDING" text="Difficulty"/>
+                                            <TableColumn fx:id="compPriorityCol" prefWidth="75.0"
+                                                         sortType="DESCENDING" text="Priority"/>
+                                        </columns>
+                                        <columnResizePolicy>
+                                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                                        </columnResizePolicy>
+                                        <contextMenu>
+                                            <ContextMenu fx:id="completedContextMenu">
+                                                <items>
+                                                    <MenuItem fx:id="cCompletedDelete" mnemonicParsing="false"
+                                                              onAction="#handleCompletedContextDelete"
+                                                              text="Delete"/>
+                                                </items>
+                                            </ContextMenu>
+                                        </contextMenu>
                                     </TableView>
-                                 </children>
-                              </VBox>
-                           </children>
-                        </VBox>
-                     </content>
-                  </Tab>
-                  <Tab fx:id="newTaskTab" text="New Task">
-                     <content>
-                        <VBox prefHeight="292.0" prefWidth="610.0">
-                           <children>
-                              <Label prefHeight="27.0" prefWidth="966.0" text="Task Name (should be unique):">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
-                              <TextField fx:id="newTaskDescription" promptText="Task Name" />
-                              <HBox prefHeight="18.0" prefWidth="610.0" />
-                              <HBox prefHeight="18.0" prefWidth="610.0">
-                                 <children>
+                                </children>
+                            </VBox>
+                        </children>
+                    </VBox>
+                </content>
+            </Tab>
+            <Tab fx:id="newTaskTab" text="New Task">
+                <content>
+                    <VBox prefHeight="292.0" prefWidth="610.0">
+                        <children>
+                            <Label prefHeight="27.0" prefWidth="966.0" text="Task Name (should be unique):">
+                                <font>
+                                    <Font size="14.0"/>
+                                </font>
+                            </Label>
+                            <TextField fx:id="newTaskDescription" promptText="Task Name"/>
+                            <HBox prefHeight="18.0" prefWidth="610.0"/>
+                            <HBox prefHeight="18.0" prefWidth="610.0">
+                                <children>
                                     <Label text="Notes: ">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
+                                        <font>
+                                            <Font size="14.0"/>
+                                        </font>
                                     </Label>
-                                 </children></HBox>
-                              <HBox prefHeight="18.0" prefWidth="610.0">
-                                 <children>
-                                    <TextField fx:id="newTaskNotes" promptText="Enter Task Notes" HBox.hgrow="ALWAYS" />
-                                 </children>
-                              </HBox>
-                              <HBox prefHeight="18.0" prefWidth="610.0" />
-                              <Label prefHeight="20.0" prefWidth="824.0" text="Deadline (cannot be blank):">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
-                              <DatePicker fx:id="newTaskDeadline" prefHeight="25.0" prefWidth="619.0" promptText="Deadline Date" VBox.vgrow="ALWAYS" />
-                              <HBox prefHeight="18.0" prefWidth="610.0" />
-                              <Label text="Difficulty:">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
-                              <HBox maxWidth="-Infinity" prefHeight="18.0" prefWidth="610.0">
-                                 <children>
-                                    <ChoiceBox fx:id="newTaskDifficulty" maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="737.0" value="Easy" HBox.hgrow="ALWAYS">
-                                      <items>
-                                          <FXCollections fx:factory="observableArrayList">
-                                              <String fx:value="Easy" />
-                                              <String fx:value="Moderate" />
-                                              <String fx:value="Hard" />
-                                              <String fx:value="Very Hard" />
-                                          </FXCollections>
-                                      </items>
+                                </children>
+                            </HBox>
+                            <HBox prefHeight="18.0" prefWidth="610.0">
+                                <children>
+                                    <TextField fx:id="newTaskNotes" promptText="Enter Task Notes"
+                                               HBox.hgrow="ALWAYS"/>
+                                </children>
+                            </HBox>
+                            <HBox prefHeight="18.0" prefWidth="610.0"/>
+                            <Label prefHeight="20.0" prefWidth="824.0" text="Deadline (cannot be blank):">
+                                <font>
+                                    <Font size="14.0"/>
+                                </font>
+                            </Label>
+                            <DatePicker fx:id="newTaskDeadline" prefHeight="25.0" prefWidth="619.0"
+                                        promptText="Deadline Date" VBox.vgrow="ALWAYS"/>
+                            <HBox prefHeight="18.0" prefWidth="610.0"/>
+                            <Label text="Difficulty:">
+                                <font>
+                                    <Font size="14.0"/>
+                                </font>
+                            </Label>
+                            <HBox maxWidth="-Infinity" prefHeight="18.0" prefWidth="610.0">
+                                <children>
+                                    <ChoiceBox fx:id="newTaskDifficulty" maxWidth="1.7976931348623157E308"
+                                               prefHeight="25.0" prefWidth="737.0" value="Easy"
+                                               HBox.hgrow="ALWAYS">
+                                        <items>
+                                            <FXCollections fx:factory="observableArrayList">
+                                                <String fx:value="Easy"/>
+                                                <String fx:value="Moderate"/>
+                                                <String fx:value="Hard"/>
+                                                <String fx:value="Very Hard"/>
+                                            </FXCollections>
+                                        </items>
                                     </ChoiceBox>
-                                 </children></HBox>
-                              <HBox prefHeight="18.0" prefWidth="610.0" />
-                              <Label text="Priority:">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
-                              <ChoiceBox fx:id="newTaskPriority" prefHeight="25.0" prefWidth="737.0" value="Low" VBox.vgrow="ALWAYS">
-                                  <items>
+                                </children>
+                            </HBox>
+                            <HBox prefHeight="18.0" prefWidth="610.0"/>
+                            <Label text="Priority:">
+                                <font>
+                                    <Font size="14.0"/>
+                                </font>
+                            </Label>
+                            <ChoiceBox fx:id="newTaskPriority" prefHeight="25.0" prefWidth="737.0" value="Low"
+                                       VBox.vgrow="ALWAYS">
+                                <items>
                                     <FXCollections fx:factory="observableArrayList">
-                                      <String fx:value="Low" />
-                                      <String fx:value="Medium" />
-                                      <String fx:value="High" />
-                                      <String fx:value="Danger Close!" />
-                                     </FXCollections>
-                                  </items>
-                              </ChoiceBox>
-                              <Button fx:id="newTaskButton" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#getTaskDetails" text="Create Task">
-                                 <VBox.margin>
-                                    <Insets bottom="10.0" right="10.0" top="20.0" />
-                                 </VBox.margin>
-                              </Button>
-                           </children>
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" />
-                           </padding>
-                        </VBox>
-                     </content>
-                  </Tab>
-                  <Tab text="New Agenda">
-                    <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <VBox alignment="CENTER" layoutX="154.0" layoutY="69.0" prefHeight="117.0" prefWidth="302.0" AnchorPane.bottomAnchor="185.0" AnchorPane.leftAnchor="154.0" AnchorPane.rightAnchor="154.0" AnchorPane.topAnchor="69.0">
-                                 <children>
-                                    <Label alignment="CENTER" layoutX="239.0" layoutY="98.0" text="New Agenda Name:">
-                                       <font>
-                                          <Font size="15.0" />
-                                       </font>
+                                        <String fx:value="Low"/>
+                                        <String fx:value="Medium"/>
+                                        <String fx:value="High"/>
+                                        <String fx:value="Danger Close!"/>
+                                    </FXCollections>
+                                </items>
+                            </ChoiceBox>
+                            <Button fx:id="newTaskButton" alignment="CENTER" mnemonicParsing="false"
+                                    onMouseClicked="#getTaskDetails" text="Create Task">
+                                <VBox.margin>
+                                    <Insets bottom="10.0" right="10.0" top="20.0"/>
+                                </VBox.margin>
+                            </Button>
+                        </children>
+                        <padding>
+                            <Insets bottom="5.0" left="5.0" right="5.0"/>
+                        </padding>
+                    </VBox>
+                </content>
+            </Tab>
+            <Tab text="New Agenda">
+                <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                        <children>
+                            <VBox alignment="CENTER" layoutX="154.0" layoutY="69.0" prefHeight="117.0"
+                                  prefWidth="302.0" AnchorPane.bottomAnchor="185.0"
+                                  AnchorPane.leftAnchor="154.0" AnchorPane.rightAnchor="154.0"
+                                  AnchorPane.topAnchor="69.0">
+                                <children>
+                                    <Label alignment="CENTER" layoutX="239.0" layoutY="98.0"
+                                           text="New Agenda Name:">
+                                        <font>
+                                            <Font size="15.0"/>
+                                        </font>
                                     </Label>
-                                    <TextField fx:id="newAgendaName" alignment="CENTER" layoutX="186.0" layoutY="136.0" prefHeight="27.0" prefWidth="373.0" promptText="Enter Desired Agenda Name">
-                                       <VBox.margin>
-                                          <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                                       </VBox.margin>
+                                    <TextField fx:id="newAgendaName" alignment="CENTER" layoutX="186.0"
+                                               layoutY="136.0" prefHeight="27.0" prefWidth="373.0"
+                                               promptText="Enter Desired Agenda Name">
+                                        <VBox.margin>
+                                            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+                                        </VBox.margin>
                                     </TextField>
-                                    <Button fx:id="newAgendaButton" alignment="CENTER" layoutX="245.0" layoutY="186.0" mnemonicParsing="false" onMouseClicked="#handleCreateAgenda" prefHeight="29.0" prefWidth="162.0" text="Create New Agenda">
-                                       <font>
-                                          <Font size="13.0" />
-                                       </font>
+                                    <Button fx:id="newAgendaButton" alignment="CENTER" layoutX="245.0"
+                                            layoutY="186.0" mnemonicParsing="false"
+                                            onMouseClicked="#handleCreateAgenda" prefHeight="29.0"
+                                            prefWidth="162.0" text="Create New Agenda">
+                                        <font>
+                                            <Font size="13.0"/>
+                                        </font>
                                     </Button>
-                                 </children>
-                              </VBox>
-                           </children>
-                        </AnchorPane>
-                    </content>
-                  </Tab>
-              </tabs>
-            </TabPane>
-         </children>
-      </VBox>
-   </children>
+                                </children>
+                            </VBox>
+                        </children>
+                    </AnchorPane>
+                </content>
+            </Tab>
+        </TabPane>
+    </VBox>
 </AnchorPane>

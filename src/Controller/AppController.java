@@ -168,25 +168,6 @@ public class AppController implements Initializable {
 
             });
 
-            //TODO find out how to update date column
-            /*ucDeadlineCol.setOnEditStart(e -> {
-
-            });*/
-            /*ucDeadlineCol.setCellFactory(TextFieldTableCell.forTableColumn());
-            ucDeadlineCol.setOnEditCommit(e -> {
-
-
-
-                try {
-                    db.updateTask("timestamp", e.getNewValue(), e.getRowValue().getTaskID());
-                } catch (SQLException e1) {
-                    e1.printStackTrace();
-                }
-
-                //TODO add invalid input checking
-                e.getRowValue().setTimeStamp(java.sql.Date.valueOf(e.getNewValue()));
-            });*/
-
 
             ucDifficultyCol.setCellFactory(TextFieldTableCell.forTableColumn());
             ucDifficultyCol.setOnEditCommit(e -> {
