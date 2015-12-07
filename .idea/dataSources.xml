@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="DataSourceManagerImpl" format="xml" hash="2447152333">
+  <component name="DataSourceManagerImpl" format="xml" hash="3237818097">
     <data-source source="LOCAL" name="cssgate" uuid="bda91e70-5e7b-42a7-aebc-d466ccb1b765">
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>
