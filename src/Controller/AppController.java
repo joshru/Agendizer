@@ -45,26 +45,16 @@ public class AppController implements Initializable {
     //TODO remove unused references to GUI elements
     @FXML private Parent guiRoot;
 
-    @FXML private ImageView appLogo;
-    @FXML private Button searchButton;
-    @FXML private TextField searchField;
-    @FXML private TabPane tabContainer;
-    @FXML private Tab upcomingTab;
-    @FXML private Tab completedTab;
-    @FXML private Tab newTaskTab;
     @FXML private Label upcomingTaskError;
     @FXML private Label completedTaskError;
     @FXML private TableView<Task> upcomingTaskTable;
     @FXML private TableView<Task> completedTaskTable;
 
-    @FXML private ContextMenu taskRowMenu;
-    @FXML private MenuItem cMenuCompleted;
-    @FXML private MenuItem cMenuDelete;
+
     @FXML private Menu AgendasMenu;
 
 
-    @FXML private ContextMenu completedContextMenu;
-    @FXML private MenuItem cCompleteDelete;
+
 
     // these columns should probably be in an array or something. messy
     @FXML private TableColumn<Task, String> ucTaskCol;
@@ -82,18 +72,15 @@ public class AppController implements Initializable {
     @FXML private TextField newTaskNotes;
     @FXML private DatePicker newTaskDeadline;
     @FXML private ChoiceBox newTaskDifficulty;
-    @FXML private ChoiceBox newTaskUrgency;
     @FXML private ChoiceBox newTaskPriority;
-    @FXML private Button newTaskButton;
 
     @FXML private TextField newAgendaName;
-    @FXML private Button newAgendaButton;
 
 
     private ObservableList<Task> taskList;
 
 
-    /**Group for toggle buttons in the adenda drop down menu*/
+    /**Group for toggle buttons in the agenda drop down menu*/
     private ToggleGroup agendaGroup;
     /** Reference to task DB */
     private static TaskDB db = new TaskDB();
@@ -339,10 +326,9 @@ public class AppController implements Initializable {
             String priority = newTaskPriority.getSelectionModel().getSelectedItem().toString();
             java.sql.Date timeCompleted = new java.sql.Date(System.currentTimeMillis());
             String notes = newTaskNotes.getText();
-            String location = "ur mum's house";
             int agendaID = Context.getInstance().getCurrentAgendaID();
 
-            Task task = new Task(taskID, taskName, timestamp, completed, difficulty, priority, timeCompleted, notes, location, agendaID);
+            Task task = new Task(taskID, taskName, timestamp, completed, difficulty, priority, timeCompleted, notes, agendaID);
 
             if (db.taskExists(task)) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "Duplicate task found, try again", ButtonType.OK);
@@ -513,7 +499,7 @@ public class AppController implements Initializable {
     }
 
     @FXML
-    private void switchUser(Event event) {
+    private void switchUser() {
         Context.getInstance().switchUser();
         Parent root;
         try {

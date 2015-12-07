@@ -189,7 +189,7 @@ public class TaskDB extends DBHelper {
     public boolean taskExists(Task task) {
         boolean taskFound = false;
         String query = "SELECT * FROM _445team2.Task WHERE taskID = " + task.getTaskID() + ";";
-        Statement ps = null;
+        Statement ps;
 
         try {
             createConnection();
@@ -210,9 +210,9 @@ public class TaskDB extends DBHelper {
      */
     public void addTask(Task task) {
         String statement = "INSERT INTO _445team2.Task (taskID, title, timestamp, completed, difficulty," +
-                           "priority, timeCompleted, notes, location, agenda_agendaID) VALUES " +
-                           "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
-        PreparedStatement preparedStatement = null;
+                           "priority, timeCompleted, notes, agenda_agendaID) VALUES " +
+                           "(?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        PreparedStatement preparedStatement;
 
         try {
             createConnection();
@@ -225,8 +225,7 @@ public class TaskDB extends DBHelper {
             preparedStatement.setString(6, task.getPriority());
             preparedStatement.setDate(7, task.getTimeCompleted());
             preparedStatement.setString(8, task.getNotes());
-            preparedStatement.setString(9, task.getLocation());
-            preparedStatement.setInt(10, task.getFk_agendaID());
+            preparedStatement.setInt(9, task.getFk_agendaID());
 
             int result = preparedStatement.executeUpdate();
 
@@ -257,11 +256,10 @@ public class TaskDB extends DBHelper {
                 String priority = results.getString("priority");
                 Date timeCompleted = results.getDate("timeCompleted");
                 String notes = results.getString("notes");
-                String location = results.getString("location");
                 int agendaID = results.getInt("agenda_agendaID");
 
                 Task task = new Task(taskID, title, timestamp, completed, difficulty,
-                            priority, timeCompleted, notes, location, agendaID);
+                            priority, timeCompleted, notes, agendaID);
 
 
                 if (completed == 0) upcomingTasks.add(task);

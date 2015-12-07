@@ -20,19 +20,10 @@ public class AgendaMenuItem extends RadioMenuItem {
 
     }
 
-
-
-
     public AgendaMenuItem(Agenda agenda) {
         super();
         myAgenda = agenda;
         this.setText(myAgenda.getAgendaTitle());
     }
-
-
-
-
-
-
 
 }

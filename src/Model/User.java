@@ -21,8 +21,6 @@ public class User {
     private String email;
     /**User password (super secure)*/
     private String password;
-    /**User birthdate TODO drop me*/
-    private Date birthday;
 
     /**
      * Constructor

@@ -19,7 +19,6 @@ public abstract class DBHelper {
 
     /**
      * establishes a connection with the team Database
-     * @throws SQLException
      */
     public void createConnection()  {
         Properties connectionProps = new Properties();

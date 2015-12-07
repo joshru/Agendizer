@@ -24,8 +24,6 @@ public class Task {
     private Date timeCompleted;
     /**User notes for this task*/
     private String notes;
-    /** Optional location field*/
-    private String Location;
     /** Foreign key agenda ID*/
     private Integer fk_agendaID;
 
@@ -42,11 +40,10 @@ public class Task {
      * @param priority priority indicator
      * @param timeCompleted completed timestamp
      * @param notes user notes
-     * @param location info
      * @param fk_agendaID Agenda Foreign key
      */
     public Task(int taskID, String title, Date timeStamp, int completed, String difficulty,
-                String priority, Date timeCompleted, String notes, String location, Integer fk_agendaID) {
+                String priority, Date timeCompleted, String notes, Integer fk_agendaID) {
         this.taskID = taskID;
         this.taskTitle = title;
         this.timeStamp = timeStamp;
@@ -55,7 +52,6 @@ public class Task {
         this.priority = priority;
         this.timeCompleted = timeCompleted;
         this.notes = notes;
-        this.Location = location;
         this.fk_agendaID = fk_agendaID;
     }
 
@@ -72,8 +68,7 @@ public class Task {
                 priority + ", " +
                 timeCompleted + ", " +
                 notes + ", " +
-                Location + ", " +
-                fk_agendaID + ", ";
+                fk_agendaID ;
 
     }
 
@@ -187,22 +182,6 @@ public class Task {
      */
     public void setNotes(String notes) {
         this.notes = notes;
-    }
-
-    /**
-     * Getter for location value
-     * @return location
-     */
-    public String getLocation() {
-        return Location;
-    }
-
-    /**
-     * Setter for location value
-     * @param location to reassign
-     */
-    public void setLocation(String location) {
-        Location = location;
     }
 
     /**

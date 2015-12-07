@@ -24,11 +24,10 @@ public class SceneController {
      * @param title of the scene
      * @param event being fired
      * @param context to place scene on
-     * @throws IOException
      */
     @FXML
     public static void swapScene(final String fxml, final String title, MouseEvent event, Class context) {
-        Parent root = null;
+        Parent root;
         try {
             root = FXMLLoader.load(context.getResource(fxml));
             Scene scene = new Scene(root, 1000, 700);

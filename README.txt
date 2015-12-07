@@ -2,6 +2,10 @@ TCSS 445 Final Project - Agendizer, a task management application.
 
 Masterfully crafted by Brandon Bell and Josh Rueschenberg
 
+Database login info:
+Username: _445team2
+Password: poddoif
+
 Main Features:
 	• Ability to register a new user and have that information stored on the cssgate server.
 
@@ -9,7 +13,7 @@ Main Features:
 
 	• Ability to create agendas that help abstract tasks by context (i.e. work, school, home, etc.)
 
-	• Ability to create new tasks within each agenda and have them storedf on the cssgate server.
+	• Ability to create new tasks within each agenda and have them stored on the cssgate server.
 
 	• Ability to delete tasks from the GUI and database.
 

@@ -76,7 +76,7 @@ public class LoginController {
 
     /**
      * Super dirty debugging function TODO delete me
-     * @param event
+     * @param event fired when button pressed
      */
     @FXML
     private void bypassLogin(MouseEvent event) {
