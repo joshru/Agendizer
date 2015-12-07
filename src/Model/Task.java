@@ -28,8 +28,6 @@ public class Task {
     private Integer fk_agendaID;
 
 
-    // TODO get rid of urgency in Task
-
     /**
      * Constructor
      * @param taskID ID

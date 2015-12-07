@@ -26,9 +26,9 @@ public class AgendaDB extends DBHelper {
     private ObservableList<Agenda> obsAgendaList;
 
     /**Helper flag for populateList()*/
-    boolean gettingUserAgendas; //dirty
+    private boolean gettingUserAgendas; //dirty
     /**Helper flag for populateList()*/
-    boolean gettingTitleAgenda; //also dirty
+    private boolean gettingTitleAgenda; //also dirty
 
 
     /**
@@ -141,7 +141,7 @@ public class AgendaDB extends DBHelper {
             createConnection(); //TODO is this necessary? It should happen in the calling method
             stmt = myConnection.prepareStatement(query);
 
-            //Super duper dirty way of doing this //TODO This actually doesn't seem TOO dirty...
+            //Super duper dirty way of doing this
             if (gettingUserAgendas) stmt.setInt(1, Context.getInstance().getCurrentUserID());
             if (gettingTitleAgenda) stmt.setString(1, Context.getInstance().getCurrentAgendaName());
 

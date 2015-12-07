@@ -13,10 +13,6 @@ public class Agenda {
     private int agendaID;
     /**Agenda Title*/
     private String agendaTitle;
-    /**Expires flag */ //TODO delete me
-    private int expires;
-    /**Expiration time for this agenda*/ //TODO delete me
-    private Date expireTime;
     /**userID foreign key */
     private int fk_userID;
 

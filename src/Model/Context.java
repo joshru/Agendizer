@@ -13,6 +13,8 @@ public class Context {
     private int currentAgendaID;
     /** Currently selected Agenda name*/
     private String currentAgendaName;
+    /** Current user's username*/
+    private String currentUsername;
 
     /**
      * Obtains the instance of the context
@@ -29,6 +31,7 @@ public class Context {
         currentUserID = 0;
         currentAgendaID = 0;
         currentAgendaName = null;
+        currentUsername = null;
     }
 
     /**
@@ -78,5 +81,21 @@ public class Context {
     public void setCurrentAgendaName(String currentAgendaName) {
         this.currentAgendaName = currentAgendaName;
     }
+
+    /*
+     * Getter for the current username
+     */
+    public String getCurrentUsername() {
+        return currentUsername;
+    }
+
+    /*
+     * Setter for the current username
+     * @param currentUsername to reassign
+     */
+    public void setCurrentUsername(String currentUsername) {
+        this.currentUsername = currentUsername;
+    }
+
 
 }

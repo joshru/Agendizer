@@ -42,8 +42,9 @@ public class AppController implements Initializable {
      * the FXML files located in the /view package.
      *
      */
-    //TODO remove unused references to GUI elements
     @FXML private Parent guiRoot;
+
+    @FXML private Label currentUser;
 
     @FXML private Label upcomingTaskError;
     @FXML private Label completedTaskError;
@@ -83,9 +84,9 @@ public class AppController implements Initializable {
     /**Group for toggle buttons in the agenda drop down menu*/
     private ToggleGroup agendaGroup;
     /** Reference to task DB */
-    private static TaskDB db = new TaskDB();
+    private static final TaskDB db = new TaskDB();
     /** Reference to Agenda database*/
-    private static AgendaDB adb = new AgendaDB();
+    private static final AgendaDB adb = new AgendaDB();
 
 //    ObservableList<String> difficultyVals = FXCollections.observableArrayList("one", "two");
 
@@ -109,6 +110,7 @@ public class AppController implements Initializable {
         compDifficultyCol.setCellValueFactory(new PropertyValueFactory<>("difficulty"));
         compPriorityCol.setCellValueFactory(new PropertyValueFactory<>("priority"));
 
+        currentUser.setText(Context.getInstance().getCurrentUsername());
         agendaGroup = new ToggleGroup();
 
         upcomingTaskTable.setPlaceholder(new Label("Please select an agenda or create a new task."));
@@ -123,7 +125,6 @@ public class AppController implements Initializable {
 
     /**
      * Updates the error labels with the currently selected agenda
-     * TODO rename labels and change text to blue
      */
     private void changeErrorLabels() {
         if (Context.getInstance().getCurrentAgendaName() == null) {
@@ -184,58 +185,18 @@ public class AppController implements Initializable {
 
     }
 
-/*    @FXML
-    private void searchTasks() {
-        String searchText = searchField.getText();
-
-        if (!searchText.isEmpty()) {
-
-            ObservableList<Task> results = db.searchTasks(searchText);
-
-            if (!results.isEmpty()) {
-
-                completedTaskTable.getItems().removeAll(completedTaskTable.getItems());
-                upcomingTaskTable.getItems().removeAll(upcomingTaskTable.getItems());
-
-
-                results.forEach(task -> {
-                    if (task.getCompleted() == 0) upcomingTaskTable.getItems().add(task);
-                    else completedTaskTable.getItems().add(task);
-                });
-
-
-            } else {
-                String message = "No results found";
-                Alert noResultsAlert = new Alert(Alert.AlertType.INFORMATION, message, ButtonType.OK);
-                noResultsAlert.showAndWait().filter((response -> response == ButtonType.OK));
-            }
-
-
-
-        } else {
-            String message = "Please input search terms.";
-            Alert noTextAlert = new Alert(Alert.AlertType.INFORMATION, message, ButtonType.OK);
-            noTextAlert.showAndWait().filter(result -> result == ButtonType.OK);
-        }*/
-
-
-
-
-   // }
 
 
 
     /**
      * Resets fields in the create task tab
-     * TODO complete me
      */
     private void resetNewTaskFields() {
         newTaskDescription.setText("");
+        newTaskNotes.setText("");
         newTaskDeadline.getEditor().clear();
         newTaskDifficulty.getSelectionModel().selectFirst();
         newTaskPriority.getSelectionModel().selectFirst();
-//        newTaskDifficulty.
-
     }
 
     /**
@@ -265,13 +226,12 @@ public class AppController implements Initializable {
      *
      * @param agenda to be added
      */
-    public void addAgendaMenuItem(final Agenda agenda) {
+    private void addAgendaMenuItem(final Agenda agenda) {
         AgendaMenuItem menuItem = new AgendaMenuItem(agenda);
 
         //May seem confusing at first, a lambda essentially cleans up the syntax for anonymous inner classes
         menuItem.setOnAction(e -> {
 
-              //  Agenda selected = adb.getAgendaByTitle(menuItem.getText()); //TODO think over this decision to extend RadioMenuItem
             Agenda selected = menuItem.getMyAgenda();
 
             System.out.println("Selected menu item " + menuItem.getText());
@@ -301,16 +261,14 @@ public class AppController implements Initializable {
 
     /**
      * Defines the behavior for the create task button
-     * TODO rename me to make it clear a task is being created
      */
     @FXML
-    private void getTaskDetails() {
+    private void getAndPushTaskDetails() {
 
         if (Context.getInstance().getCurrentAgendaName() != null) {
             String taskName = newTaskDescription.getText();
 
 
-            //TODO change primary keys to INTEGER AUTOINCREMENT
             int taskID = taskName.hashCode(); //hella sneaky sneaks
 
             LocalDate ld = newTaskDeadline.getValue();
@@ -348,23 +306,6 @@ public class AppController implements Initializable {
     }
 
 
-    /**
-     * Test method for GUI elements TODO delete me
-     */
-    @FXML
-    private void test() {
-        System.out.println("button did a thing");
-    }
-
-    /**
-     * Test function for DB TODO delete me before turning in
-
-     */
-    @FXML
-    private void testDB() {
-        List<Task> tasks = db.getUpcomingTasks();
-        System.out.println("Tasks grabbed = " +  tasks.size());
-    }
 
     /**
      * Callback method to handle behavior when the upcoming tasks
@@ -380,20 +321,14 @@ public class AppController implements Initializable {
 
         if (selected != null) {
 
-
             System.out.println("Agenda obtained: " + selected.getAgendaTitle());
 
             Context.getInstance().setCurrentAgendaID(selected.getAgendaID());
 
             ObservableList<Task> obs = db.getAgendaTasks(selected, false); //false = upcoming tasks
 
-
-
             completedTaskTable.setItems(obs);
             taskList.addAll(obs);
-
-
-         //   });
 
 
         }
@@ -414,14 +349,11 @@ public class AppController implements Initializable {
 
         if (selected != null) {
 
-
             System.out.println("Agenda obtained: " + selected.getAgendaTitle());
 
             Context.getInstance().setCurrentAgendaID(selected.getAgendaID());
 
             ObservableList<Task> obs = db.getAgendaTasks(selected, true); //true = completed tasks
-
-
 
             completedTaskTable.setItems(obs);
 
@@ -505,8 +437,8 @@ public class AppController implements Initializable {
         try {
             root = FXMLLoader.load(getClass().getResource("/view/login.fxml"));
 
-            Scene scene = new Scene(root, 1000, 700);
             Stage stage = (Stage) guiRoot.getScene().getWindow();
+            Scene scene = new Scene(root, stage.getWidth(), stage.getHeight());
 
             stage.setScene(scene);
             stage.setTitle("Please log in to Agendizer");

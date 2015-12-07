@@ -23,14 +23,10 @@ public class LoginController {
 
     @FXML private TextField usernameLoginField;
     @FXML private PasswordField passwordLoginField;
-    @FXML private Button loginButton;
-    @FXML private Text newUserButton;
-    @FXML private Button test;
     /**
      * References to Databases
      */
-    private UserDB db = new UserDB();
-    private AgendaDB adb = new AgendaDB();
+    private final UserDB db = new UserDB();
 
     /**
      * Defines login button behavior
@@ -50,7 +46,7 @@ public class LoginController {
                 System.out.println("matching account found");
 
                 Context.getInstance().setCurrentUserID(user.hashCode());
-
+                Context.getInstance().setCurrentUsername(user);
                 SceneController.swapScene("/view/gui.fxml", "Agendizer", event, getClass());
 
             } else {
@@ -72,16 +68,6 @@ public class LoginController {
         SceneController.swapScene("/view/register.fxml", "Agendizer Registration", event, getClass());
     }
 
-
-
-    /**
-     * Super dirty debugging function TODO delete me
-     * @param event fired when button pressed
-     */
-    @FXML
-    private void bypassLogin(MouseEvent event) {
-        SceneController.swapScene("/view/gui.fxml", "Agendizer", event, getClass());
-    }
 
 
 }

@@ -82,27 +82,11 @@ public class User {
     }
 
     /**
-     * Setter for user first name TODO drop me
-     * @param firstName to reassign
-     */
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    /**
      * Getter for user last name
      * @return lastName
      */
     public String getLastName() {
         return lastName;
-    }
-
-    /**
-     * Setter for user last name TODO drop me
-     * @param lastName to reassign
-     */
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     /**

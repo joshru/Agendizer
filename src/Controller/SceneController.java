@@ -16,23 +16,22 @@ import java.io.IOException;
  * @author Josh Rueschenberg
  * @version 1340
  */
-public class SceneController {
+class SceneController {
     /**
      * Replaces the current scene
-     * TODO Josh verify javadoc param definitions here
-     * @param fxml defining ui elements
-     * @param title of the scene
-     * @param event being fired
-     * @param context to place scene on
+     * @param fxml defining path to new fxml file
+     * @param title of the new scene to be displayed
+     * @param event source of where the request for new scene came from
+     * @param context context of where to put the new scene
      */
     @FXML
     public static void swapScene(final String fxml, final String title, MouseEvent event, Class context) {
         Parent root;
         try {
             root = FXMLLoader.load(context.getResource(fxml));
-            Scene scene = new Scene(root, 1000, 700);
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root, stage.getWidth() , stage.getHeight());
             stage.setScene(scene);
             stage.setTitle(title);
             stage.show();

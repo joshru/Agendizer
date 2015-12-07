@@ -4,7 +4,7 @@ import Model.Agenda;
 import javafx.scene.control.RadioMenuItem;
 
 /**
- * Created by Brandon on 12/5/2015.
+ * Overridden radio menu item for assisting with switching agendas
  */
 public class AgendaMenuItem extends RadioMenuItem {
 

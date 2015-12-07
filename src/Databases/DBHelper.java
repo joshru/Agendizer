@@ -7,20 +7,20 @@ import java.util.Properties;
  * @author Brandon Bell
  * @version 12/3/2015
  */
-public abstract class DBHelper {
+abstract class DBHelper {
     /**Team MySQL username*/
-    protected static String userName = "_445team2";
+    static final String userName = "_445team2";
     /**Team MySQL password*/
-    protected static String password = "poddoif";
+    private static final String password = "poddoif";
     /**cssgate server URL*/
-    protected static String serverName = "cssgate.insttech.washington.edu";
+    private static final String serverName = "cssgate.insttech.washington.edu";
     /**Connection to the server*/
-    protected static Connection myConnection;
+    static Connection myConnection;
 
     /**
      * establishes a connection with the team Database
      */
-    public void createConnection()  {
+    void createConnection()  {
         Properties connectionProps = new Properties();
         connectionProps.put("user", userName);
         connectionProps.put("password", password);

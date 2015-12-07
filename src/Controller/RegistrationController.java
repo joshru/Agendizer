@@ -31,16 +31,12 @@ public class RegistrationController {
     @FXML private TextField emailField;
     @FXML private TextField passwordRegisterField;
     @FXML private TextField passwordConfirmation;
-    @FXML private Button createAccountButton;
-    @FXML private Button returnToLoginButton;
     @FXML private Label registerWarningLabel;
 
     /**
      * References to databases
      */
-    private UserDB db = new UserDB();
-    private AgendaDB adb = new AgendaDB();
-    private TaskDB taskDB = new TaskDB();
+    private final UserDB db = new UserDB();
 
     /**
      * Handles behavior for return to login button
@@ -68,10 +64,6 @@ public class RegistrationController {
 
 
             if (success) {
-                    //TODO create "Getting Started" agenda
-                    //TODO Populate that agenda with some basic tasks for the user to play with
-
-                    //createTutorialAgenda();
                 handleReturnToLogin(event);
 
                 Alert successAlert = new Alert(Alert.AlertType.INFORMATION, "User " + usernameRegisterField.getText()
@@ -82,40 +74,6 @@ public class RegistrationController {
 
         }
     }
-//
-//    /**
-//     * Creates tutorial agenda on user creation
-//     * TODO rethink or delete
-//     */
-//    private void createTutorialAgenda() {
-//        String agendaTitle = "Getting Started";
-//        Agenda agenda = new Agenda(agendaTitle.hashCode(), agendaTitle , usernameRegisterField.hashCode());
-//        adb.createAgenda(agenda);
-//
-//
-//        //Create task 1
-//        String tutTaskTitle = "Create a task!";
-//        java.sql.Date timeStamp = new java.sql.Date(System.currentTimeMillis());
-//        Task tutTask1 = new Task(tutTaskTitle.hashCode(), tutTaskTitle, timeStamp, 0, "Easy!", "None", "High", null, "",
-//                "", agendaTitle.hashCode());
-//
-//        //Create task 2
-//        String secondTitle = "Create an Agenda!";
-//        int secondHash = secondTitle.hashCode();
-//        timeStamp = new java.sql.Date(System.currentTimeMillis());
-//        Task tutTask2 = new Task(secondHash, secondTitle, timeStamp, 0, "Easy!", "None", "High", null, "",
-//                "", secondHash);
-//
-//        taskDB.addTask(tutTask1);
-//        taskDB.addTask(tutTask2);
-//
-//
-//        Context context = Context.getInstance();
-//
-//        context.setCurrentAgendaID(agendaTitle.hashCode());
-//        context.setCurrentAgendaName(agendaTitle);
-//
-//    }
 
     /**
      * Checks if user has given valid input before accepting registration
@@ -149,7 +107,6 @@ public class RegistrationController {
 
     /**
      * Verifies that the email has proper qualities of an email.
-     * TODO add google acknowledgement?
      * @param theEmail the email string to be tested.
      * @return the boolean indicating if the email was valid successful(true), or not(false).
      */
