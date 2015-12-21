@@ -16,6 +16,12 @@ Masterfully crafted by Brandon Bell and Josh Rueschenberg
 
 	• Ability to mark tasks as completed and have that change reflected within the GUI and server database.
 
+### Screenshots
+#### Login
+<p align="center">
+  <img src="http://i.imgur.com/Bkah4za.png" alt="Screenshot"/>
+</p>
+
 ### How to run our program (Java 8 required!):
 	-> Simply run the included .jar file to get things going. From here you can create a new user or log in with an existing one. 
 	-> After logging in you can create new agendas, create tasks within those agendas and get on to managing your life like a superstar!
